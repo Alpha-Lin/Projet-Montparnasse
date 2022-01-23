@@ -1,0 +1,123 @@
+/* some tags changes */
+
+body {
+    margin: 0px;
+}
+
+input[type=text] {
+    font-size: 16px;
+    width: 100%;
+    padding-left:0;
+    padding-top: 12px;
+    padding-bottom:0.4em;
+    padding-right: 200px;
+    margin: 0px 0px 0px 2px;
+    box-sizing: border-box;
+    border: none;
+    border-bottom: 2px solid rgb(54, 54, 54);
+}
+
+/* placeholder settings for the search bar */
+
+input::placeholder {
+    color: rgba(126, 125, 125, 0.2);
+    font-size: 1.5em;
+}
+
+
+
+/* new class */
+
+.horizontal {              /* class that makes the navbar to be horizontal */
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: auto;
+    background-color: rgb(41, 43, 42);
+    width: 100%;
+    font-family: sans-serif;
+}
+
+.horizontal a {    /* settings of the a tag when influenced by the horizontal class */
+    float: left;
+    padding: 10px;
+    color: white;
+    text-decoration: none;
+    font-size: 20px;
+    width: 10%;     /* makes it so the links are of equal widths */
+    text-align: center;
+}
+
+i {
+    color: white;  /* the color of the little icons */
+}
+
+.horizontal a:hover {    /* tweek the background of the navbar item that is hovered on */
+    transition: 1s;
+    background-color: black;
+}
+
+.dropdown {                /* class that set the magnifying glass as a dropdown menu */
+    float: left; 
+    width: 10%;
+    text-align: center;
+    overflow: hidden;
+}
+
+.dropdown:hover {       /* tweek thee background of the dropdown menu when hovered on */
+    transition: 1s;
+    background-color: black;
+}
+
+.dropdown .dropbtn {   /* the settings of the navbar item that make the dropdown menu appear  */
+    border: none;
+    outline: none;
+    color: white;
+    padding: 14px 16px;
+    background-color: inherit;
+    font-family: inherit; /* Important for vertical align on mobile phones */
+    margin: 0; /* Important for vertical align on mobile phones */
+}
+
+.dropdown-content {  /* settings of the dropdown menu */
+    opacity: 0;  
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 100px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: -1;
+}
+
+
+
+.dropdown:hover .dropdown-content {     /* transition that make the dropdown menu appear */ 
+    transition: 0.7s;
+    padding-top: 5px;
+    opacity: 1;
+}
+
+/* style settings for the footer */
+
+.footer {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    top: 75%;
+    width: 100%;
+    background-color: rgb(41, 43, 42);
+    color: white;
+    text-align: center;
+}
+  
+.align {
+    width:32%;
+    height:100px;
+    float:left;
+    margin:0 10px;
+  }
+  
+.under {
+    display: inline-block;
+    padding-top: 3%;
+    vertical-align: bottom;
+}
