@@ -1,0 +1,3 @@
+Comment utlisé l'algorythme:
+L'algorithme implique d'avoir une liste de Product,
+Un product est une classe ayant un nom, une liste de da
