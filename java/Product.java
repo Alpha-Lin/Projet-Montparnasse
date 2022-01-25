@@ -7,16 +7,22 @@ public class Product {
 	private int ID;
 	private float referencement;
 	private String[] tag;
-	public Product(String name, String description, long date, int iD, int referencement, String[] tag) {
-		super();
+	private int price;
+	public Product(String name, String description, long date, int iD, int referencement, String[] tag, int price) {
 		this.name = name;
 		this.description = description;
 		this.date = date;
 		ID = iD;
 		this.referencement = referencement;
 		this.tag = tag;
+		this.price=price;
 	}
-
+	public int getPrice() {
+		return this.price;
+	}
+	public void setPrice(int price) {
+		this.price=price;
+	}
 	
 	public String getName() {
 		return name;

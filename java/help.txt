@@ -1,3 +1,4 @@
 Comment utlisé l'algorythme:
 L'algorithme implique d'avoir une liste de Product,
-Un product est une classe ayant un nom, une liste de da
+Un product est une classe ayant un nom, une liste de tag, une description, une date, un prix et un référencement.
+L'utilisateur doit fournir uen liste de product extrait de la base de donnée
