@@ -5,7 +5,7 @@ public class MergeSort {
 	    if (n < 2) {
 	        return;
 	    }
-	    int mid = n / 2;
+	    int mid = n /2;
 	    Holder[] l = new Holder[mid];
 	    Holder[] r = new Holder[n - mid];
 
@@ -52,16 +52,32 @@ public class MergeSort {
 		int i = 0, j = 0, k = 0;
 		while (i < left && j < right) {
 			if(order.contains("c")) {
-				if (l[i].getDate() <= r[j].getDate()) {
+				if (l[i].getDate() < r[j].getDate()) {
 				    a[k++] = l[i++];
+				}
+				else if(l[i].getDate() == r[j].getDate()) {
+					if (l[i].getReferencement() > r[j].getReferencement()) {
+					    a[k++] = l[i++];
+					}
+					else {
+					    a[k++] = r[j++];
+					}
 				}
 				else {
 				    a[k++] = r[j++];
 				}
 			}
 			else {
-				if (l[i].getDate() <= r[j].getDate()) {
+				if (l[i].getDate() < r[j].getDate()) {
 				    a[k++] = r[j++];
+				}
+				else if(l[i].getDate() == r[j].getDate()) {
+					if (l[i].getReferencement() > r[j].getReferencement()) {
+					    a[k++] = l[i++];
+					}
+					else {
+					    a[k++] = r[j++];
+					}
 				}
 				else {
 				    a[k++] = l[i++];
@@ -81,16 +97,32 @@ public class MergeSort {
 		int i = 0, j = 0, k = 0;
 		while (i < left && j < right) {
 			if(order.contains("c")) {
-				if (l[i].getPrice() <= r[j].getPrice()) {
+				if (l[i].getPrice() < r[j].getPrice()) {
 				    a[k++] = l[i++];
+				}
+				else if(l[i].getPrice() == r[j].getPrice()) {
+					if (l[i].getReferencement() > r[j].getReferencement()) {
+					    a[k++] = l[i++];
+					}
+					else {
+					    a[k++] = r[j++];
+					}
 				}
 				else {
 				    a[k++] = r[j++];
 				}
 			}
 			else {
-				if (l[i].getPrice() >= r[j].getPrice()) {
+				if (l[i].getPrice() > r[j].getPrice()) {
 				    a[k++] = l[i++];
+				}
+				else if(l[i].getPrice() == r[j].getPrice()) {
+					if (l[i].getReferencement() > r[j].getReferencement()) {
+					    a[k++] = l[i++];
+					}
+					else {
+					    a[k++] = r[j++];
+					}
 				}
 				else {
 				    a[k++] = r[j++];
@@ -108,8 +140,15 @@ public class MergeSort {
 	public static void mergePertinence(Holder[] a, Holder[] l,Holder[] r, int left, int right) {
 		int i = 0, j = 0, k = 0;
 		while (i < left && j < right) {
-			if (l[i].getScore() <= r[j].getScore()) {
+			if (l[i].getScore() > r[j].getScore()) {
 			    a[k++] = l[i++];
+			}
+			else if(l[i].getScore() == r[j].getScore()) {
+				if(l[i].getProduct().getReferencement() > r[j].getProduct().getReferencement()) {
+					a[k++] = l[i++];
+				}else {
+					a[k++] = r[j++];
+				}
 			}
 			else {
 			    a[k++] = r[j++];
