@@ -22,7 +22,7 @@ function reload_cdiscount_token($url)
     if($token_pos !== false)
     {
         $token = substr($page_token, $token_pos, 107); // Token
-        file_put_contents('token_cdiscount.txt', $token);
+        file_put_contents('tokens/token_cdiscount.txt', $token);
     }
 }
 
@@ -69,7 +69,7 @@ function get_price($plateforme, $id, $marche)
 
             Des optimisations sont peut-être possibles mais le processus actuel fonctionne
             */
-            $token = file_get_contents('token_cdiscount.txt');
+            $token = file_get_contents('tokens/token_cdiscount.txt');
 
             $page_price = null;
             exec('wget ' . $id . '?challenge=' . $token . ' -U "' . generateRandomString() .'" -qO-', $page_price); // Page produit
@@ -81,7 +81,7 @@ function get_price($plateforme, $id, $marche)
             if($token_pos !== false)
             {
                 $token = substr($page_price, $token_pos, 107); // Token
-                file_put_contents('token_cdiscount.txt', $token);
+                file_put_contents('tokens/token_cdiscount.txt', $token);
                 exec('wget ' . $id . '?challenge=' . $token . ' -U "' . generateRandomString() . '" -qO-', $page_price); // Page produit
                 $page_price = implode($page_price);
             }
