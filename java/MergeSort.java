@@ -5,7 +5,7 @@ public class MergeSort {
 	    if (n < 2) {
 	        return;
 	    }
-	    int mid = n / 2;
+	    int mid = n /2;
 	    Holder[] l = new Holder[mid];
 	    Holder[] r = new Holder[n - mid];
 
