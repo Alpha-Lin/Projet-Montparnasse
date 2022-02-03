@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>demo</title>
+</head>
+<body>
+    <form method="post" enctype="multipart/form-data">
+        <input type="file" name="upload" accept=".png,.gif,.jpg" required/>
+        <input type="submit" value="Upload"/>
+    </form>  
+    
+    <?php
+    if (isset($_FILES["upload"])) {
+        try{
+            require "img-upload.php";
+            $stmt = $pdo->prepare("INSERT INTO `imz` (`img_name`,`img_data`) VALUES(?,?)");
+            $stmt->execute([$_FILES['upload']['name'], file_get_contents($_FILES['upload']['tmp_name'])]);
+            echo "OK";
+        } catch (Exception $ex) {
+            echo $ex->getMessage();
+        }
+    }
+    ?>
+</body>
+
+</html>
