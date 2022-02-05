@@ -1,6 +1,9 @@
 CREATE TABLE utilisateur (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     pseudo VARCHAR(20) NOT NULL UNIQUE,
+    nom VARCHAR(30) NOT NULL,
+    prenom VARCHAR(30) NOT NULL,
+    pays VARCHAR(43) NOT NULL, -- ENUM ?
     email VARCHAR(319) NOT NULL UNIQUE,
     mot_de_passe CHAR(97) NOT NULL,
     date_inscription DATETIME NOT NULL DEFAULT NOW(),
