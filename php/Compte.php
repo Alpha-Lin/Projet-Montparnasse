@@ -1,5 +1,4 @@
 <?php           /* account page of the customer and seller */
-var_dump($_POST);
 if(isset($_SESSION['pseudo'])) // Session
 {
     echo 'Bienvenu ' . $_SESSION['pseudo'] . ', <a href="logout.php">se déconnecter</a>.';
