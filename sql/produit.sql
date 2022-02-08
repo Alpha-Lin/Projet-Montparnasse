@@ -7,6 +7,6 @@ CREATE TABLE produit (
     last_refesh DATETIME NOT NULL DEFAULT NOW(),
     vendeur_id INT,
     etat ENUM('Neuf', 'Comme neuf', 'Très bonne état', 'Bonne état', 'état correct', 'Mauvais état', 'Hors service', 'Autre') NOT NULL, 
-    premium BOOLEAN NOT NULL DEFAULT 0; -- modif + tard
+    premium BOOLEAN NOT NULL DEFAULT 0, -- modif + tard
     FOREIGN KEY (vendeur_id) REFERENCES utilisateur(id) 
 );
