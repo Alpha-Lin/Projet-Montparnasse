@@ -160,7 +160,8 @@ i {
   position: absolute;
   padding-top: 7%;
   font-family: sans-serif;
-  left: 19%;
+  left: 25%;
+  right: 25%;
 }
 
 .formulaire label:hover {
@@ -192,5 +193,4 @@ input[name="tabs"]:checked + label {
 #tab1:checked ~ #tab-content1,
 #tab2:checked ~ #tab-content2 {
   display: block;
-  width: 77%;
 }
