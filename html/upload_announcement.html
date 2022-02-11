@@ -1,0 +1,30 @@
+<h1>Mettre en ligne une annonce</h1>
+
+<form method="post">
+    <label>
+        Nom du produit : <input name="nom_produit" required>
+    </label>
+    <label>
+        Description du produit :
+        <textarea name="description_produit"></textarea>
+    </label>
+    <label>
+        État du produit : 
+        <select name="etat_produit" required>
+            <option value=""></option>
+            <option value="Neuf">Neuf</option>
+            <option value="Comme neuf">Comme neuf</option>
+            <option value="Très bon état">Très bon état</option>
+            <option value="Bon état">Bon état</option>
+            <option value="État correct">État correct</option>
+            <option value="Mauvais état">Mauvais état</option>
+            <option value="Hors service">Hors service</option>
+            <option value="Autre">Autre</option>
+        </select>
+    </label>
+    <label> <!-- TEMPORAIRE -->
+        Prix : 
+        <input name="url_prix" required>
+    </label>
+    <input type="submit">
+</form>
