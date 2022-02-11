@@ -26,6 +26,8 @@ function reload_cdiscount_token($url)
     }
 }
 
+define('ERROR_URL', '-4');
+
 function curl_sample($url, $api_host)
 {
     $curl = curl_init();
@@ -51,12 +53,15 @@ function curl_sample($url, $api_host)
     curl_close($curl);
 
     if($err)
-        return false;
+        return ERROR_URL;
     else
     {
         return json_decode($response, true);
     }
 }
+
+define('PRICE_404', '-3');
+define('CDISCOUNT_TOKEN', '-5');
 
 function get_price($plateforme, $id, $marche = 'N/A')
 {
@@ -65,14 +70,14 @@ function get_price($plateforme, $id, $marche = 'N/A')
         case "AMAZON": // class : apexPriceToPay
             $res = curl_sample("https://amazon-product-price-data.p.rapidapi.com/product?asins=" . $id . "&locale=" . $marche, "amazon-product-price-data.p.rapidapi.com");
 
-            if($res === false)
-                return false;
+            if($res === ERROR_URL)
+                return ERROR_URL;
 
             return $res[0]['current_price'];
         case "EBAY":
-            return false;
+            return PRICE_404;
         case "LEBONCOIN": // class : Roh2X _3gP8T _25LNb _35DXM ou json avec clé "price"
-            return false;
+            return PRICE_404;
         case "CDISCOUNT":
             /* Infos utiles :
             - La connexion nécessite un token qui est chargé lors de la première requête
@@ -112,21 +117,21 @@ function get_price($plateforme, $id, $marche = 'N/A')
                 return substr($page_price, $position_prix_debut, $position_prix_fin);
             }else {
                 reload_cdiscount_token($id);
-                return false;
+                return CDISCOUNT_TOKEN;
             }
         case 'ALIEXPRESS':
             $res = curl_sample("https://aliexpress19.p.rapidapi.com/products/" . $id . "?countryCode=FR", "aliexpress19.p.rapidapi.com");
 
-            if($res === false | !array_key_exists('skuList', $res))
+            if($res === ERROR_URL | !array_key_exists('skuList', $res))
             {
                 $res = curl_sample("https://ali-express1.p.rapidapi.com/product/" . $id . "?language=fr", "ali-express1.p.rapidapi.com");
 
-                if($res === false | !array_key_exists('priceModule', $res))
+                if($res === ERROR_URL | !array_key_exists('priceModule', $res))
                 {
                     $res = curl_sample("https://aliexpress-unofficial.p.rapidapi.com/product/" . $id . "?country=FR&currency=EUR&locale=FR_FR", "aliexpress-unofficial.p.rapidapi.com");
 
-                    if($res === false | !array_key_exists('prices', $res))
-                        return false;
+                    if($res === ERROR_URL | !array_key_exists('prices', $res))
+                        return ERROR_URL;
 
                     return $res['prices']['min']['value']; // Dollar
                 }
@@ -136,17 +141,24 @@ function get_price($plateforme, $id, $marche = 'N/A')
 
             return $res['skuList'][0]['activityPrice'];
         default:
-            return false;
+            return PLATEFORM_NOT_FOUND;
     }
 }
 
 function update_price($plateforme, $id, $marche = null)
 {
+    $prix = get_price($plateforme, $id, $marche);
+
+    if($prix === PRICE_404)
+        return PRICE_404;
+
     $req = $bdd->prepare('UPDATE produit_externe SET prix = ? WHERE plateforme = ? AND id = ? AND marche = ?');
     $req->execute(array($plateforme,
                         $id,
                         $marche,
-                        get_price($plateforme, $id, $marche)));
+                        $prix));
+    
+    return true;
 }
 
 //echo get_price('ALIEXPRESS', 1005002745180207);

@@ -6,21 +6,23 @@ if(isset($_SESSION['pseudo'])) // Session
 {
     if(!empty($_POST['log_pseudo']) && !empty($_POST['log_mdp']))
     {
-        $reponse = $bdd->prepare("SELECT mot_de_passe FROM utilisateur WHERE pseudo = ?"); // va chercher le hash de l'utilisateur
+        $reponse = $bdd->prepare("SELECT id, mot_de_passe FROM utilisateur WHERE pseudo = ?"); // va chercher le hash de l'utilisateur
 		$reponse->execute(array($_POST['log_pseudo']));
 		$userInfos = $reponse->fetch();
 
-		if(isset($userInfos[0])){ // vérifie que l'utilisateur existe
-			if(password_verify($_POST['log_mdp'], $userInfos[0]))
+		if(isset($userInfos[1])){ // vérifie que l'utilisateur existe
+			if(password_verify($_POST['log_mdp'], $userInfos[1]))
 			{
 				$_SESSION['pseudo'] = $_POST['log_pseudo'];
+                $_SESSION['id'] = $userInfos[0];
 
 				header('location: index.php?i=Compte');
 			}else
                 mis_log("Erreur : mot de passe incorrect.");
 		}else
             mis_log("Erreur : compte inconnu.");
-    }
+    }else
+        mis_log("Paramètre(s) vide(s).");
 }else if(isset($_POST['prenom'], $_POST['nom'], $_POST['pseudo'], $_POST['email'], $_POST['mdp'])) // Inscription
 {
     if(!empty($_POST['prenom']) && !empty($_POST['nom']) && !empty($_POST['pseudo']) && !empty($_POST['email']) && !empty($_POST['mdp']))
@@ -36,11 +38,11 @@ if(isset($_SESSION['pseudo'])) // Session
         mis_log('Inscription réussi, veuillez vous connecter.');
     }
 }else
-    require 'html/ongletForms.html';
+    require 'html/register_login.html';
 
 function mis_log($msg)
 {
     echo '<p>' . $msg . '</p>';
-    require 'html/ongletForms.html';
+    require 'html/register_login.html';
 }
 ?>
