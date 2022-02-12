@@ -32,8 +32,12 @@ else if(isset($_POST['nom_produit'], $_POST['description_produit'], $_POST['etat
                     mis_log("Erreur dans l'URL.");
                     break;
                 case CDISCOUNT_TOKEN:
-                    mis_log("token cdiscount mort, TODO !");
-                    break;
+                    $prix = extract_infos_product($_POST['url_prix']);
+                    if($prix < 0)
+                    {
+                        mis_log("token cdiscount mort, TODO !");
+                        break;
+                    }
                 default:
                     $req = $bdd->prepare('INSERT INTO produit(nom, description_produit, etat, prix, vendeur_id) VALUE (?, ?, ?, ?, ?)');
                     $req->execute(array($_POST['nom_produit'],
