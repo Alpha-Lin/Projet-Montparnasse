@@ -35,7 +35,7 @@ else if(isset($_POST['nom_produit'], $_POST['description_produit'], $_POST['etat
                     $prix = extract_infos_product($_POST['url_prix']);
                     if($prix < 0)
                     {
-                        mis_log("token cdiscount mort, TODO !");
+                        mis_log("Erreur dans l'URL.");
                         break;
                     }
                 default:
