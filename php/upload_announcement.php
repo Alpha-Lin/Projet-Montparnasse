@@ -5,7 +5,11 @@ else if(isset($_POST['nom_produit'], $_POST['description_produit'], $_POST['etat
 {
     if(!empty($_POST['nom_produit']) && !empty($_POST['etat_produit']) && !empty($_POST['url_prix']))
     {
-        if(strlen($_POST['description_produit']) > 300)
+        require 'php/modules/hcaptcha.php';
+
+        if(!hcaptcha($_POST['h-captcha-response']))
+            mis_log("Captcha invalide !");
+        else if(strlen($_POST['description_produit']) > 300)
             mis_log("Description trop large.");
         else
         {

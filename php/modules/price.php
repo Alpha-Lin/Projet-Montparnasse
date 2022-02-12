@@ -43,7 +43,7 @@ function curl_sample($url, $api_host)
         CURLOPT_CUSTOMREQUEST => "GET",
         CURLOPT_HTTPHEADER => [
             "x-rapidapi-host: " . $api_host,
-            "x-rapidapi-key: bac31d043bmsh64187a8ec6bade0p15149cjsndfa282c1eeb7"
+            "x-rapidapi-key: " . json_decode(file_get_contents('api_tokens.json'), true)['RAPIDAPI_KEY']
         ],
     ]);
 
