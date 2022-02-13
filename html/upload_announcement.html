@@ -1,4 +1,5 @@
 <script src="https://www.hCaptcha.com/1/api.js" async defer></script>
+<script src="js/edit_links_price.js"></script>
 
 <h1>Mettre en ligne une annonce</h1>
 
@@ -26,7 +27,10 @@
     </label>
     <label> <!-- TEMPORAIRE -->
         Lien produit externe : 
-        <input name="url_prix" required>
+        <div>
+            <input name="url_prix[]" required>
+            <img src="svg/add-button.svg" width="20" onclick="add_url(this)" id="add_url_image">
+        </div>
     </label>
 
     <div class="h-captcha" data-sitekey="e6b60063-290d-4c3b-b52d-5c4a3aba9a7e"></div>
