@@ -11,46 +11,58 @@ else if(isset($_POST['nom_produit'], $_POST['description_produit'], $_POST['etat
             mis_log("Captcha invalide !");
         else if(strlen($_POST['description_produit']) > 300)
             mis_log("Description trop large.");
+        else if(count($_POST['url_prix']) > 5)
+            mis_log("Trop d'URLs fournis !");
         else
         {
             require 'php/modules/new_extern_product.php';
 
-            $prix = extract_infos_product($_POST['url_prix']);
+            $prix_array = array();
 
-            switch($prix)
-            {
-                case PLATEFORM_NOT_FOUND:
-                    mis_log("Plateforme non compatible.");
-                    break;
-                case BAD_MARKET:
-                    mis_log("Marché non compatible.");
-                    break;
-                case PRICE_404:
-                    mis_log("Prix non trouvé.");
-                    break;
-                case ERROR_URL:
-                    mis_log("Erreur dans l'URL.");
-                    break;
-                case CDISCOUNT_TOKEN:
-                    $prix = extract_infos_product($_POST['url_prix']);
-                    if($prix < 0)
-                    {
+            foreach ($_POST['url_prix'] as $url) {
+                $prix = extract_infos_product($url);
+
+                switch($prix)
+                {
+                    case PLATEFORM_NOT_FOUND:
+                        mis_log("Plateforme non compatible.");
+                        break;
+                    case BAD_MARKET:
+                        mis_log("Marché non compatible.");
+                        break;
+                    case PRICE_404:
+                        mis_log("Prix non trouvé.");
+                        break;
+                    case ERROR_URL:
                         mis_log("Erreur dans l'URL.");
                         break;
-                    }
-                default:
-                    $req = $bdd->prepare('INSERT INTO produit(nom, description_produit, etat, prix, vendeur_id) VALUE (?, ?, ?, ?, ?)');
-                    $req->execute(array($_POST['nom_produit'],
-                                        $_POST['description_produit'],
-                                        $_POST['etat_produit'],
-                                        $prix,
-                                        $_SESSION['id'])
-                    );
-                    echo 'Mise en ligne réussie.';
-                    break;
+                    case CDISCOUNT_TOKEN:
+                        $prix = extract_infos_product($url);
+                        if($prix < 0)
+                        {
+                            mis_log("Erreur dans l'URL.");
+                            break;
+                        }
+                    default:
+                        $prix_array[] = $prix;
+                        break;
+                }
+            }
+
+            $nb_prix = count($prix_array);
+
+            if($nb_prix > 0){
+                $req = $bdd->prepare('INSERT INTO produit(nom, description_produit, etat, prix, vendeur_id) VALUE (?, ?, ?, ?, ?)');
+                $req->execute(array($_POST['nom_produit'],
+                                    $_POST['description_produit'],
+                                    $_POST['etat_produit'],
+                                    array_sum($prix_array) / $nb_prix, // Actuellement le positionnement est sur moyen
+                                    $_SESSION['id'])
+                );
+
+                echo 'Mise en ligne réussie.';
             }
         }
-
     }else
         mis_log("Paramètre(s) vide(s).");
 }else
