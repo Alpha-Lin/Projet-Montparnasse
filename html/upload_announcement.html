@@ -28,7 +28,7 @@
     <label> <!-- TEMPORAIRE -->
         Lien produit externe : 
         <div>
-            <input name="url_prix[]" required>
+            <input type="url" name="url_prix[]" onchange="correct_url(this)" required>
             <img src="svg/add-button.svg" width="20" onclick="add_url(this)" id="add_url_image">
         </div>
     </label>
