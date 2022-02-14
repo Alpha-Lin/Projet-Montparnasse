@@ -36,7 +36,6 @@ function add_extern_product_in_db($produit_id, $plateforme, $id, $marche = null)
                         $prix)
     );
 
-
     $req = $bdd->prepare('INSERT INTO association_externe(produit_id, produit_externe_id) VALUE (?, ?)'); // Associe le nouveau produit externe avec le produit principal
     $req->execute(array($produit_id,
                         $bdd->lastInsertId())
@@ -103,6 +102,11 @@ function extract_infos_product($url, $produit_id)
         case "www.cdiscount.com":
             if(strlen($url) < 107) // Taille minimum
                 return ERROR_URL;
+
+            $end_url = strpos($url, '?');
+
+            if($end_url !== false)
+                $url = substr($url, 0, $end_url);
 
             return add_extern_product_in_db($produit_id, 'CDISCOUNT', $url);
         case (preg_match('/\.aliexpress\.com$/', $url_host) ? true : false):
