@@ -20,7 +20,7 @@ require 'price.php';
 define('BAD_MARKET', '-2');
 define('PLATEFORM_NOT_FOUND', '-1');
 
-function add_extern_product_in_db($plateforme, $id, $marche = null)
+function add_extern_product_in_db($produit_id, $plateforme, $id, $marche = null)
 {
     $prix = get_price($plateforme, $id, $marche);
 
@@ -29,17 +29,23 @@ function add_extern_product_in_db($plateforme, $id, $marche = null)
 
     global $bdd;
 
-    $req = $bdd->prepare('INSERT INTO produit_externe(plateforme, id, marche, prix) VALUE (?, ?, ?, ?)');
+    $req = $bdd->prepare('INSERT INTO produit_externe(plateforme, produit_id, marche, prix) VALUE (?, ?, ?, ?)'); // Ajoute le produit externe dans la bdd
     $req->execute(array($plateforme,
                         $id,
                         $marche,
                         $prix)
     );
 
+
+    $req = $bdd->prepare('INSERT INTO association_externe(produit_id, produit_externe_id) VALUE (?, ?)'); // Associe le nouveau produit externe avec le produit principal
+    $req->execute(array($produit_id,
+                        $bdd->lastInsertId())
+    );
+
     return $prix;
 }
 
-function extract_infos_product($url)
+function extract_infos_product($url, $produit_id)
 {
     $url_host = parse_url($url, PHP_URL_HOST); // Obtention plateforme
     switch($url_host)
@@ -58,15 +64,15 @@ function extract_infos_product($url)
             switch(end($marche))
             {
                 case 'fr':
-                    return add_extern_product_in_db('AMAZON', $dp, 'FR');
+                    return add_extern_product_in_db($produit_id, 'AMAZON', $dp, 'FR');
                 case 'com':
-                    return add_extern_product_in_db('AMAZON', $dp, 'US');
+                    return add_extern_product_in_db($produit_id, 'AMAZON', $dp, 'US');
                 case 'uk':
-                    return add_extern_product_in_db('AMAZON', $dp, 'UK');
+                    return add_extern_product_in_db($produit_id, 'AMAZON', $dp, 'UK');
                 case 'in':
-                    return add_extern_product_in_db('AMAZON', $dp, 'IN');
+                    return add_extern_product_in_db($produit_id, 'AMAZON', $dp, 'IN');
                 case 'ca':
-                    return add_extern_product_in_db('AMAZON', $dp, 'CA');
+                    return add_extern_product_in_db($produit_id, 'AMAZON', $dp, 'CA');
                 default:
                     return BAD_MARKET;
             }
@@ -81,7 +87,7 @@ function extract_infos_product($url)
             if(ctype_digit($itm) === false) // Vérification que l'id est composé uniquement de chiffres
                 return ERROR_URL;
 
-            return add_extern_product_in_db('EBAY', $itm);
+            return add_extern_product_in_db($produit_id, 'EBAY', $itm);
         case "www.leboncoin.fr":
             $id = strpos($url, '.h'); // Obtention ID
 
@@ -93,38 +99,40 @@ function extract_infos_product($url)
             if(ctype_digit($id) === false) // Vérification que l'id est composé uniquement de chiffres
                 return ERROR_URL;
 
-            return add_extern_product_in_db('LEBONCOIN', $id);
+            return add_extern_product_in_db($produit_id, 'LEBONCOIN', $id);
         case "www.cdiscount.com":
             if(strlen($url) < 107) // Taille minimum
                 return ERROR_URL;
 
-            return add_extern_product_in_db('CDISCOUNT', $url);
+            return add_extern_product_in_db($produit_id, 'CDISCOUNT', $url);
         case (preg_match('/\.aliexpress\.com$/', $url_host) ? true : false):
             $item = strpos($url, '/item/'); // Obtention ID
 
             if($item === false || strlen($url) < 47) // Taille minimum
                 return ERROR_URL;
 
-            return add_extern_product_in_db('ALIEXPRESS', substr($url, $item + 6, 16));
+            $end_item = strpos($url, '.h');
+
+            return add_extern_product_in_db($produit_id, 'ALIEXPRESS', substr($url, $item + 6, $end_item - $item - 6));
         case "www.materiel.net":
             $produit = strpos($url, 'u'); // Obtention ID
 
             if($produit === false || strlen($url) < 51) // Taille minimum
                 return ERROR_URL;
 
-            return add_extern_product_in_db('MATERIEL.NET', substr($url, $produit + 4, 12));
+            return add_extern_product_in_db($produit_id, 'MATERIEL.NET', substr($url, $produit + 4, 12));
         case "www.ldlc.com":
             $fiche = strpos($url, 'P'); // Obtention ID
 
             if($fiche === false || strlen($url) < 42) // Taille minimum
                 return ERROR_URL;
 
-            return add_extern_product_in_db('LDLC', substr($url, $fiche, 10));
+            return add_extern_product_in_db($produit_id, 'LDLC', substr($url, $fiche, 10));
         case "www.topachat.com":
             if(strlen($url) < 60) // Taille minimum
                 return ERROR_URL;
 
-            return add_extern_product_in_db('TOPACHAT', substr($url, 47, strlen($url) - 47));
+            return add_extern_product_in_db($produit_id, 'TOPACHAT', substr($url, 47, strlen($url) - 47));
         default:
             return PLATEFORM_NOT_FOUND;
     }
