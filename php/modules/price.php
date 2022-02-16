@@ -145,20 +145,23 @@ function get_price($plateforme, $id, $marche = 'N/A')
     }
 }
 
-function update_price($plateforme, $id, $marche = null)
+function update_price($id)
 {
-    $prix = get_price($plateforme, $id, $marche);
+    global $bdd;
 
-    if($prix === PRICE_404)
-        return PRICE_404;
+    $req = $bdd->prepare('SELECT plateforme, produit_id, marche FROM produit_externe WHERE id = ?');
+    $req->execute(array($id));
 
-    $req = $bdd->prepare('UPDATE produit_externe SET prix = ? WHERE plateforme = ? AND produit_id = ? AND marche = ?');
+    $produit_externe = $req->fetch(PDO::FETCH_ASSOC);
+
+    $prix = get_price($produit_externe['plateforme'], $produit_externe['produit_id'], $produit_externe['marche']);
+
+    if($prix < 0)
+        return;
+
+    $req = $bdd->prepare('UPDATE produit_externe SET prix = ?, last_refresh = NOW() WHERE id = ?'); // On met à jour le prix et la datetime de refresh
     $req->execute(array($prix,
-                        $plateforme,
-                        $id,
-                        $marche));
-    
-    return true;
+                        $id));
 }
 
 //echo get_price('ALIEXPRESS', 1005002745180207);
