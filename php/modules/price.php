@@ -43,7 +43,7 @@ function curl_sample($url, $api_host)
         CURLOPT_CUSTOMREQUEST => "GET",
         CURLOPT_HTTPHEADER => [
             "x-rapidapi-host: " . $api_host,
-            "x-rapidapi-key: bac31d043bmsh64187a8ec6bade0p15149cjsndfa282c1eeb7"
+            "x-rapidapi-key: " . json_decode(file_get_contents('api_tokens.json'), true)['RAPIDAPI_KEY']
         ],
     ]);
 
@@ -122,15 +122,15 @@ function get_price($plateforme, $id, $marche = 'N/A')
         case 'ALIEXPRESS':
             $res = curl_sample("https://aliexpress19.p.rapidapi.com/products/" . $id . "?countryCode=FR", "aliexpress19.p.rapidapi.com");
 
-            if($res === ERROR_URL | !array_key_exists('skuList', $res))
+            if($res === ERROR_URL || !array_key_exists('skuList', $res))
             {
                 $res = curl_sample("https://ali-express1.p.rapidapi.com/product/" . $id . "?language=fr", "ali-express1.p.rapidapi.com");
 
-                if($res === ERROR_URL | !array_key_exists('priceModule', $res))
+                if($res === ERROR_URL || !array_key_exists('priceModule', $res))
                 {
                     $res = curl_sample("https://aliexpress-unofficial.p.rapidapi.com/product/" . $id . "?country=FR&currency=EUR&locale=FR_FR", "aliexpress-unofficial.p.rapidapi.com");
 
-                    if($res === ERROR_URL | !array_key_exists('prices', $res))
+                    if($res === ERROR_URL || !array_key_exists('prices', $res))
                         return ERROR_URL;
 
                     return $res['prices']['min']['value']; // Dollar
@@ -152,11 +152,11 @@ function update_price($plateforme, $id, $marche = null)
     if($prix === PRICE_404)
         return PRICE_404;
 
-    $req = $bdd->prepare('UPDATE produit_externe SET prix = ? WHERE plateforme = ? AND id = ? AND marche = ?');
-    $req->execute(array($plateforme,
+    $req = $bdd->prepare('UPDATE produit_externe SET prix = ? WHERE plateforme = ? AND produit_id = ? AND marche = ?');
+    $req->execute(array($prix,
+                        $plateforme,
                         $id,
-                        $marche,
-                        $prix));
+                        $marche));
     
     return true;
 }

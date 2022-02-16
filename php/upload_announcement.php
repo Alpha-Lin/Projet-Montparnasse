@@ -5,44 +5,75 @@ else if(isset($_POST['nom_produit'], $_POST['description_produit'], $_POST['etat
 {
     if(!empty($_POST['nom_produit']) && !empty($_POST['etat_produit']) && !empty($_POST['url_prix']))
     {
-        if(strlen($_POST['description_produit']) > 300)
+        require 'php/modules/hcaptcha.php';
+
+        if(!hcaptcha($_POST['h-captcha-response']))
+            mis_log("Captcha invalide !");
+        else if(strlen($_POST['description_produit']) > 300)
             mis_log("Description trop large.");
+        else if(count($_POST['url_prix']) > 5)
+            mis_log("Trop d'URLs fournis !");
         else
         {
             require 'php/modules/new_extern_product.php';
 
-            $prix = extract_infos_product($_POST['url_prix']);
+            $prix_array = array();
 
-            switch($prix)
-            {
-                case PLATEFORM_NOT_FOUND:
-                    mis_log("Plateforme non compatible.");
-                    break;
-                case BAD_MARKET:
-                    mis_log("Marché non compatible.");
-                    break;
-                case PRICE_404:
-                    mis_log("Prix non trouvé.");
-                    break;
-                case ERROR_URL:
-                    mis_log("Erreur dans l'URL.");
-                    break;
-                case CDISCOUNT_TOKEN:
-                    mis_log("token cdiscount mort, TODO !");
-                    break;
-                default:
-                    $req = $bdd->prepare('INSERT INTO produit(nom, description_produit, etat, prix, vendeur_id) VALUE (?, ?, ?, ?, ?)');
-                    $req->execute(array($_POST['nom_produit'],
-                                        $_POST['description_produit'],
-                                        $_POST['etat_produit'],
-                                        $prix,
-                                        $_SESSION['id'])
-                    );
-                    echo 'Mise en ligne réussie.';
-                    break;
+            $req = $bdd->prepare('INSERT INTO produit(nom, description_produit, etat, prix, vendeur_id) VALUE (?, ?, ?, 0, ?)');
+            $req->execute(array($_POST['nom_produit'],
+                                $_POST['description_produit'],
+                                $_POST['etat_produit'],
+                                $_SESSION['id'])
+            );
+
+            $produit_id = $bdd->lastInsertId();
+
+            foreach ($_POST['url_prix'] as $url) {
+                $prix = extract_infos_product($url, $produit_id);
+
+                switch($prix)
+                {
+                    case PLATEFORM_NOT_FOUND:
+                        echo "<p>Attention : \"" . $url . "\" Plateforme non compatible.</p>";
+                        break;
+                    case BAD_MARKET:
+                        echo "<p>Attention : \"" . $url . "\" Marché non compatible.</p>";
+                        break;
+                    case PRICE_404:
+                        echo "<p>Attention : \"" . $url . "\" Prix non trouvé.</p>";
+                        break;
+                    case ERROR_URL:
+                        echo "<p>Attention : \"" . $url . "\" Erreur dans l'URL.</p>";
+                        break;
+                    case CDISCOUNT_TOKEN:
+                        $prix = extract_infos_product($url, $produit_id);
+                        if($prix < 0)
+                        {
+                            echo "<p>Attention : \"" . $url . "\" Erreur dans l'URL.</p>";
+                            break;
+                        }
+                    default:
+                        $prix_array[] = $prix;
+                        break;
+                }
             }
-        }
 
+            $nb_prix = count($prix_array);
+
+            if($nb_prix > 0){
+                $req = $bdd->prepare('UPDATE produit SET prix = ? WHERE id = ?');
+                $req->execute(array(array_sum($prix_array) / $nb_prix, // Actuellement le positionnement est sur moyen
+                                    $produit_id)
+                );
+
+                echo 'Mise en ligne réussie.';
+            }else{
+                $req = $bdd->prepare('DELETE FROM produit WHERE id = ?');
+                $req->execute(array($produit_id));
+
+                mis_log("Erreur : Aucune URL n'a fonctionné.");
+            }       
+        }
     }else
         mis_log("Paramètre(s) vide(s).");
 }else

@@ -8,5 +8,5 @@ CREATE TABLE produit (
     vendeur_id INT NOT NULL,
     etat ENUM('Neuf', 'Comme neuf', 'Très bon état', 'Bon état', 'État correct', 'Mauvais état', 'Hors service', 'Autre') NOT NULL, 
     premium BOOLEAN NOT NULL DEFAULT 0, -- modif + tard
-    FOREIGN KEY (vendeur_id) REFERENCES utilisateur(id) 
+    FOREIGN KEY (vendeur_id) REFERENCES utilisateur(id)
 );
