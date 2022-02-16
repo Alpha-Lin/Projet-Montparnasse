@@ -12,7 +12,8 @@ if(isset($_GET['i']) && !empty($_GET['i']))
 
     if(dirname($path_include) === 'php')
         require $path_include;
-}
+}else if(isset($_GET['search']) && !empty($_GET['search']))
+    require 'php/search.php';
 
 require 'html/footer.html';
 
