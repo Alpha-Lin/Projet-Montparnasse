@@ -14,6 +14,8 @@ if(!empty($produits_research))
     $req_last_refresh_produit_externe = $bdd->prepare('SELECT last_refresh FROM produit_externe WHERE id = ?');
     $req_prix_externe = $bdd->prepare('SELECT prix FROM produit_externe WHERE id = ?');
     $req_update_final_price = $bdd->prepare('UPDATE produit SET dernier_prix = ? WHERE id = ?');
+    
+    $temps = time();
 
     foreach ($produits_research as $produit) { // Chaque produit
         $prix = 0;
@@ -24,7 +26,7 @@ if(!empty($produits_research))
         foreach ($req_produits_externes->fetchAll(PDO::FETCH_ASSOC) as $produit_externe) { // Chaque produit externe du produit
             $req_last_refresh_produit_externe->execute(array($produit_externe['produit_externe_id']));
 
-            if(time() - strtotime($req_last_refresh_produit_externe->fetch(PDO::FETCH_COLUMN)) > 604800) // Si ça fait plus de 1 semaine
+            if($temps - strtotime($req_last_refresh_produit_externe->fetch(PDO::FETCH_COLUMN)) > 604800) // Si ça fait plus de 1 semaine
                 update_price($produit_externe['produit_externe_id']); // Mise à jour du prix du produit externe
 
             $req_prix_externe->execute(array($produit_externe['produit_externe_id']));
