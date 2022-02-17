@@ -44,11 +44,11 @@ if(!empty($produits_research))
 
         echo '
         <div class="produit">
-            <a href="#"><h2>' . $produit['nom'] . '</h2></a>
+            <a href="#"><h2>' . htmlspecialchars($produit['nom']) . '</h2></a>
             <p>Prix : ' . $prix . '</p>
             <p>état : ' . $produit['etat'] . '</p>
-            <p>Vendeur : ' . $req_pseudo_vendeur->fetch(PDO::FETCH_COLUMN) . '</p>
-            <p>Description : ' . $produit['description_produit'] . '</p>
+            <p>Vendeur : ' . htmlspecialchars($req_pseudo_vendeur->fetch(PDO::FETCH_COLUMN)) . '</p>
+            <p>Description : ' . htmlspecialchars($produit['description_produit']) . '</p>
         </div>'; // TODO : envoyer le dernier prix pour montrer l'évolution
     }
 }else
