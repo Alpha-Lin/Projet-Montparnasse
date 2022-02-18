@@ -9,32 +9,8 @@ fieldset {
 }
 
 input[type="text"],
-input[type="search"] {
-  font-size: 16px;
-  width: 100%;
-  padding-left: 0;
-  padding-top: 12px;
-  padding-bottom: 0.4em;
-  padding-right: 200px;
-  margin: 0px 0px 0px 2px;
-  box-sizing: border-box;
-  border: none;
-  border-bottom: 2px solid rgb(54, 54, 54);
-}
-
-input[type="password"] {
-  font-size: 16px;
-  width: 100%;
-  padding-left: 0;
-  padding-top: 12px;
-  padding-bottom: 0.4em;
-  padding-right: 200px;
-  margin: 0px 0px 0px 2px;
-  box-sizing: border-box;
-  border: none;
-  border-bottom: 2px solid rgb(54, 54, 54);
-}
-
+input[type="search"],
+input[type="password"],
 input[type="email"] {
   font-size: 16px;
   width: 100%;
