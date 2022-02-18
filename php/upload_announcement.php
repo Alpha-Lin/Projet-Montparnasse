@@ -1,7 +1,8 @@
 <?php
 if(!isset($_SESSION['id']))
-    header('location: index.php?i=Compte');
-else if(isset($_POST['nom_produit'], $_POST['description_produit'], $_POST['etat_produit'], $_POST['url_prix']))
+    header('location: ?i=Compte');
+
+if(isset($_POST['nom_produit'], $_POST['description_produit'], $_POST['etat_produit'], $_POST['url_prix']))
 {
     if(!empty($_POST['nom_produit']) && !empty($_POST['etat_produit']) && !empty($_POST['url_prix']))
     {
