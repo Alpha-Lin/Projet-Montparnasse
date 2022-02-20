@@ -1,7 +1,8 @@
 <?php
 if(!isset($_SESSION['id']))
-    header('location: index.php?i=Compte');
-else if(isset($_POST['nom_produit'], $_POST['description_produit'], $_POST['etat_produit'], $_POST['url_prix']))
+    header('location: ?i=Compte');
+
+if(isset($_POST['nom_produit'], $_POST['description_produit'], $_POST['etat_produit'], $_POST['url_prix']))
 {
     if(!empty($_POST['nom_produit']) && !empty($_POST['etat_produit']) && !empty($_POST['url_prix']))
     {
@@ -19,7 +20,7 @@ else if(isset($_POST['nom_produit'], $_POST['description_produit'], $_POST['etat
 
             $prix_array = array();
 
-            $req = $bdd->prepare('INSERT INTO produit(nom, description_produit, etat, prix, vendeur_id) VALUE (?, ?, ?, 0, ?)');
+            $req = $bdd->prepare('INSERT INTO produit(nom, description_produit, etat, dernier_prix, vendeur_id) VALUE (?, ?, ?, 0, ?)');
             $req->execute(array($_POST['nom_produit'],
                                 $_POST['description_produit'],
                                 $_POST['etat_produit'],
@@ -61,7 +62,7 @@ else if(isset($_POST['nom_produit'], $_POST['description_produit'], $_POST['etat
             $nb_prix = count($prix_array);
 
             if($nb_prix > 0){
-                $req = $bdd->prepare('UPDATE produit SET prix = ? WHERE id = ?');
+                $req = $bdd->prepare('UPDATE produit SET dernier_prix = ? WHERE id = ?');
                 $req->execute(array(array_sum($prix_array) / $nb_prix, // Actuellement le positionnement est sur moyen
                                     $produit_id)
                 );
