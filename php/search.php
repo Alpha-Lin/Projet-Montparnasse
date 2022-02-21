@@ -35,7 +35,7 @@ if(!empty($produits_research))
             $nb_produits_externes++;
         }
 
-        $prix /= $nb_produits_externes;
+        $prix = round($prix / $nb_produits_externes, 2);
 
         $req_update_final_price->execute(array($prix,
                                                $produit['id'])); // Mise à jour du dernier prix
