@@ -18,4 +18,3 @@ if(isset($_GET['i']) && !empty($_GET['i']))
 require 'html/footer.html';
 
 ?>
-
