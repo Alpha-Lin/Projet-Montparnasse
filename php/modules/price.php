@@ -63,7 +63,7 @@ function curl_sample($url, $header = [])
     if(empty($header))
         return $response;
 
-    return json_decode($response, true); // Ceci retourne NULL, jsp pk
+    return json_decode($response, true);
 }
 
 define('PRICE_404', '-3');
