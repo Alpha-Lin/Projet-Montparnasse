@@ -30,7 +30,7 @@ define('ERROR_URL', '-4');
 
 function curl_rapidapi($url, $api_host)
 {
-    curl_sample($url, [
+    return curl_sample($url, [
             "x-rapidapi-host: " . $api_host,
             "x-rapidapi-key: " . json_decode(file_get_contents('api_tokens.json'), true)['RAPIDAPI_KEY']
     ]);
@@ -63,7 +63,7 @@ function curl_sample($url, $header = [])
     if(empty($header))
         return $response;
 
-    return json_decode($response, true);
+    return json_decode($response, true); // Ceci retourne NULL, jsp pk
 }
 
 define('PRICE_404', '-3');
