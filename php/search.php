@@ -43,12 +43,24 @@ if(!empty($produits_research))
         $req_pseudo_vendeur->execute(array($produit['vendeur_id']));
 
         echo '
-        <div class="produit">
-            <a href="#"><h2>' . htmlspecialchars($produit['nom']) . '</h2></a>
-            <p>Prix : ' . $prix . '</p>
-            <p>état : ' . $produit['etat'] . '</p>
-            <p>Vendeur : ' . htmlspecialchars($req_pseudo_vendeur->fetch(PDO::FETCH_COLUMN)) . '</p>
-            <p>Description : ' . htmlspecialchars($produit['description_produit']) . '</p>
+        <div class="alignerProduit">
+            <div class="produit">
+                <div class="titreObj">
+                    <a href="#"><h2>' . htmlspecialchars($produit['nom']) . '</h2></a>
+                </div>
+                <div class="prixObj">
+                    <p>Prix : ' . $prix . '</p>
+                </div>
+                <div class="etatObj">
+                    <p>état : ' . $produit['etat'] . '</p>
+                </div>
+                <div class="vendeurObj">
+                    <p>Vendeur : ' . htmlspecialchars($req_pseudo_vendeur->fetch(PDO::FETCH_COLUMN)) . '</p>
+                </div>
+                <div class="descObj">
+                    <p>Description : ' . htmlspecialchars($produit['description_produit']) . '</p>
+                </div>
+            </div>
         </div>'; // TODO : envoyer le dernier prix pour montrer l'évolution
     }
 }else
