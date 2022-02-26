@@ -1,5 +1,5 @@
 <?php     /* the front page */
-require 'php/modules/init_bdd.php';
+//require 'php/modules/init_bdd.php';
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
@@ -14,7 +14,10 @@ if(isset($_GET['i']) && !empty($_GET['i']))
         require $path_include;
 }else if(isset($_GET['search']) && !empty($_GET['search']))
     require 'php/search.php';
+    echo '<div class="scrollable">';
 
+    echo '<div class="push"></div>';
+    echo '</div>';
 require 'html/footer.html';
 
 ?>
