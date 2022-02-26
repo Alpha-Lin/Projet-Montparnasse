@@ -1,7 +1,8 @@
 /* some tags changes */
 
-body {
-  margin: 0px;
+html, body {
+  height: 100%;
+  margin: 0;
 }
 
 fieldset {
@@ -31,7 +32,25 @@ input::placeholder {
   font-size: 1.5em;
 }
 
+img {
+  width: 100%;
+  height: 100%;
+}
+
 /* new class */
+
+.head {
+  /* a non-sticky header, that will stay with u 4ever and ever :-) */
+  top: 0;
+  bottom: 0;
+  position: fixed;
+  width: 100%;
+}
+
+.scrollable {
+  min-height: 100%;
+  margin-bottom: -50px;
+}
 
 .horizontal {
   /* class that makes the navbar to be horizontal */
@@ -111,7 +130,7 @@ i {
 /* style settings for the footer */
 
 .footer {
-  position: absolute;
+  /*position: fixed;*/
   left: 0;
   bottom: 0;
   top: 75%;
@@ -119,6 +138,10 @@ i {
   background-color: rgb(41, 43, 42);
   color: white;
   text-align: center;
+}
+
+.push {
+  height: 50px;
 }
 
 .align {
@@ -171,4 +194,68 @@ input[name="tabs"]:checked + label {
 #tab1:checked ~ #tab-content1,
 #tab2:checked ~ #tab-content2 {
   display: block;
+}
+
+.produit {
+  display: grid;
+  grid-template-columns: 1fr 200px;
+  grid-template-rows:  auto auto auto auto;
+  width: 30%;
+  background-color: gray;
+  
+}
+
+.imgObj {
+  grid-column: 1;
+  grid-row: span 3;
+  align-items: center;
+  background-color: black;
+  color: white;
+}
+
+.titreObj {
+  grid-column: 1;
+  grid-row: 4;
+}
+
+.imgObj, .titreObj {
+  text-align: center;
+}
+
+.prixObj {
+  grid-column: 2;
+  grid-row: 1;
+  
+}
+
+.etatObj {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+.vendeurObj {
+  grid-column: 2;
+  grid-row: 3;
+}
+
+.descObj {
+  grid-column: 2;
+  grid-row: 4;
+}
+
+.prixObj, .etatObj, .vendeurObj, .descObj {
+  background-color: lightgray;
+}
+
+.alignProduit {
+  display: flex;
+  flex-wrap: wrap;
+  order: 2;
+  width: 80%;
+  margin-left: auto;
+}
+
+.alignProduit > * {
+  flex-basis: 40%;
+  margin: 1em;
 }

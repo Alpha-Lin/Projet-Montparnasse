@@ -46,6 +46,9 @@ if(isset($_POST['nom_produit'], $_POST['description_produit'], $_POST['etat_prod
                     case ERROR_URL:
                         echo "<p>Attention : \"" . $url . "\" Erreur dans l'URL.</p>";
                         break;
+                    case EBAY_KEYWORD:
+                        echo "<p>Attention : \"" . $url . "\" Erreur API, veuillez contacter l'administrateur..</p>";
+                        break;
                     case CDISCOUNT_TOKEN:
                         $prix = extract_infos_product($url, $produit_id);
                         if($prix < 0)

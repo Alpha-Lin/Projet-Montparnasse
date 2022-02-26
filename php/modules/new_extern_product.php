@@ -47,6 +47,12 @@ function add_extern_product_in_db($produit_id, $plateforme, $id, $marche = null)
 function extract_infos_product($url, $produit_id)
 {
     $url_host = parse_url($url, PHP_URL_HOST); // Obtention plateforme
+
+    $end_url = strpos($url, '?');
+
+    if($end_url !== false)
+        $url = substr($url, 0, $end_url); // Supprime toutes les données après le '?'
+
     switch($url_host)
     {
         case (preg_match('/www.amazon.(?:com|fr|ca|co\.uk|com|in)$/', $url_host) ? true : false):
@@ -81,12 +87,10 @@ function extract_infos_product($url, $produit_id)
             if($itm === false || strlen($url) < 36) // Taille minimum
                 return ERROR_URL;
 
-            $itm = substr($url, $itm + 5, 12);
-
-            if(ctype_digit($itm) === false) // Vérification que l'id est composé uniquement de chiffres
+            if(ctype_digit(substr($url, $itm + 5, 12)) === false) // Vérification que l'id est composé uniquement de chiffres
                 return ERROR_URL;
 
-            return add_extern_product_in_db($produit_id, 'EBAY', $itm);
+            return add_extern_product_in_db($produit_id, 'EBAY', $url);
         case "www.leboncoin.fr":
             $id = strpos($url, '.h'); // Obtention ID
 
@@ -102,11 +106,6 @@ function extract_infos_product($url, $produit_id)
         case "www.cdiscount.com":
             if(strlen($url) < 107) // Taille minimum
                 return ERROR_URL;
-
-            $end_url = strpos($url, '?');
-
-            if($end_url !== false)
-                $url = substr($url, 0, $end_url);
 
             return add_extern_product_in_db($produit_id, 'CDISCOUNT', $url);
         case (preg_match('/\.aliexpress\.com$/', $url_host) ? true : false):

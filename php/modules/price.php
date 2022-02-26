@@ -28,7 +28,15 @@ function reload_cdiscount_token($url)
 
 define('ERROR_URL', '-4');
 
-function curl_sample($url, $api_host)
+function curl_rapidapi($url, $api_host)
+{
+    return curl_sample($url, [
+            "x-rapidapi-host: " . $api_host,
+            "x-rapidapi-key: " . json_decode(file_get_contents('api_tokens.json'), true)['RAPIDAPI_KEY']
+    ]);
+}
+
+function curl_sample($url, $header = [])
 {
     $curl = curl_init();
 
@@ -41,10 +49,7 @@ function curl_sample($url, $api_host)
         CURLOPT_TIMEOUT => 30,
         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
         CURLOPT_CUSTOMREQUEST => "GET",
-        CURLOPT_HTTPHEADER => [
-            "x-rapidapi-host: " . $api_host,
-            "x-rapidapi-key: " . json_decode(file_get_contents('api_tokens.json'), true)['RAPIDAPI_KEY']
-        ],
+        CURLOPT_HTTPHEADER => $header,
     ]);
 
     $response = curl_exec($curl);
@@ -54,28 +59,47 @@ function curl_sample($url, $api_host)
 
     if($err)
         return ERROR_URL;
-    else
-    {
-        return json_decode($response, true);
-    }
+
+    if(empty($header))
+        return $response;
+
+    return json_decode($response, true);
 }
 
 define('PRICE_404', '-3');
 define('CDISCOUNT_TOKEN', '-5');
+define('EBAY_KEYWORD', '-6');
 
 function get_price($plateforme, $id, $marche = 'N/A')
 {
     switch($plateforme)
     {
         case "AMAZON": // class : apexPriceToPay
-            $res = curl_sample("https://amazon-product-price-data.p.rapidapi.com/product?asins=" . $id . "&locale=" . $marche, "amazon-product-price-data.p.rapidapi.com");
+            $res = curl_rapidapi("https://amazon-product-price-data.p.rapidapi.com/product?asins=" . $id . "&locale=" . $marche, "amazon-product-price-data.p.rapidapi.com");
 
             if($res === ERROR_URL)
                 return ERROR_URL;
 
             return $res[0]['current_price'];
         case "EBAY":
-            return PRICE_404;
+            $page_price = curl_sample($id);
+
+            if($page_price === ERROR_URL)
+                return ERROR_URL;
+
+            $pos_price = strpos($page_price, 'prc');
+
+            if($pos_price === false)
+                return EBAY_KEYWORD;
+
+            if($page_price[$pos_price + 7] === '_') // Si le produit est en mode enchère
+                $pos_price += 44;
+            else
+                $pos_price += 65;
+
+            $end_pos_price = strpos($page_price, '"', $pos_price);
+
+            return substr($page_price, $pos_price, $end_pos_price - $pos_price);
         case "LEBONCOIN": // class : Roh2X _3gP8T _25LNb _35DXM ou json avec clé "price"
             return PRICE_404;
         case "CDISCOUNT":
@@ -120,15 +144,15 @@ function get_price($plateforme, $id, $marche = 'N/A')
                 return CDISCOUNT_TOKEN;
             }
         case 'ALIEXPRESS':
-            $res = curl_sample("https://aliexpress19.p.rapidapi.com/products/" . $id . "?countryCode=FR", "aliexpress19.p.rapidapi.com");
+            $res = curl_rapidapi("https://aliexpress19.p.rapidapi.com/products/" . $id . "?countryCode=FR", "aliexpress19.p.rapidapi.com");
 
             if($res === ERROR_URL || !array_key_exists('skuList', $res))
             {
-                $res = curl_sample("https://ali-express1.p.rapidapi.com/product/" . $id . "?language=fr", "ali-express1.p.rapidapi.com");
+                $res = curl_rapidapi("https://ali-express1.p.rapidapi.com/product/" . $id . "?language=fr", "ali-express1.p.rapidapi.com");
 
                 if($res === ERROR_URL || !array_key_exists('priceModule', $res))
                 {
-                    $res = curl_sample("https://aliexpress-unofficial.p.rapidapi.com/product/" . $id . "?country=FR&currency=EUR&locale=FR_FR", "aliexpress-unofficial.p.rapidapi.com");
+                    $res = curl_rapidapi("https://aliexpress-unofficial.p.rapidapi.com/product/" . $id . "?country=FR&currency=EUR&locale=FR_FR", "aliexpress-unofficial.p.rapidapi.com");
 
                     if($res === ERROR_URL || !array_key_exists('prices', $res))
                         return ERROR_URL;
