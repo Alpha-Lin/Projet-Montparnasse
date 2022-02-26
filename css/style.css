@@ -1,7 +1,8 @@
 /* some tags changes */
 
-body {
-  margin: 0px;
+html, body {
+  height: 100%;
+  margin: 0;
 }
 
 fieldset {
@@ -32,6 +33,19 @@ input::placeholder {
 }
 
 /* new class */
+
+.head {
+  /* a non-sticky header, that will stay with u 4ever and ever :-) */
+  top: 0;
+  bottom: 0;
+  position: fixed;
+  width: 100%;
+}
+
+.scrollable {
+  min-height: 100%;
+  margin-bottom: -50px;
+}
 
 .horizontal {
   /* class that makes the navbar to be horizontal */
@@ -111,7 +125,7 @@ i {
 /* style settings for the footer */
 
 .footer {
-  position: absolute;
+  /*position: fixed;*/
   left: 0;
   bottom: 0;
   top: 75%;
@@ -119,6 +133,10 @@ i {
   background-color: rgb(41, 43, 42);
   color: white;
   text-align: center;
+}
+
+.push {
+  height: 50px;
 }
 
 .align {
