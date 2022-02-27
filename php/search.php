@@ -17,6 +17,9 @@ if(!empty($produits_research))
     
     $temps = time();
 
+    echo '<div class="scrollable">
+            <div class="alignProduit">';
+
     foreach ($produits_research as $produit) { // Chaque produit
         $prix = 0;
         $nb_produits_externes = 0;
@@ -43,8 +46,10 @@ if(!empty($produits_research))
         $req_pseudo_vendeur->execute(array($produit['vendeur_id']));
 
         echo '
-        <div class="alignerProduit">
             <div class="produit">
+                <div class="imgObj">
+                    <p>IMAGE</p>
+                </div>
                 <div class="titreObj">
                     <a href="#"><h2>' . htmlspecialchars($produit['nom']) . '</h2></a>
                 </div>
@@ -60,9 +65,10 @@ if(!empty($produits_research))
                 <div class="descObj">
                     <p>Description : ' . htmlspecialchars($produit['description_produit']) . '</p>
                 </div>
-            </div>
-        </div>'; // TODO : envoyer le dernier prix pour montrer l'évolution
+            </div>'; // TODO : envoyer le dernier prix pour montrer l'évolution
     }
+
+    echo '</div></div>';
 }else
     echo '<p>Aucun résultat trouvé.</p>';
 
