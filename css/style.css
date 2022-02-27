@@ -1,6 +1,7 @@
 /* some tags changes */
 
-html, body {
+html,
+body {
   height: 100%;
   margin: 0;
 }
@@ -32,24 +33,15 @@ input::placeholder {
   font-size: 1.5em;
 }
 
-img {
-  width: 100%;
-  height: 100%;
-}
-
 /* new class */
-
-.head {
-  /* a non-sticky header, that will stay with u 4ever and ever :-) */
-  top: 0;
-  bottom: 0;
-  position: fixed;
-  width: 100%;
-}
 
 .scrollable {
   min-height: 100%;
   margin-bottom: -50px;
+}
+
+.main-content {
+  padding-top: 5vh;
 }
 
 .horizontal {
@@ -57,10 +49,11 @@ img {
   list-style-type: none;
   margin: 0;
   padding: 0;
-  overflow: auto;
   background-color: rgb(41, 43, 42);
   width: 100%;
   font-family: sans-serif;
+  top: 0;
+  position: fixed;
 }
 
 .horizontal a {
@@ -112,7 +105,7 @@ i {
 .dropdown-content {
   /* settings of the dropdown menu */
   opacity: 0;
-  position: absolute;
+  position: fixed;
   background-color: #f9f9f9;
   min-width: 100px;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
@@ -130,18 +123,14 @@ i {
 /* style settings for the footer */
 
 .footer {
-  /*position: fixed;*/
+  position: fixed;
   left: 0;
   bottom: 0;
-  top: 75%;
+  top: 80%;
   width: 100%;
   background-color: rgb(41, 43, 42);
   color: white;
   text-align: center;
-}
-
-.push {
-  height: 50px;
 }
 
 .align {
@@ -199,10 +188,9 @@ input[name="tabs"]:checked + label {
 .produit {
   display: grid;
   grid-template-columns: 1fr 200px;
-  grid-template-rows:  auto auto auto auto;
+  grid-template-rows: auto auto auto auto;
   width: 30%;
   background-color: gray;
-  
 }
 
 .imgObj {
@@ -218,14 +206,14 @@ input[name="tabs"]:checked + label {
   grid-row: 4;
 }
 
-.imgObj, .titreObj {
+.imgObj,
+.titreObj {
   text-align: center;
 }
 
 .prixObj {
   grid-column: 2;
   grid-row: 1;
-  
 }
 
 .etatObj {
@@ -243,7 +231,10 @@ input[name="tabs"]:checked + label {
   grid-row: 4;
 }
 
-.prixObj, .etatObj, .vendeurObj, .descObj {
+.prixObj,
+.etatObj,
+.vendeurObj,
+.descObj {
   background-color: lightgray;
 }
 
@@ -252,6 +243,7 @@ input[name="tabs"]:checked + label {
   flex-wrap: wrap;
   order: 2;
   width: 80%;
+  margin-top: 50px;
   margin-left: auto;
 }
 
