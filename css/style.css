@@ -124,6 +124,7 @@ i {
 /* style settings for the footer */
 
 .footer {
+  position: sticky;
   left: 0;
   bottom: 0;
   top: 80%;
