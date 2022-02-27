@@ -42,6 +42,7 @@ input::placeholder {
 
 .main-content {
   padding-top: 5vh;
+  margin-bottom: 5%;
 }
 
 .horizontal {
@@ -123,7 +124,6 @@ i {
 /* style settings for the footer */
 
 .footer {
-  position: fixed;
   left: 0;
   bottom: 0;
   top: 80%;
