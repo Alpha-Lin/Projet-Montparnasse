@@ -1,8 +1,9 @@
-<!DOCTYPE>
+<!DOCTYPE html>
 <html lang="fr">
     
 <head>
     <title>StoncksBay-Paiement</title>
+    <meta charset="UTF-8">
 
 </head>
 <body>
@@ -34,13 +35,13 @@
 
             <p>
                 <label> Numéro 
-                    <input type="text" name="numero" minlength="16" size="19" required min="0">
+                    <input type="number" name="numero" minlength="16" size="19" required min="0">
                 </label>
             </p>
             <p>
             <label> Date de validité </label>
-                <input type="number" name="mois" required placeholder="02" minlength="2" maxlength="2" min="0">/
-                <input type="number" name="year" required placeholder="22" minlength="2" maxlength="2" min="0"> 
+                <input type="number" name="mois" required placeholder="02" min="0" pattern=".{2,2}">/
+                <input type="number" name="year" required placeholder="22" pattern=".{2}" min="0"> 
 
             </p>
 
