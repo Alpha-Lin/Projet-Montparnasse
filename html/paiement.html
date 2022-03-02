@@ -34,17 +34,19 @@
 
             <p>
                 <label> Numéro 
-                    <input type="text" name="numero" minlength="16" size="19" required>
+                    <input type="text" name="numero" minlength="16" size="19" required min="0">
                 </label>
             </p>
             <p>
             <label> Date de validité </label>
-                <input type="month" name="mois"> 
+                <input type="number" name="mois" required placeholder="02" minlength="2" maxlength="2" min="0">/
+                <input type="number" name="year" required placeholder="22" minlength="2" maxlength="2" min="0"> 
+
             </p>
 
             <p>
                 <label> Code sécurité 
-                    <input type="number" name="code" required placeholder="XXXX">
+                    <input type="number" name="code" required placeholder="XXXX" min="0">
                 </label>
             </p>    
 
