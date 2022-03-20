@@ -8,7 +8,7 @@ if(isset($_SESSION['id']))
 
 <?php
 
-require 'html/slideDownMenu.html';  // à déplacer plus tard
+require 'html/slide_down_menu.html';  // à déplacer plus tard
 
 require 'html/sidebar.html';
 
