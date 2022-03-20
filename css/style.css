@@ -282,6 +282,7 @@ input[name="tabs"]:checked + label {
   gap: 10px;
 }
 
+
 .volet {
   z-index: 0;
   position: fixed;
@@ -291,8 +292,10 @@ input[name="tabs"]:checked + label {
   border-radius: 50%;
   text-align: center;
   cursor: pointer;
-  margin-left: 50%;
+  margin-left: 48%;
   margin-top: 15px;
+  transition: top;
+  top: 0;
 }
 
 .arrow {
@@ -302,5 +305,23 @@ input[name="tabs"]:checked + label {
   margin-top: 30px;
   padding: 2px;
   transform: rotate(45deg);
+  transition: transform 1s;
+  height: 0;
+  overflow: hidden;
+}
 
+#wrapper {
+  position: fixed;
+  margin-left: 22%;
+  transition:height ease-out;
+  height:0;
+  overflow:hidden;
+}
+.slideMeDown {
+  font-size:24px;
+  background: lightgray;
+  color:white;
+  width: 800px;
+  height:200px;
+  padding:20px;
 }
