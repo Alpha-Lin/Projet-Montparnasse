@@ -7,6 +7,11 @@
     <link rel="icon" href="../images/Stonks.jpg" type="image/x-icon">   <!-- small picture on the tab -->
     <link rel="stylesheet" href="/css/style.css">  
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> <!-- stylesheet to use little icons-->
+    
+
+    
+    <link rel="stylesheet" href="../css/user.css">
+          <!--style used only for the page-->
 </head>
 <body>
      <ul class="horizontal">
@@ -30,7 +35,8 @@
             </div>
             <div id="right">
                 <p id="nameUserIntroduction"></p>
-                <img id="verfiesUserShowcase" src="" alt="verified">
+                <i class="fa fa-check-circle-o" aria-hidden="true"></i>
+
                 <p>Membre <span id="rankUserShowCase"></span></p>
                 <div id="starsShowcase">
                     <img alt="Stars" src="" id="starsBackgroundShowcase">
@@ -54,7 +60,7 @@
                 </div>
                 <div id="rightArticle">
                     <img id="picUser" alt="User Picture" src="">
-                    <img id="isVerfied" alt="verfied" src="">
+                    <i class="fa fa-check-circle-o" aria-hidden="true"></i>
                     <div id="starsArticle">
                         <img alt="Stars" src="" id="starsBackgroundArticle">
                         <img alt="Stars Foreground" src="" id="starsForegroundArticle">
@@ -63,20 +69,25 @@
                     <p>Par <span id="userNameInArticle"></span> le <span id="dateArticle"></span></p>
                     <p id="descriptionOnArticle">Petite description</p>
                     <p id="priceArticle"><span id="curency"></span></p>
-                    <p id="deliveryDate"></p>
-                    <img alt="delivery truck" src="">
+                    <p id="deliveryDateText">Livré le <span id="deliveryDate"></span>
+                     <i class="fa fa-truck"></i></p>
                 </div>
             </div>
             <div id="bottomArticle">
                 <img alt="Heart" src="">
-                <p>Ajouter au panier
-                    <img src="" alt="cart"></p>
+                <button id="addToCartBtn">
+                    <p>Ajouter au panier
+                        <i class="fa fa-cart-plus" aria-hidden="true"></i>
+
+                   </button>
+
             </div>
         </div>
         
         
         <button id="arrowBtnArticle">
-            <img id=arrowBtnImage alt="arrow" src=""> 
+            <i class="fa fa-arrow-circle-down" aria-hidden="true"></i>
+
         </button>
         <hr>
         <p>Les avis sur <span id="nameUser"></span></p>
@@ -92,7 +103,9 @@
             </div>
         </div>
         <button id="arrowBtnReview">
-            <img id=arrowBtnImage alt="arrow" src=""> 
+            <i class="fa fa-arrow-circle-down" aria-hidden="true"></i>
+
+
         </button>
     <div class="footer">
         <div class="align">
