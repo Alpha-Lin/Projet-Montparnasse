@@ -1,58 +1,53 @@
 <script src="https://www.hCaptcha.com/1/api.js" async defer></script>
+<link rel="stylesheet" href="/css/login.css">
 
-<div class="formulaire">
-    <input type="radio" name="tabs" id="tab1">
-    <label for="tab1">Inscription</label>
-    <input type="radio" name="tabs" id="tab2" checked>
-    <label for="tab2">Connexion</label>
-    <div id="tab-content1" class="tab-content">
-        <fieldset>
-            <form method="POST">
-                <label for="prenom">Prénom</label>
-                <input type="text" id="prenom" name="prenom" maxlength="20" required>
+<input type="radio" name="tabs" id="tab1">
+<label for="tab1">Inscription</label>
+<input type="radio" name="tabs" id="tab2" checked>
+<label for="tab2">Connexion</label>
+<fieldset id="tab-content1" class="tab-content">
+    <form method="POST">
+        <label for="prenom">Prénom</label>
+        <input type="text" id="prenom" name="prenom" maxlength="20" required>
 
-                <label for="nom">Nom</label>
-                <input type="text" id="nom" name="nom" maxlength="20" required>
+        <label for="nom">Nom</label>
+        <input type="text" id="nom" name="nom" maxlength="20" required>
 
-                <label for="pays">Pays : </label>
-                <select id="pays" name="pays" required>
-                    <?php require 'html/liste_pays.html'?>
+        <label for="pays">Pays : </label>
+        <select id="pays" name="pays" required>
+            <?php require 'html/liste_pays.html'?>
 
-                </select><br><br>
+        </select><br><br>
 
-                <label for="pseudo">Pseudonyme</label>
-                <input type="text" id="pseudo" name="pseudo" maxlength="30" required>
+        <label for="pseudo">Pseudonyme</label>
+        <input type="text" id="pseudo" name="pseudo" maxlength="30" required>
 
-                <label for="email">Adresse mail</label>
-                <input type="email" id="email" name="email" required>
+        <label for="email">Adresse mail</label>
+        <input type="email" id="email" name="email" required>
 
-                <script src="js/check_register.js"></script>
+        <script src="js/check_register.js"></script>
 
-                <label for="mdp">Mot de passe</label>
-                <input type="password" id="mdp" name="mdp" onkeyup="check_pass()" required>
+        <label for="mdp">Mot de passe</label>
+        <input type="password" id="mdp" name="mdp" onkeyup="check_pass()" required>
 
-                <label for="conf_mdp">Confirmer le mot de passe</label>
-                <input type="password" id="conf_mdp" onkeyup="check_pass()" required>
+        <label for="conf_mdp">Confirmer le mot de passe</label>
+        <input type="password" id="conf_mdp" onkeyup="check_pass()" required>
 
-                <div class="h-captcha" data-sitekey="e6b60063-290d-4c3b-b52d-5c4a3aba9a7e"></div>
+        <div class="h-captcha" data-sitekey="e6b60063-290d-4c3b-b52d-5c4a3aba9a7e"></div>
 
-                <input type="submit" id="submit" disabled>
-            </form>
-        </fieldset>
-    </div>
-    <div id="tab-content2" class="tab-content">
-        <fieldset>
-            <form method="POST">
-                <label for="log_email">Pseudonyme</label>
-                <input type="text" id="log_pseudo" name="log_pseudo" required>
+        <input type="submit" id="submit" disabled>
+    </form>
+</fieldset>
+<fieldset id="tab-content2" class="tab-content">
+    <form method="POST">
+        <label for="log_email">Pseudonyme</label>
+        <input type="text" id="log_pseudo" name="log_pseudo" required>
 
-                <label for="log_mdp">Mot de passe</label>
-                <input type="password" id="log_mdp" name="log_mdp" required>
+        <label for="log_mdp">Mot de passe</label>
+        <input type="password" id="log_mdp" name="log_mdp" required>
 
-                <div class="h-captcha" data-sitekey="e6b60063-290d-4c3b-b52d-5c4a3aba9a7e"></div>
+        <div class="h-captcha" data-sitekey="e6b60063-290d-4c3b-b52d-5c4a3aba9a7e"></div>
 
-                <input type="submit">
-            </form>
-        </fieldset>
-    </div>    
-</div>
+        <input type="submit">
+    </form>
+</fieldset>

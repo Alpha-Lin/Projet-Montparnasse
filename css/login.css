@@ -1,0 +1,25 @@
+main {
+  font-family: sans-serif;
+  margin-top: 7%;
+  margin-left: 25%;
+  margin-right: 25%;
+  background-color: inherit;
+}
+
+fieldset {
+  border-radius: 20px;
+  background-color: white;
+}
+
+label:hover {
+  transition: 0.3s;
+}
+
+.tab-content {
+  display: none;
+}
+
+#tab1:checked ~ #tab-content1,
+#tab2:checked ~ #tab-content2 {
+  display: block;
+}
