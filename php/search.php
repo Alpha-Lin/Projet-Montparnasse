@@ -1,6 +1,7 @@
 <?php
 // TODO : corriger la recherche
-$req = $bdd->prepare('SELECT id, nom, description_produit, vendeur_id, etat FROM produit WHERE nom LIKE ? ORDER BY premium LIMIT 10');
+echo '<link rel="stylesheet" href="/css/search.css">';
+$req = $bdd->prepare('SELECT id, nom, description_produit, vendeur_id, etat FROM produit WHERE nom LIKE ? ORDER BY premium LIMIT 9');
 $req->execute(array('%' . $_GET['search'] . '%'));
 
 $produits_research = $req->fetchAll(PDO::FETCH_ASSOC);
@@ -15,10 +16,10 @@ if(!empty($produits_research))
     $req_prix_externe = $bdd->prepare('SELECT prix FROM produit_externe WHERE id = ?');
     $req_update_final_price = $bdd->prepare('UPDATE produit SET dernier_prix = ? WHERE id = ?');
     
-    $temps = time();
+    echo '<h2 class="recherche">Résultat de recherche pour : "' . htmlspecialchars($_GET['search']) . '"</h2>
+            <div class="grilleProduits">';
 
-    echo '<div class="scrollable">
-            <div class="alignProduit">';
+    $temps = time();
 
     foreach ($produits_research as $produit) { // Chaque produit
         $prix = 0;
@@ -68,7 +69,7 @@ if(!empty($produits_research))
             </div>'; // TODO : envoyer le dernier prix pour montrer l'évolution
     }
 
-    echo '</div></div>';
+    echo '</div>';
 }else
     echo '<p>Aucun résultat trouvé.</p>';
 

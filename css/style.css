@@ -4,10 +4,7 @@ html,
 body {
   height: 100%;
   margin: 0;
-}
-
-fieldset {
-  border-radius: 20px;
+  background-color: #e4f4fb;
 }
 
 input[type="text"],
@@ -33,21 +30,12 @@ input::placeholder {
   font-size: 1.5em;
 }
 
-/* new class */
-
-.scrollable {
-  min-height: 100%;
-  margin-bottom: -50px;
+main {
+  background-color: white;
 }
 
-.main-content {
-  padding-top: 5vh;
-  margin-bottom: 5%;
-}
-
-.horizontal {
-  /* class that makes the navbar to be horizontal */
-  list-style-type: none;
+nav {
+  /* style that makes the navbar to be horizontal */
   margin: 0;
   padding: 0;
   background-color: rgb(41, 43, 42);
@@ -58,8 +46,8 @@ input::placeholder {
   z-index: 7;
 }
 
-.horizontal a {
-  /* settings of the a tag when influenced by the horizontal class */
+nav a {
+  /* settings of the a tag when influenced by the nav */
   float: left;
   padding: 10px;
   color: white;
@@ -73,7 +61,7 @@ i {
   color: white; /* the color of the little icons */
 }
 
-.horizontal a:hover {
+nav a:hover {
   /* tweek the background of the navbar item that is hovered on */
   transition: 1s;
   background-color: black;
@@ -124,10 +112,9 @@ i {
 
 /* style settings for the footer */
 
-.footer {
+footer {
   position: sticky;
   left: 0;
-  bottom: 0;
   top: 80%;
   width: 100%;
   background-color: rgb(41, 43, 42);
@@ -148,19 +135,6 @@ i {
   vertical-align: bottom;
 }
 
-.formulaire {
-  position: absolute;
-  padding-top: 7%;
-  font-family: sans-serif;
-  left: 25%;
-  right: 25%;
-}
-
-.formulaire label:hover {
-  transition: 0.3s;
-  background-color: white;
-}
-
 input[name="tabs"] {
   display: none;
 }
@@ -176,23 +150,6 @@ input[name="tabs"]:checked + label {
   transition: 0, 3s;
   font-weight: bold;
   border: solid 2px #fff;
-}
-
-.tab-content {
-  display: none;
-}
-
-#tab1:checked ~ #tab-content1,
-#tab2:checked ~ #tab-content2 {
-  display: block;
-}
-
-.produit {
-  display: grid;
-  grid-template-columns: 1fr 200px;
-  grid-template-rows: auto auto auto auto;
-  width: 30%;
-  background-color: gray;
 }
 
 .imgObj {
@@ -240,23 +197,8 @@ input[name="tabs"]:checked + label {
   background-color: lightgray;
 }
 
-.alignProduit {
-  display: flex;
-  flex-wrap: wrap;
-  order: 2;
-  width: 80%;
-  margin-top: 50px;
-  margin-left: auto;
-}
-
-.alignProduit > * {
-  flex-basis: 40%;
-  margin: 1em;
-}
-
-
-.circle{
-  background: #FF7A59;
+.circle {
+  background: #ff7a59;
   width: 50px;
   height: 50px;
   border-radius: 50%;
@@ -281,7 +223,6 @@ input[name="tabs"]:checked + label {
   margin-left: 0.5%;
   gap: 10px;
 }
-
 
 .volet {
   z-index: 0;
@@ -313,15 +254,15 @@ input[name="tabs"]:checked + label {
 #wrapper {
   position: fixed;
   margin-left: 22%;
-  transition:height ease-out;
-  height:0;
-  overflow:hidden;
+  transition: height ease-out;
+  height: 0;
+  overflow: hidden;
 }
 .slideMeDown {
-  font-size:24px;
+  font-size: 24px;
   background: lightgray;
-  color:white;
+  color: white;
   width: 800px;
-  height:200px;
-  padding:20px;
+  height: 200px;
+  padding: 20px;
 }
