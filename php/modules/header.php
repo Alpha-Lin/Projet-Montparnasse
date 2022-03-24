@@ -4,6 +4,7 @@ require 'html/header.html';
 if(isset($_SESSION['id']))
     echo '<a href="?i=upload_announcement" style="float: right"><i class="fa fa-plus" aria-hidden="true"></i></a>';
 ?>
+
 </nav> 
 
 <?php
