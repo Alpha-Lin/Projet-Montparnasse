@@ -23,12 +23,47 @@
     background-color: red;
     grid-area: 2 / 1 / 3 / 4;
 }
+
+/* Individual Article*/
+.article{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    background-color: white;
+}
+
+/* Top part of an article */
+#topArticle { 
+    grid-area: 1 / 1 / 2 / 3; 
+    background-color: purple;
+}
+
+/* Center-left part of an article */
+#leftArticle {
+    grid-area: 2 / 1 / 5 / 2; 
+    background-color: aqua;
+}
+
+/* Center-right part of an article */
+#rightArticle { 
+    grid-area: 2 / 2 / 5 / 3; 
+    background-color: hotpink;
+}
+
+/* Bottom part of an article */
+#bottomArticle {
+    grid-area: 5 / 1 / 6 / 3; 
+    background-color: darkcyan;
+}
+
 /* Div that contain review */
 #commentSection{
     background-color: blue;
     grid-area: 3 / 1 / 4 / 4;
 }
-/* SIngle review */
+/* Single review */
 .review{
     background-color: white;
     margin: 10px;
