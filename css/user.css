@@ -1,0 +1,28 @@
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+}
+#mainIntroductionUser{
+    background-color: green;
+    grid-area: 1 / 1 / 2 / 3;
+}
+#rankingInfo{
+    background-color: yellow;
+    grid-area: 1 / 3 / 2 / 4;
+}
+.showCaseDiv{
+    background-color: red;
+    grid-area: 2 / 1 / 3 / 4;
+}
+#commentSection{
+    background-color: blue;
+    grid-area: 3 / 1 / 4 / 4;
+}
+.review{
+    background-color: white;
+    margin: 10px;
+    border-radius: 10px;
+}
