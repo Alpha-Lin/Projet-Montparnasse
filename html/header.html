@@ -9,13 +9,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> <!-- stylesheet to use little icons-->
 </head>
 <body>
+    <script src="js/header.js"></script>
      <nav>
         <a href="/">LOGO</a>
-        <div class="dropdown">
+        <div class="dropdown" id="dropdown" onclick="dropDownButton()" valeur="closed">
             <button class="dropbtn">
                 <i class="fa fa-search fa-lg"></i>
             </button>
-            <div class="dropdown-content">
+            <div class="dropdown-content" id="dropdown-content">
                 <form action="?i=search">
                     <input placeholder="Rechercher..." type="search" id="search" name="search" required>
                 </form>
