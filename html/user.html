@@ -14,7 +14,7 @@
           <!--style used only for the page-->
 </head>
 <body>
-     <ul class="horizontal">
+        <ul class="horizontal">
         <li><a href="/">LOGO</a></li>
         <li class="dropdown">
             <button class="dropbtn">
@@ -28,85 +28,85 @@
         </li>         
         <li><a href="?i=panier" style="float: right"><i class="fa fa-shopping-basket" aria-hidden="true"></i></a></li>
         <li><a href="?i=Compte" style="float: right"><i class="fa fa-user" aria-hidden="true"></i></a></li>
-        <p id="userName">User: </p>
-        <div id="mainIntroductionUser">
-            <div id="left">
-            
-            </div>
-            <div id="right">
-                <p id="nameUserIntroduction"></p>
-                <i class="fa fa-check-circle-o" aria-hidden="true"></i>
+        <h1 id="userName" class="toCenter">User: </h1>
+        <div class="grid">
+            <div id="mainIntroductionUser">
+                <div id="left">
 
-                <p>Membre <span id="rankUserShowCase"></span></p>
-                <div id="starsShowcase">
-                    <img alt="Stars" src="" id="starsBackgroundShowcase">
-                    <img alt="Stars Foreground" src="" id="starsForegroundShowcase">
                 </div>
-            </div>
-        </div>
-        <div id="rankingInfo">
-            <img id="rankingMedal" src="" alt="medal of ranking">
-            <p><span class="inBold">Score: </span> <span id="numberPoints"></span></p>
-            <p><span class="inBold">Nombre de vente: </span> <span id="numberSell"></span></p>
-            <p><span class="inBold">Nombre d'achat: </span> <span id="numberBuy"></span></p>
-        </div>
-        <hr>
-        <p id="showcaseArticle">Les articles en vente par </p>
-        <div class="article">
-            <p id="articleName"></p>
-            <div id="middlePartArticle">
-                <div id="leftArticle">
-                    <img src="" alt="article picture">
-                </div>
-                <div id="rightArticle">
-                    <img id="picUser" alt="User Picture" src="">
+                <div id="right">
+                    <p id="nameUserIntroduction"></p>
                     <i class="fa fa-check-circle-o" aria-hidden="true"></i>
-                    <div id="starsArticle">
-                        <img alt="Stars" src="" id="starsBackgroundArticle">
-                        <img alt="Stars Foreground" src="" id="starsForegroundArticle">
+                    <p>Membre <span id="rankUserShowCase"></span></p>
+                    <div id="starsShowcase">
+                        <img alt="Stars" src="" id="starsBackgroundShowcase">
+                        <img alt="Stars Foreground" src="" id="starsForegroundShowcase">
                     </div>
-                    <img alt="medal" src="" id="medalUserInArticle">
-                    <p>Par <span id="userNameInArticle"></span> le <span id="dateArticle"></span></p>
-                    <p id="descriptionOnArticle">Petite description</p>
-                    <p id="priceArticle"><span id="curency"></span></p>
-                    <p id="deliveryDateText">Livré le <span id="deliveryDate"></span>
-                     <i class="fa fa-truck"></i></p>
                 </div>
             </div>
-            <div id="bottomArticle">
-                <img alt="Heart" src="">
-                <button id="addToCartBtn">
-                    <p>Ajouter au panier
-                        <i class="fa fa-cart-plus" aria-hidden="true"></i>
-
-                   </button>
-
+            <div id="rankingInfo">
+                <img id="rankingMedal" src="" alt="medal of ranking">
+                <p><span class="inBold">Score: </span> <span id="numberPoints"></span></p>
+                <p><span class="inBold">Nombre de vente: </span> <span id="numberSell"></span></p>
+                <p><span class="inBold">Nombre d'achat: </span> <span id="numberBuy"></span></p>
             </div>
-        </div>
-        
-        
-        <button id="arrowBtnArticle">
-            <i class="fa fa-arrow-circle-down" aria-hidden="true"></i>
+            <hr>
+            <div class="showCaseDiv">
+                <h2 id="showcaseArticle" class="toCenter">Les articles en vente par </h2>
+                <div class="article">
+                    <div id="topArticle">
+                        <p id="articleName" class="toCenter">Nom de l'article</p>
+                    </div>
 
-        </button>
-        <hr>
-        <p>Les avis sur <span id="nameUser"></span></p>
-        <div id="commentSection">
-            <div class="review">
-                <img id="picUser" src="" alt="user pic">
-                <div id="titleNameReview">
-                    <p id="userName"></p>
-                    <img id="medalUserComent" src="" alt="user medal">
+                    <div id="leftArticle">
+                        <img src="" alt="article picture">
+                    </div>
+                    <div id="rightArticle">
+                        <img id="picUser" alt="User Picture" src="">
+                        <i class="fa fa-check-circle-o" aria-hidden="true"></i>
+                        <div id="starsArticle">
+                            <img alt="Stars" src="" id="starsBackgroundArticle">
+                            <img alt="Stars Foreground" src="" id="starsForegroundArticle">
+                        </div>
+                        <img alt="medal" src="" id="medalUserInArticle">
+                        <p>Par <span id="userNameInArticle"></span> le <span id="dateArticle"></span></p>
+                        <p id="descriptionOnArticle">Petite description</p>
+                        <p id="priceArticle"><span id="curency"></span></p>
+                        <p id="deliveryDateText">Livré le         <span id="deliveryDate"></span>
+                            <i class="fa fa-truck"></i></p>
+                    </div>
+                    <div id="bottomArticle">
+                        <img alt="Heart" src="">
+                        <button id="addToCartBtn">
+                            <p>Ajouter au panier
+                                <i class="fa fa-cart-plus" aria-hidden="true"></i></p>
+                           </button>
+                    </div>
                 </div>
-                <p id="review"></p>
-                
+                <a id="arrowBtnArticle" href="" class="toCenter">
+                    <i class="fa fa-arrow-circle-down" aria-hidden="true"></i>
+                </a >
             </div>
-        </div>
-        <button id="arrowBtnReview">
-            <i class="fa fa-arrow-circle-down" aria-hidden="true"></i>
-
-
-        </button>
+            <hr>
+            <div id="commentSection" >
+                <h2 class="toCenter">Les avis sur <span id="nameUser"></span></h2>
+                <div class="review">
+                    <img id="picUser" src="" alt="user pic">
+                    <p id="titleNameReview">
+                        <span id="userName">Name</span>
+                        <img id="medalUserComent" src="" alt="user medal">
+                    </p>
+                    <div id="starsShowcase">
+                        <img alt="Stars" src="" id="starsBackgroundShowcase">
+                        <img alt="Stars Foreground" src="" id="starsForegroundShowcase">
+                    </div>
+                    <p id="review">Lukjbdhjsebfjhsef</p>
+                </div>
+            </div>
+            <a id="arrowBtnReview" href="" class="toCenter">
+                <i class="fa fa-arrow-circle-down" aria-hidden="true"></i>
+            </a>
+    </div>
     <div class="footer">
         <div class="align">
             <u class>Truc :</u>

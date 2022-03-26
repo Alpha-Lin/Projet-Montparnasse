@@ -1,0 +1,29 @@
+main {
+  margin-left: 20%;
+  margin-right: 20%;
+  border: solid 2px blue;
+  margin-top: 50px;
+  padding-bottom: 18%;
+  padding-left: 2.4%;
+  padding-right: 2.4%;
+  border-radius: 10px;
+}
+
+.grilleProduits {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  row-gap: 2%;
+}
+
+.produit {
+  display: grid;
+  grid-template-columns: 1fr 200px;
+  grid-template-rows: auto auto auto auto;
+  width: 30%;
+  background-color: gray;
+}
+
+.recherche {
+  text-align: center;
+}
