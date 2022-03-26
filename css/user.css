@@ -8,6 +8,14 @@
     grid-column-gap: 0px;
     grid-row-gap: 0px;
 }
+
+/* Class to center every elements who required it */
+.toCenter{
+    margin: auto;
+    text-align: center;
+
+}
+
 /* User Showcase */
 #mainIntroductionUser{
     background-color: green;
@@ -67,6 +75,7 @@
     background-color: blue;
     grid-area: 3 / 1 / 4 / 4;
 }
+
 /* Single review */
 .review{
     background-color: white;
@@ -74,3 +83,4 @@
     border-radius: 10px;
     padding: 5px;
 }
+
