@@ -75,7 +75,8 @@ nav a:hover {
   overflow: hidden;
 }
 
-.dropdown, .dropdown > * {
+.dropdown,
+.dropdown > * {
   cursor: pointer;
 }
 
@@ -84,8 +85,6 @@ nav a:hover {
   transition: 1s;
   background-color: black;
 }
-
-
 
 .dropdown .dropbtn {
   /* the settings of the navbar item that make the dropdown menu appear  */
@@ -149,51 +148,6 @@ input[name="tabs"]:checked + label {
   transition: 0, 3s;
   font-weight: bold;
   border: solid 2px #fff;
-}
-
-.imgObj {
-  grid-column: 1;
-  grid-row: span 3;
-  align-items: center;
-  background-color: black;
-  color: white;
-}
-
-.titreObj {
-  grid-column: 1;
-  grid-row: 4;
-}
-
-.imgObj,
-.titreObj {
-  text-align: center;
-}
-
-.prixObj {
-  grid-column: 2;
-  grid-row: 1;
-}
-
-.etatObj {
-  grid-column: 2;
-  grid-row: 2;
-}
-
-.vendeurObj {
-  grid-column: 2;
-  grid-row: 3;
-}
-
-.descObj {
-  grid-column: 2;
-  grid-row: 4;
-}
-
-.prixObj,
-.etatObj,
-.vendeurObj,
-.descObj {
-  background-color: lightgray;
 }
 
 .circle {
@@ -267,7 +221,6 @@ input[name="tabs"]:checked + label {
   height: 200px;
   padding: 20px;
 }
-
 
 .slideMeDown label {
   padding-right: 160px;
