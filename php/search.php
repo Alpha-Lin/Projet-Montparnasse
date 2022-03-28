@@ -1,6 +1,7 @@
+<link rel="stylesheet" href="/css/search.css">
+
 <?php
 // TODO : corriger la recherche
-echo '<link rel="stylesheet" href="/css/search.css">';
 $req = $bdd->prepare('SELECT id, nom, description_produit, vendeur_id, etat FROM produit WHERE nom LIKE ? ORDER BY premium LIMIT 9');
 $req->execute(array('%' . $_GET['search'] . '%'));
 
