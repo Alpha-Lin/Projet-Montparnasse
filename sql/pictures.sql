@@ -1,0 +1,4 @@
+CREATE TABLE pictures(
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    path varchar(256) NOT NULL
+);
