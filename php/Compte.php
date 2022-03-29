@@ -6,7 +6,7 @@ if(isset($_POST['pseudo'], $_POST['nom'], $_POST['prenom'], $_POST['pays'], $_PO
 {
     if(!empty($_POST['pseudo']) && !empty($_POST['nom']) && !empty($_POST['prenom']) && !empty($_POST['pays']) && !empty($_POST['email']))
     {
-        $req = $bdd->prepare("UPDATE utilisateur SET pseudo = ?, nom = ?, prenom = ?, pays = ?, email = ?, description_perso = ? WHERE id = ?"); // va chercher le hash de l'utilisateur
+        $req = $bdd->prepare("UPDATE users SET pseudo = ?, lastName = ?, firstName = ?, country = ?, email = ?, description = ? WHERE id = ?"); // va chercher le hash de l'utilisateur
         $req->execute(array($_POST['pseudo'],
                             $_POST['nom'],
                             $_POST['prenom'],
@@ -21,7 +21,7 @@ if(isset($_POST['pseudo'], $_POST['nom'], $_POST['prenom'], $_POST['pays'], $_PO
     }
 }
 
-$req = $bdd->prepare("SELECT pseudo, nom, prenom, pays, email, date_inscription, reputation, nb_vente, description_perso FROM utilisateur WHERE id = ?"); // va chercher le hash de l'utilisateur
+$req = $bdd->prepare("SELECT pseudo, lastName, firstName, country, email, registerDate, reputation, sales, description FROM users WHERE id = ?"); // va chercher le hash de l'utilisateur
 $req->execute(array($_SESSION['id']));
 $userInfos = $req->fetch(PDO::FETCH_ASSOC);?>
 
@@ -61,19 +61,19 @@ $userInfos = $req->fetch(PDO::FETCH_ASSOC);?>
             </label>
             <label>
                 <p class="titleInfo">Nom :</p>
-                <span class="edit_input"><?=$userInfos['nom']?></span>
-                <input type="text" class="edit_input" name="nom" value="<?=$userInfos['nom']?>" maxlength="30" required hidden>
+                <span class="edit_input"><?=$userInfos['lastName']?></span>
+                <input type="text" class="edit_input" name="nom" value="<?=$userInfos['lastName']?>" maxlength="30" required hidden>
             </label>
             <label>
                 <p class="titleInfo">Prénom :</p>
-                <span class="edit_input"><?=$userInfos['prenom']?></span>
-                <input type="text" class="edit_input" name="prenom" value="<?=$userInfos['prenom']?>" maxlength="30" required hidden>
+                <span class="edit_input"><?=$userInfos['firstName']?></span>
+                <input type="text" class="edit_input" name="prenom" value="<?=$userInfos['firstName']?>" maxlength="30" required hidden>
             </label>
             <label>
                 <p class="titleInfo">Pays :</p>
-                <span class="edit_input"><?=$userInfos['pays']?></span>
-                <select class="edit_input" name="pays" selected="<?=$userInfos['pays']?>" required hidden>
-                    <option value="<?=$userInfos['pays']?>"><?=$userInfos['pays']?></option>
+                <span class="edit_input"><?=$userInfos['country']?></span>
+                <select class="edit_input" name="pays" selected="<?=$userInfos['country']?>" required hidden>
+                    <option value="<?=$userInfos['country']?>"><?=$userInfos['country']?></option>
                     <?php require 'html/liste_pays.html';?>
                 </select>
             </label>
@@ -82,10 +82,10 @@ $userInfos = $req->fetch(PDO::FETCH_ASSOC);?>
                 <span class="edit_input"><?=$userInfos['email']?></span>
                 <input type="email" class="edit_input" name="email" value="<?=$userInfos['email']?>" required hidden>
             </label>
-            <label><p>Date d'inscription : </p><?=$userInfos['date_inscription']?></label>
+            <label><p>Date d'inscription : </p><?=$userInfos['registerDate']?></label>
             <label>
-                <p class="titleInfo">Description :</p> <?=htmlspecialchars($userInfos['description_perso'])?>
-                <textarea class="edit_input" name="description_perso" maxlength="300" hidden><?=$userInfos['description_perso']?></textarea>
+                <p class="titleInfo">Description :</p> <?=htmlspecialchars($userInfos['description'])?>
+                <textarea class="edit_input" name="description_perso" maxlength="300" hidden><?=$userInfos['description']?></textarea>
             </label>
 
             <script src="js/edit_profile.js"></script>

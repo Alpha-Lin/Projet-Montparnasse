@@ -7,6 +7,9 @@
 <label for="tab2">Connexion</label>
 <fieldset id="tab-content1" class="tab-content">
     <form method="POST">
+        <label for="pseudo">Pseudonyme</label>
+        <input type="text" id="pseudo" name="pseudo" maxlength="30" required>
+
         <label for="prenom">Prénom</label>
         <input type="text" id="prenom" name="prenom" maxlength="20" required>
 
@@ -16,14 +19,13 @@
         <label for="pays">Pays : </label>
         <select id="pays" name="pays" required>
             <?php require 'html/liste_pays.html'?>
-
         </select><br><br>
-
-        <label for="pseudo">Pseudonyme</label>
-        <input type="text" id="pseudo" name="pseudo" maxlength="30" required>
 
         <label for="email">Adresse mail</label>
         <input type="email" id="email" name="email" required>
+
+        <label for="tel">Numéro de téléphone</label>
+        <input type="tel" id="tel" name="tel" required>
 
         <script src="js/check_register.js"></script>
 
@@ -32,6 +34,9 @@
 
         <label for="conf_mdp">Confirmer le mot de passe</label>
         <input type="password" id="conf_mdp" onkeyup="check_pass()" required>
+
+        <label for="newsletter">Newsletter</label>
+        <input type="checkbox" id="newsletter" name="newsletter">
 
         <div class="h-captcha" data-sitekey="e6b60063-290d-4c3b-b52d-5c4a3aba9a7e"></div>
 
