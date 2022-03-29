@@ -229,3 +229,6 @@ input[name="tabs"]:checked + label {
 .slideMeDown select {
   margin-right: 70px;
 }
+.inBold{
+    font-weight: bold;
+}
