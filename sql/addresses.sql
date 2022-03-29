@@ -1,0 +1,9 @@
+CREATE TABLE addresses (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    street VARCHAR(100) NOT NULL,
+    city VARCHAR(30) NOT NULL,
+    postalCode NUMERIC(5) NOT NULL,
+    country VARCHAR(30) NOT NULL,
+    phone NUMERIC(10) NOT NULL,
+    nameResident VARCHAR(30) NOT NULL
+);
