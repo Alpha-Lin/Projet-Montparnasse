@@ -1,6 +1,7 @@
+<link rel="stylesheet" href="/css/search.css">
+
 <?php
 // TODO : corriger la recherche
-echo '<link rel="stylesheet" href="/css/search.css">';
 $req = $bdd->prepare('SELECT id, nom, description_produit, vendeur_id, etat FROM produit WHERE nom LIKE ? ORDER BY premium LIMIT 9');
 $req->execute(array('%' . $_GET['search'] . '%'));
 
@@ -48,24 +49,28 @@ if(!empty($produits_research))
 
         echo '
             <div class="produit">
-                <div class="imgObj">
-                    <p>IMAGE</p>
+                
+                <h3 class="titreProduit">' . htmlspecialchars($produit['nom']) . '</h3>
+
+                <hr>
+
+                <div class="detailsProduit">
+                    <img class="imageProduit">
+
+                    <div class="infosProduit">
+                        <div class="vendeurProduit">
+                            <p>De <a href="#" class="vendeur">' . htmlspecialchars($req_pseudo_vendeur->fetch(PDO::FETCH_COLUMN)) . '</a><br>le {date}</p>
+                        </div>
+
+                        <p class="descProduit">' . htmlspecialchars($produit['description_produit']) . '</p>
+
+                        <p class="prixProduit">' . $prix . '€</p>
+                    </div>
                 </div>
-                <div class="titreObj">
-                    <a href="#"><h2>' . htmlspecialchars($produit['nom']) . '</h2></a>
-                </div>
-                <div class="prixObj">
-                    <p>Prix : ' . $prix . '</p>
-                </div>
-                <div class="etatObj">
-                    <p>état : ' . $produit['etat'] . '</p>
-                </div>
-                <div class="vendeurObj">
-                    <p>Vendeur : ' . htmlspecialchars($req_pseudo_vendeur->fetch(PDO::FETCH_COLUMN)) . '</p>
-                </div>
-                <div class="descObj">
-                    <p>Description : ' . htmlspecialchars($produit['description_produit']) . '</p>
-                </div>
+
+                <p class="ajoutPanier">Ajouter au panier</p>
+
+                
             </div>'; // TODO : envoyer le dernier prix pour montrer l'évolution
     }
 

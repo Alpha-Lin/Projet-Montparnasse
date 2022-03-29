@@ -2,7 +2,36 @@
     <div id="arrow" class="arrow"></div>
 </div>
 <div id="wrapper">
-    <div class="slideMeDown"><p>Ceci est le volet avec les options de tri pour la page des résultats de recherche,<br> il sera déplacé plus tard.</p></div>
+    <div class="slideMeDown">
+        <form>
+            <label>Filtres</label>
+            <label>Tri</label>
+            <label>Résultats par page</label>
+            <br>
+            <select name="filtres" size="4">
+                <option value="vendeur">Meilleurs vendeurs</option>
+                <option value="prix">Meilleurs prix du marché</option>
+                <option value="livraison">Livraison express</option>
+                <option value="moinsDeCinq">Moins de 5$</option>
+            </select>
+            
+            
+            <select name="tri" size="4">
+                <option value="croissant">Prix croissant</option>
+                <option value="décroissant">Prix décroissant</option>
+                <option value="bestToWorth">Du meilleur au pire état</option>
+                <option value="worthToBest">Du pire au meilleur état</option>
+            </select>
+            
+            
+            <select name="nbResult" size="4">
+                <option value="douze">12</option>
+                <option value="trente-deux">32</option>
+                <option value="soixante-quatre">64</option>
+                <option value="cent-vingt-huit">128</option>
+            </select>    
+        </form>
+    </div>
 </div>
 
 <script src="js/slideDownMenu.js"></script>

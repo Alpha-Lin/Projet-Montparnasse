@@ -25,45 +25,76 @@ $req = $bdd->prepare("SELECT pseudo, nom, prenom, pays, email, date_inscription,
 $req->execute(array($_SESSION['id']));
 $userInfos = $req->fetch(PDO::FETCH_ASSOC);?>
 
-<form method="post">
-    <ul>
-        <li><label>
-            Pseudo : <span class="edit_input"><?=$userInfos['pseudo']?></span>
-            <input type="text" class="edit_input" name="pseudo" value="<?=$userInfos['pseudo']?>" maxlength="20" required hidden>
-        </label></li>
-        <li><label>
-            Nom : <span class="edit_input"><?=$userInfos['nom']?></span>
-            <input type="text" class="edit_input" name="nom" value="<?=$userInfos['nom']?>" maxlength="30" required hidden>
-        </label></li>
-        <li><label>
-            Prénom : <span class="edit_input"><?=$userInfos['prenom']?></span>
-            <input type="text" class="edit_input" name="prenom" value="<?=$userInfos['prenom']?>" maxlength="30" required hidden>
-        </label></li>
-        <li><label>
-            Pays : <span class="edit_input"><?=$userInfos['pays']?></span>
-            <select class="edit_input" name="pays" selected="<?=$userInfos['pays']?>" required hidden>
-                <option value="<?=$userInfos['pays']?>"><?=$userInfos['pays']?></option>
-                <?php require 'html/liste_pays.html';?>
-            </select>
-        </label></li>
-        <li><label>
-            Email : <span class="edit_input"><?=$userInfos['email']?></span>
-            <input type="email" class="edit_input" name="email" value="<?=$userInfos['email']?>" required hidden>
-        </label></li>
-        <li>Date d'inscription : <?=$userInfos['date_inscription']?></li>
-        <li>Réputation : <?=$userInfos['reputation']?></li>
-        <li>Nombre de ventes : <?=$userInfos['nb_vente']?></li>
-        <li><label>
-            Description : <?=htmlspecialchars($userInfos['description_perso'])?>
-            <textarea class="edit_input" name="description_perso" maxlength="300" hidden><?=$userInfos['description_perso']?></textarea>
-        </label></li>
-    </ul>
+<link rel="stylesheet" href="/css/compte.css">
 
-    <script src="js/edit_profile.js"></script>
+<div class="headAccount">
+    <h3 class="profilText">Mon profil</h3>
 
-    <img src="images/edit.svg" alt="éditer le profil" width="30" onclick="edit_profile()">
+    <div class="subHeadAccont_1">
+        <div class="iconAccount">
+            <img width="128" height="128"><br>
+            <a href="#">Modifier</a>
+        </div>
 
-    <input type="submit" class="edit_input" hidden>
-</form>
+        <p>PRENOM NOM</p>
+        <p>Membre : ?</p>
+        <p>TODO Stars</p>
+    </div>
 
-<?php echo 'Bienvenu ' . $_SESSION['pseudo'] . ', <a href="logout.php">se déconnecter</a>.';
+    <div>
+        <img class="iconRank" width="64" height="64">
+        <p><span class="boldInfo">Score :</span> pts<br/>
+        <span class="boldInfo">Nombre de ventes :</span><br/>
+        <span class="boldInfo">Nombre d'achats :</span></p>
+    </div>
+</div>
+
+<div class="infosAccount">
+    <h3>Mes informations</h3>
+
+    <div>
+        <form method="post" class="formInfosAccount">
+            <label>
+                <p class="titleInfo">Pseudo :</p>
+                <span class="edit_input"><?=$userInfos['pseudo']?></span>
+                <input type="text" class="edit_input" name="pseudo" value="<?=$userInfos['pseudo']?>" maxlength="20" required hidden>
+            </label>
+            <label>
+                <p class="titleInfo">Nom :</p>
+                <span class="edit_input"><?=$userInfos['nom']?></span>
+                <input type="text" class="edit_input" name="nom" value="<?=$userInfos['nom']?>" maxlength="30" required hidden>
+            </label>
+            <label>
+                <p class="titleInfo">Prénom :</p>
+                <span class="edit_input"><?=$userInfos['prenom']?></span>
+                <input type="text" class="edit_input" name="prenom" value="<?=$userInfos['prenom']?>" maxlength="30" required hidden>
+            </label>
+            <label>
+                <p class="titleInfo">Pays :</p>
+                <span class="edit_input"><?=$userInfos['pays']?></span>
+                <select class="edit_input" name="pays" selected="<?=$userInfos['pays']?>" required hidden>
+                    <option value="<?=$userInfos['pays']?>"><?=$userInfos['pays']?></option>
+                    <?php require 'html/liste_pays.html';?>
+                </select>
+            </label>
+            <label>
+                <p class="titleInfo">Email :</p>
+                <span class="edit_input"><?=$userInfos['email']?></span>
+                <input type="email" class="edit_input" name="email" value="<?=$userInfos['email']?>" required hidden>
+            </label>
+            <label><p>Date d'inscription : </p><?=$userInfos['date_inscription']?></label>
+            <label>
+                <p class="titleInfo">Description :</p> <?=htmlspecialchars($userInfos['description_perso'])?>
+                <textarea class="edit_input" name="description_perso" maxlength="300" hidden><?=$userInfos['description_perso']?></textarea>
+            </label>
+
+            <script src="js/edit_profile.js"></script>
+
+            <input type="submit" class="edit_input" hidden>
+        </form>
+
+        <div id="editButton">
+            <img src="images/edit.svg" alt="éditer le profil" width="30" onclick="edit_profile()" id="edit_button">
+        </div>
+    </div>
+</div>

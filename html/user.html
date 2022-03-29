@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
     <title>StonksBay</title>
     <link rel="icon" href="../images/Stonks.jpg" type="image/x-icon">   <!-- small picture on the tab -->
-    <link rel="stylesheet" href="/css/style.css">  
+    <link rel="stylesheet" href="../css/style.css">  
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> <!-- stylesheet to use little icons-->
     
 
@@ -53,7 +53,8 @@
             <hr>
             <div class="showCaseDiv">
                 <h2 id="showcaseArticle" class="toCenter">Les articles en vente par </h2>
-                <div class="article">
+                <div id="articleConatiner">
+                    <div class="article">
                     <div id="topArticle">
                         <p id="articleName" class="toCenter">Nom de l'article</p>
                     </div>
@@ -72,20 +73,27 @@
                         <p>Par <span id="userNameInArticle"></span> le <span id="dateArticle"></span></p>
                         <p id="descriptionOnArticle">Petite description</p>
                         <p id="priceArticle"><span id="curency"></span></p>
+                        <!-- 
                         <p id="deliveryDateText">Livré le         <span id="deliveryDate"></span>
-                            <i class="fa fa-truck"></i></p>
+                            <i class="fa fa-truck"></i></p>-->
                     </div>
                     <div id="bottomArticle">
-                        <img alt="Heart" src="">
+                        <!-- <img alt="Heart" src=""> -->
                         <button id="addToCartBtn">
                             <p>Ajouter au panier
                                 <i class="fa fa-cart-plus" aria-hidden="true"></i></p>
                            </button>
                     </div>
+                </div>               
+                
+                
                 </div>
-                <a id="arrowBtnArticle" href="" class="toCenter">
-                    <i class="fa fa-arrow-circle-down" aria-hidden="true"></i>
-                </a >
+
+                <p class="toCenter">
+                    <a id="arrowBtnArticle" href="" >
+                        <i class="fa fa-arrow-circle-down" aria-hidden="true"></i>
+                    </a >
+                </p>
             </div>
             <hr>
             <div id="commentSection" >
@@ -102,10 +110,14 @@
                     </div>
                     <p id="review">Lukjbdhjsebfjhsef</p>
                 </div>
+                <p class="toCenter">
+                    <a id="arrowBtnReview" href="" >
+                    <i class="fa fa-arrow-circle-down" aria-hidden="true"></i>
+                    </a>
+                </p>
             </div>
-            <a id="arrowBtnReview" href="" class="toCenter">
-                <i class="fa fa-arrow-circle-down" aria-hidden="true"></i>
-            </a>
+
+
     </div>
     <div class="footer">
         <div class="align">
