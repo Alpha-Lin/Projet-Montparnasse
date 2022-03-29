@@ -7,7 +7,7 @@ if(isset($_POST['log_pseudo'], $_POST['log_mdp'])) // Connexion
     if(!empty($_POST['log_pseudo']) && !empty($_POST['log_mdp']))
     {
         if(check_captcha($_POST['h-captcha-response'])){
-            $reponse = $bdd->prepare("SELECT id, mot_de_passe FROM utilisateur WHERE pseudo = ?"); // va chercher le hash de l'utilisateur
+            $reponse = $bdd->prepare("SELECT id, password FROM users WHERE pseudo = ?"); // va chercher le hash de l'utilisateur
             $reponse->execute(array($_POST['log_pseudo']));
             $userInfos = $reponse->fetch();
 
@@ -31,13 +31,15 @@ if(isset($_POST['log_pseudo'], $_POST['log_mdp'])) // Connexion
     {
         if(check_captcha($_POST['h-captcha-response']))
         {
-            $req = $bdd->prepare('INSERT INTO utilisateur(nom, prenom, pays, pseudo, email, mot_de_passe) VALUE (?, ?, ?, ?, ?, ?)');
-            $req->execute(array($_POST['nom'],
+            $req = $bdd->prepare('INSERT INTO users(pseudo, lastName, firstName, country, email, phone, password, newsletter) VALUE (?, ?, ?, ?, ?, ?, ?, ?)');
+            $req->execute(array($_POST['pseudo'],
+                                $_POST['nom'],
                                 $_POST['prenom'],
                                 $_POST['pays'],
-                                $_POST['pseudo'],
                                 $_POST['email'],
-                                password_hash($_POST['mdp'], PASSWORD_ARGON2ID))
+                                $_POST['tel'],
+                                password_hash($_POST['mdp'], PASSWORD_ARGON2ID),
+                                isset($_POST['newsletter']) ? 1 : 0)
             );
             mis_log('Inscription réussi, veuillez vous connecter.');
         }
