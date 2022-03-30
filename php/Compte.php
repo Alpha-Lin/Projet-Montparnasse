@@ -84,7 +84,7 @@ $userInfos = $req->fetch(PDO::FETCH_ASSOC);?>
             </label>
             <label><p>Date d'inscription : </p><?=$userInfos['registerDate']?></label>
             <label>
-                <p class="titleInfo">Description :</p> <?=htmlspecialchars($userInfos['description'])?>
+                <p class="titleInfo">Description :</p> <span class="edit_input"><?=htmlspecialchars($userInfos['description'])?></span>
                 <textarea class="edit_input" name="description_perso" maxlength="300" hidden><?=$userInfos['description']?></textarea>
             </label>
 

@@ -66,6 +66,7 @@ function curl_sample($url, $header = [])
     return json_decode($response, true);
 }
 
+define('PLATEFORM_NOT_FOUND', '-1');
 define('PRICE_404', '-3');
 define('CDISCOUNT_TOKEN', '-5');
 define('EBAY_KEYWORD', '-6');
@@ -173,17 +174,17 @@ function update_price($id)
 {
     global $bdd;
 
-    $req = $bdd->prepare('SELECT plateforme, produit_id, marche FROM produit_externe WHERE id = ?');
+    $req = $bdd->prepare('SELECT platform, productID, market FROM externalProducts WHERE id = ?');
     $req->execute(array($id));
 
     $produit_externe = $req->fetch(PDO::FETCH_ASSOC);
 
-    $prix = get_price($produit_externe['plateforme'], $produit_externe['produit_id'], $produit_externe['marche']);
+    $prix = get_price($produit_externe['platform'], $produit_externe['productID'], $produit_externe['market']);
 
     if($prix < 0)
         return;
 
-    $req = $bdd->prepare('UPDATE produit_externe SET prix = ?, last_refresh = NOW() WHERE id = ?'); // On met à jour le prix et la datetime de refresh
+    $req = $bdd->prepare('UPDATE externalProducts SET price = ?, lastRefresh = NOW() WHERE id = ?'); // On met à jour le prix et la datetime de refresh
     $req->execute(array($prix,
                         $id));
 }

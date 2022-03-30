@@ -20,7 +20,7 @@ if(isset($_POST['nom_produit'], $_POST['description_produit'], $_POST['etat_prod
 
             $prix_array = array();
 
-            $req = $bdd->prepare('INSERT INTO produit(nom, description_produit, etat, dernier_prix, vendeur_id) VALUE (?, ?, ?, 0, ?)');
+            $req = $bdd->prepare('INSERT INTO products(name, description, conditionP, sellerID) VALUE (?, ?, ?, ?)');
             $req->execute(array($_POST['nom_produit'],
                                 $_POST['description_produit'],
                                 $_POST['etat_produit'],
@@ -65,14 +65,14 @@ if(isset($_POST['nom_produit'], $_POST['description_produit'], $_POST['etat_prod
             $nb_prix = count($prix_array);
 
             if($nb_prix > 0){
-                $req = $bdd->prepare('UPDATE produit SET dernier_prix = ? WHERE id = ?');
+                $req = $bdd->prepare('UPDATE products SET lastPrice = ? WHERE id = ?');
                 $req->execute(array(array_sum($prix_array) / $nb_prix, // Actuellement le positionnement est sur moyen
                                     $produit_id)
                 );
 
                 echo 'Mise en ligne réussie.';
             }else{
-                $req = $bdd->prepare('DELETE FROM produit WHERE id = ?');
+                $req = $bdd->prepare('DELETE FROM products WHERE id = ?');
                 $req->execute(array($produit_id));
 
                 mis_log("Erreur : Aucune URL n'a fonctionné.");
