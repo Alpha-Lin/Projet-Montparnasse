@@ -1,4 +1,7 @@
 CREATE TABLE pictures(
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    path varchar(256) NOT NULL
+    fileName varchar(64) NOT NULL,
+    
+    productID INT NOT NULL,
+    FOREIGN KEY (productID) REFERENCES product(id)
 );
