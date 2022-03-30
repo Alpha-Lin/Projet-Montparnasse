@@ -3,5 +3,5 @@ CREATE TABLE pictures(
     fileName varchar(64) NOT NULL,
     
     productID INT NOT NULL,
-    FOREIGN KEY (productID) REFERENCES product(id)
+    FOREIGN KEY (productID) REFERENCES products(id)
 );
