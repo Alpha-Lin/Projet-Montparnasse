@@ -1,7 +1,7 @@
 CREATE TABLE messages (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     content VARCHAR(100) NOT NULL,
-    releaseDate DATETIME NOT NULL DEFAULT NOW()
+    releaseDate DATETIME NOT NULL DEFAULT NOW(),
 
     authorID INT NOT NULL,
     FOREIGN KEY (authorID) REFERENCES users(id)

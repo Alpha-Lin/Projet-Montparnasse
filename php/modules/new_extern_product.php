@@ -29,14 +29,14 @@ function add_extern_product_in_db($produit_id, $plateforme, $id, $marche = null)
 
     global $bdd;
 
-    $req = $bdd->prepare('INSERT INTO produit_externe(plateforme, produit_id, marche, prix) VALUE (?, ?, ?, ?)'); // Ajoute le produit externe dans la bdd
+    $req = $bdd->prepare('INSERT INTO externalProducts(platform, productID, market, price) VALUE (?, ?, ?, ?)'); // Ajoute le produit externe dans la bdd
     $req->execute(array($plateforme,
                         $id,
                         $marche,
                         $prix)
     );
 
-    $req = $bdd->prepare('INSERT INTO association_externe(produit_id, produit_externe_id) VALUE (?, ?)'); // Associe le nouveau produit externe avec le produit principal
+    $req = $bdd->prepare('INSERT INTO externalAssociations(productID, externalProductID) VALUE (?, ?)'); // Associe le nouveau produit externe avec le produit principal
     $req->execute(array($produit_id,
                         $bdd->lastInsertId())
     );

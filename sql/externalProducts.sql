@@ -3,7 +3,7 @@ CREATE TABLE externalProducts ( -- représente les infos d'un produit
     platform ENUM('AMAZON', 'CDISCOUNT', 'EBAY', 'LEBONCOIN', 'ALIEXPRESS', 'MATERIEL.NET', 'LDLC', 'TOPACHAT') NOT NULL,
     productID VARCHAR(151) NOT NULL,
     market ENUM('FR', 'US', 'UK', 'CA', 'IN'),
-    price SMALLINT unsigned NOT NULL,
-    lastResfresh DATETIME NOT NULL DEFAULT NOW()
+    price FLOAT unsigned NOT NULL,
+    lastRefresh DATETIME NOT NULL DEFAULT NOW()
 );
 -- devise ?
