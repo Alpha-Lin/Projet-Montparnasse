@@ -1,4 +1,4 @@
-CREATE TABLE Notes (
+CREATE TABLE notes (
     rating FLOAT(2, 1),
     voterID INT NOT NULL,
     rankedID INT NOT NULL,
