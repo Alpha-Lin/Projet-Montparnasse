@@ -8,7 +8,7 @@ CREATE TABLE users (
     phone NUMERIC(10) NOT NULL UNIQUE,
     password CHAR(97) NOT NULL,
     registerDate DATETIME NOT NULL DEFAULT NOW(),
-    reputation DECIMAL(2,1) UNSIGNED NOT NULL DEFAULT 0.0 CHECK(reputation <= 5.0),
+    reputation FLOAT(2,1) UNSIGNED NOT NULL DEFAULT 0.0 CHECK(reputation <= 5.0),
     description VARCHAR(300),
     sales INT UNSIGNED NOT NULL DEFAULT 0,
     purchases INT UNSIGNED NOT NULL DEFAULT 0,
