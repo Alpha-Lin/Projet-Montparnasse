@@ -3,7 +3,7 @@ main {
   margin-left: 20%;
   margin-right: 20%;
   padding: 5%;
-  border-radius: 25px 0;
+  border-radius: 25px 25px 0 0;
 }
 
 h3 {
@@ -65,4 +65,26 @@ label {
 
 label > :first-child {
   font-weight: bold;
+}
+
+#addAddressButton {
+  text-align: center;
+}
+
+.editAddressButton {
+  text-align: right;
+  grid-column: 2;
+}
+
+.addressFirstColumn {
+  grid-column: 1;
+}
+
+.addresses > div:not(:last-of-type),
+#addAddressForm {
+  display: grid;
+  border: solid lightgray 3px;
+  border-radius: 10px;
+  padding: 2%;
+  margin: 5% 5%;
 }
