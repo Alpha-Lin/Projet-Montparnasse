@@ -1,6 +1,4 @@
 main {
-  display: grid;
-  grid-template-rows: 1fr 2fr 1fr 1fr 1fr;
   margin-top: 75px;
   margin-left: 20%;
   margin-right: 20%;
@@ -13,45 +11,31 @@ h3 {
 }
 
 .profilText {
-  grid-row: 1;
   grid-column: 1 / 3;
 }
 
 .headAccount {
   display: grid;
   grid-template-columns: 2fr 1fr;
-  grid-template-rows: 25% 3fr;
   column-gap: 5px;
 }
 
 .subHeadAccont_1 {
-  grid-row: 2;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr;
   border-right: 3px solid rgb(137, 147, 165);
 }
 
 .iconAccount {
   grid-row: 1 / 4;
-  grid-column: 1;
 }
 
 .iconAccount > img {
   border-radius: 50%;
 }
 
-.subInfosAccount {
-  display: grid;
-}
-
 .boldInfo {
   font-weight: bold;
-}
-
-.infosAccount {
-  display: grid;
-  grid-template-rows: 15% 3fr;
 }
 
 main > div:not(:first-of-type) {
