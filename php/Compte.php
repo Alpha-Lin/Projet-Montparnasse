@@ -21,7 +21,7 @@ if(isset($_POST['pseudo'], $_POST['nom'], $_POST['prenom'], $_POST['pays'], $_PO
     }
 }
 
-$req = $bdd->prepare("SELECT pseudo, lastName, firstName, country, email, registerDate, reputation, sales, description FROM users WHERE id = ?"); // va chercher le hash de l'utilisateur
+$req = $bdd->prepare("SELECT pseudo, lastName, firstName, country, email, registerDate, reputation, sales, purchases, description, rank, score FROM users WHERE id = ?"); // va chercher le hash de l'utilisateur
 $req->execute(array($_SESSION['id']));
 $userInfos = $req->fetch(PDO::FETCH_ASSOC);?>
 
@@ -36,42 +36,42 @@ $userInfos = $req->fetch(PDO::FETCH_ASSOC);?>
             <a href="#">Modifier</a>
         </div>
 
-        <p>PRENOM NOM</p>
-        <p>Membre : ?</p>
+        <p><?=$userInfos['firstName'] . ' ' . $userInfos['lastName']?></p>
+        <p>Rang : <?=$userInfos['rank']?></p>
         <p>TODO Stars</p>
     </div>
 
     <div>
         <img class="iconRank" width="64" height="64">
-        <p><span class="boldInfo">Score :</span> pts<br/>
-        <span class="boldInfo">Nombre de ventes :</span><br/>
-        <span class="boldInfo">Nombre d'achats :</span></p>
+        <p><span class="boldInfo">Score :</span> <?=$userInfos['score']?> pts<br/>
+        <span class="boldInfo">Nombre de ventes :</span> <?=$userInfos['sales']?><br/>
+        <span class="boldInfo">Nombre d'achats :</span> <?=$userInfos['purchases']?></p>
     </div>
 </div>
 
-<div class="infosAccount">
+<div>
     <h3>Mes informations</h3>
 
     <div>
         <form method="post" class="formInfosAccount">
             <label>
                 <p class="titleInfo">Pseudo :</p>
-                <span class="edit_input"><?=$userInfos['pseudo']?></span>
+                <span class="edit_input"><?=htmlspecialchars($userInfos['pseudo'])?></span>
                 <input type="text" class="edit_input" name="pseudo" value="<?=$userInfos['pseudo']?>" maxlength="20" required hidden>
             </label>
             <label>
                 <p class="titleInfo">Nom :</p>
-                <span class="edit_input"><?=$userInfos['lastName']?></span>
+                <span class="edit_input"><?=htmlspecialchars($userInfos['lastName'])?></span>
                 <input type="text" class="edit_input" name="nom" value="<?=$userInfos['lastName']?>" maxlength="30" required hidden>
             </label>
             <label>
                 <p class="titleInfo">Prénom :</p>
-                <span class="edit_input"><?=$userInfos['firstName']?></span>
+                <span class="edit_input"><?=htmlspecialchars($userInfos['firstName'])?></span>
                 <input type="text" class="edit_input" name="prenom" value="<?=$userInfos['firstName']?>" maxlength="30" required hidden>
             </label>
             <label>
                 <p class="titleInfo">Pays :</p>
-                <span class="edit_input"><?=$userInfos['country']?></span>
+                <span class="edit_input"><?=$userInfos['country']?></span> <!-- Entrée à contrôler -->
                 <select class="edit_input" name="pays" selected="<?=$userInfos['country']?>" required hidden>
                     <option value="<?=$userInfos['country']?>"><?=$userInfos['country']?></option>
                     <?php require 'html/liste_pays.html';?>
@@ -97,4 +97,8 @@ $userInfos = $req->fetch(PDO::FETCH_ASSOC);?>
             <img src="images/edit.svg" alt="éditer le profil" width="30" onclick="edit_profile()" id="edit_button">
         </div>
     </div>
+</div>
+
+<div class="adresses">
+    <h3>Adresses</h3>
 </div>
