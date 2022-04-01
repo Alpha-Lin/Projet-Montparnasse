@@ -1,13 +1,13 @@
-function edit_profile(){
-    const inputs = document.getElementsByClassName("edit_input")
+function edit_input(formID, classInput){
+    const inputs = document.getElementById(formID).getElementsByClassName(classInput)
     
     for (let i = 0; i < inputs.length; i++){
         inputs[i].hidden = !inputs[i].hidden
     }
 }
 
-function add_address(img) {
-    img.src = changeDisplay(document.getElementById('addAddressForm')) ? 'svg/remove-button.svg' : 'svg/add-button.svg'
+function addSomething(img, id) {
+    img.src = changeDisplay(document.getElementById(id)) ? 'svg/remove-button.svg' : 'svg/add-button.svg'
 }
 
 function edit_address(imgNode) {

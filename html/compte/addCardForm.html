@@ -1,0 +1,25 @@
+<form id="addCardForm" method="post" style="display: none;">
+    <h4>Nouvelle carte</h4>
+
+    <label>
+        <p>Nom sur la carte : </p><input type="text" name="cardName" required>
+    </label>
+    <label>
+        <p>Numéro : </p><input type="tel" name="cardNumber" maxlength="16" pattern="[0-9]*" required>
+    </label>
+    <label>
+        <p>Date d'expiration : </p><input type="date" name="cardExp" required>
+    </label>
+    <label>
+        <p>CVC : </p><input type="tel" name="cardCVC" pattern="[0-9]*" maxlength="4" required>
+    </label>
+
+    <input type="hidden" name="addCard">
+
+    <input type="submit" value="Ajouter">
+</form>
+
+<div class="addButton">
+    <img src="svg/add-button.svg" alt="Ajouter une carte bancaire" width="30"
+        onclick="addSomething(this, 'addCardForm')">
+</div>

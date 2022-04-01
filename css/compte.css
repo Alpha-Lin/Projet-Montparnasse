@@ -44,14 +44,14 @@ main > div:not(:first-of-type) {
   border-top: 2px solid lightgray;
 }
 
-.formInfosAccount {
+#formInfosAccount {
   display: grid;
   border: solid lightgray 3px;
   border-radius: 10px;
   margin: 0 10%;
 }
 
-.formInfosAccount > *:not(:first-child) {
+#formInfosAccount > *:not(:first-child) {
   border-top: solid lightgray 3px;
 }
 
@@ -67,7 +67,7 @@ label > :first-child {
   font-weight: bold;
 }
 
-#addAddressButton {
+.addButton {
   text-align: center;
 }
 
@@ -81,10 +81,22 @@ label > :first-child {
 }
 
 .addresses > div:not(:last-of-type),
-#addAddressForm {
+#addAddressForm,
+#addCardForm,
+#bankCards > * {
   display: grid;
   border: solid lightgray 3px;
   border-radius: 10px;
   padding: 2%;
   margin: 5% 5%;
+}
+
+#bankCards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 50px;
+}
+
+#bankCards > * {
+  grid-template-columns: 1fr 1fr;
 }

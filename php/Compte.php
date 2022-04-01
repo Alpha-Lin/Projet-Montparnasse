@@ -1,62 +1,8 @@
 <?php // TODO : edit password
 if(!isset($_SESSION['id']))
     header('location: ?i=login');
-
-if(isset($_POST['pseudo'], $_POST['nom'], $_POST['prenom'], $_POST['pays'], $_POST['email'], $_POST['description_perso']))
-{
-    if(!empty($_POST['pseudo']) && !empty($_POST['nom']) && !empty($_POST['prenom']) && !empty($_POST['pays']) && !empty($_POST['email']))
-    {
-        $req = $bdd->prepare("UPDATE users SET pseudo = ?, lastName = ?, firstName = ?, country = ?, email = ?, description = ? WHERE id = ?"); // va chercher le hash de l'utilisateur
-        $req->execute(array($_POST['pseudo'],
-                            $_POST['nom'],
-                            $_POST['prenom'],
-                            $_POST['pays'],
-                            $_POST['email'],
-                            $_POST['description_perso'],
-                            $_SESSION['id']));
-
-        echo '<p>Mise à jour du profil réussie.</p>';
-
-        $_SESSION['pseudo'] = $_POST['pseudo'];
-    }
-}
-else if(isset($_POST['addAddress'], $_POST['street'], $_POST['city'], $_POST['postalCode'], $_POST['country'], $_POST['phone'], $_POST['nameResident']))
-{
-    $insertAddress = $bdd->prepare("INSERT INTO addresses(street, city, postalCode, country, phone, nameResident) VALUES (?, ?, ?, ?, ?, ?)");
-    $insertAddress->execute(array($_POST['street'],
-                                  $_POST['city'],
-                                  $_POST['postalCode'],
-                                  $_POST['country'],
-                                  $_POST['phone'],
-                                  $_POST['nameResident']));
-
-    $linkAddress = $bdd->prepare("INSERT INTO addressBelongTo(addressID, userID) VALUES (?, ?)");
-    $linkAddress->execute(array($bdd->lastInsertId(),
-                                       $_SESSION['id']));
-
-    echo '<p>Adresse ajoutée.</p>';
-}else if(isset($_POST['addressID'], $_POST['street'], $_POST['city'], $_POST['postalCode'], $_POST['country'], $_POST['phone'], $_POST['nameResident']))
-{
-    $editAddress = $bdd->prepare("UPDATE addresses SET street = ?, city = ?, postalCode = ?, country = ?, phone = ?, nameResident = ? WHERE id = ?");
-    $editAddress->execute(array($_POST['street'],
-                                $_POST['city'],
-                                $_POST['postalCode'],
-                                $_POST['country'],
-                                $_POST['phone'],
-                                $_POST['nameResident'],
-                                $_POST['addressID']));
-
-    echo '<p>Adresse éditée.</p>';
-}
-
-
-$req = $bdd->prepare("SELECT pseudo, lastName, firstName, country, email, registerDate, reputation, sales, purchases, description, rank, score FROM users WHERE id = ?");
-$req->execute(array($_SESSION['id']));
-$userInfos = $req->fetch(PDO::FETCH_ASSOC);
-
-$req = $bdd->prepare("SELECT * FROM addresses INNER JOIN addressBelongTo ON id = addressID WHERE userID = ?");
-$req->execute(array($_SESSION['id']));
-$addresses = $req->fetchAll(PDO::FETCH_ASSOC);?>
+    
+require 'php/modules/accountRequests.php';?>
 
 <link rel="stylesheet" href="/css/compte.css">
 
@@ -86,7 +32,7 @@ $addresses = $req->fetchAll(PDO::FETCH_ASSOC);?>
     <h3>Mes informations</h3>
 
     <div>
-        <form method="post" class="formInfosAccount">
+        <form method="post" id="formInfosAccount">
             <label>
                 <p class="titleInfo">Pseudo :</p>
                 <span class="edit_input"><?=htmlspecialchars($userInfos['pseudo'])?></span>
@@ -127,7 +73,7 @@ $addresses = $req->fetchAll(PDO::FETCH_ASSOC);?>
         </form>
 
         <div id="editButton">
-            <img src="svg/edit.svg" alt="éditer le profil" width="30" onclick="edit_profile()">
+            <img src="svg/edit.svg" alt="éditer le profil" width="30" onclick="edit_input('formInfosAccount', 'edit_input')">
         </div>
     </div>
 </div>
@@ -172,6 +118,9 @@ $addresses = $req->fetchAll(PDO::FETCH_ASSOC);?>
 
                 <div class="editAddressButton">
                     <img src="svg/edit.svg" alt="Editer une adresse" width="30" onclick="edit_address(this)">
+                    <a href="?i=Compte&delAddress=' . $address['id'] . '">
+                        <img src="svg/remove-button.svg" alt="Supprimer une adresse" width="30">
+                    </a>
                 </div>
             </div>';
 
@@ -180,34 +129,62 @@ $addresses = $req->fetchAll(PDO::FETCH_ASSOC);?>
     }
     ?>
 
-    <form id="addAddressForm" method="post" style="display: none;">
-        <h4>Nouvelle adresse</h4>
+    <?php require 'html/compte/addAddressForm.html';?>
+</div>
 
-        <label>
-            <p>Rue : </p><input type="text" name="street" required>
-        </label>
-        <label>
-            <p>Ville : </p><input type="text" name="city" required>
-        </label>
-        <label>
-            <p>Code postal : </p><input type="number" name="postalCode" required>
-        </label>
-        <label>
-            <p>Pays : </p><input type="text" name="country" required>
-        </label>
-        <label>
-            <p>Téléphone : </p><input type="tel" name="phone" required>
-        </label>
-        <label>
-            <p>Nom du résident : </p><input type="text" name="nameResident" required>
-        </label>
+<div>
+    <h3>Mode de paiement</h3>
 
-        <input type="hidden" name="addAddress">
+    <div id="bankCards">
+        <?php
+        if($cards){
+            $i = 1;
+            foreach($cards as $card){
+                echo '
+                <div>
+                    <form method="post" id="formCard_' . $i . '">
+                        <label>
+                            <p>Nom sur la carte :</p>
+                            <span class="edit_card">' . $card['ownerName'] . '</span>
+                            <input type="text" class="edit_card" name="cardName" value="' . $card['ownerName'] . '" maxlength="60" required hidden>
+                        </label>
+                        <label>
+                            <p>Numéro :</p>
+                            <span class="edit_card">' . $card['number'] . '</span>
+                            <input type="tel" class="edit_card" name="cardNumber" value="' . $card['number'] . '" pattern="[0-9]*" maxlength="16" required hidden>
+                        </label>
+                        <label>
+                            <p>Date d\'expiration :</p>
+                            <span class="edit_card">' . $card['expirationDate'] . '</span>
+                            <input type="date" class="edit_card" name="cardExp" value="' . $card['expirationDate'] . '" required hidden>
+                        </label>
+                        <label>
+                            <p>CVC :</p>
+                            <span class="edit_card">' . $card['cvc'] . '</span>
+                            <input type="tel" class="edit_card" name="cardCVC" value="' . $card['cvc'] . '" pattern="[0-9]*" maxlength="4" required hidden>
+                        </label>
 
-        <input type="submit" value="Ajouter">
-    </form>
+                        <input type="hidden" name="cardID" value="' . $card['id'] . '">
 
-    <div id="addAddressButton">
-        <img src="svg/add-button.svg" alt="Ajouter une adresse" width="30" onclick="add_address(this)">
+                        <input type="submit" value="Modifier" class="edit_card" hidden>
+
+                        <div id="editButton">
+                            <img src="svg/edit.svg" alt="éditer le profil" width="30" onclick="edit_input(\'formCard_' . $i . '\', \'edit_card\')">
+                            <a href="?i=Compte&delCard=' . $card['id'] . '">
+                                <img src="svg/remove-button.svg" alt="Supprimer une carte bancaire" width="30">
+                            </a>
+                        </div>
+                    </form>
+
+                    <img src="svg/bank-card.svg" alt="Image carte bancaire" width="200">
+
+                </div>';
+
+                $i++;
+            }
+        }
+        ?>
     </div>
+
+    <?php require 'html/compte/addCardForm.html';?>
 </div>
