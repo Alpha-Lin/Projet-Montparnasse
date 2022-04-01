@@ -11,7 +11,8 @@ input[type="text"],
 input[type="search"],
 input[type="password"],
 input[type="email"],
-input[type="tel"] {
+input[type="tel"],
+input[type="date"] {
   font-size: 16px;
   width: 100%;
   padding-left: 0;

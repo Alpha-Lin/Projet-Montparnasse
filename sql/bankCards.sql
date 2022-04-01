@@ -3,5 +3,8 @@ CREATE TABLE bankCards (
     number NUMERIC(16) NOT NULL,
     expirationDate DATE NOT NULL,
     cvc NUMERIC(4) NOT NULL,
-    ownerName VARCHAR(60)
+    ownerName VARCHAR(60),
+
+    clientID INT NOT NULL,
+    FOREIGN KEY (clientID) REFERENCES users(id)
 );

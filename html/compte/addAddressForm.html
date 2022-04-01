@@ -1,0 +1,30 @@
+<form id="addAddressForm" method="post" style="display: none;">
+    <h4>Nouvelle adresse</h4>
+
+    <label>
+        <p>Rue : </p><input type="text" name="street" required>
+    </label>
+    <label>
+        <p>Ville : </p><input type="text" name="city" required>
+    </label>
+    <label>
+        <p>Code postal : </p><input type="tel" name="postalCode" maxlength="5" pattern="[0-9]*" required>
+    </label>
+    <label>
+        <p>Pays : </p><input type="text" name="country" required>
+    </label>
+    <label>
+        <p>Téléphone : </p><input type="tel" name="phone" required>
+    </label>
+    <label>
+        <p>Nom du résident : </p><input type="text" name="nameResident" required>
+    </label>
+
+    <input type="hidden" name="addAddress">
+
+    <input type="submit" value="Ajouter">
+</form>
+
+<div class="addButton">
+    <img src="svg/add-button.svg" alt="Ajouter une adresse" width="30" onclick="addSomething(this, 'addAddressForm')">
+</div>
