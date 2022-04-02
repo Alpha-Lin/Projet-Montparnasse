@@ -36,3 +36,18 @@
 }
 
 /* Modified from: https://github.com/mukulkant/Star-rating-using-pure-css */
+.userHolder{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 1fr;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+}
+
+.leftUserHolder{
+    grid-area: 1 / 1 / 2 / 2;
+}
+.rightUserHolder{
+    grid-area: 1 / 2 / 2 / 3; }
+}
+
