@@ -9,7 +9,12 @@ if(isset($_SESSION['id']))
 
 <?php
 
-require 'html/slide_down_menu.html';  // à déplacer plus tard
+    if(isset($_GET['search']) && !empty($_GET['search']))
+    {
+        require 'html/slide_down_menu.html';    
+    }
+
+ 
 
 require 'html/sidebar.html';
 
