@@ -1,17 +1,17 @@
 <script src="https://www.hCaptcha.com/1/api.js" async defer></script>
 <script src="js/edit_links_price.js"></script>
 
-<h1>Mettre en ligne une annonce</h1>
+<form class="uploadGrid" method="post">
+    <h1 class="uploadGrid1">Mettre en ligne une annonce</h1>
 
-<form method="post">
-    <label>
-        Nom du produit : <input name="nom_produit" required>
+    <label class="uploadGrid2">
+        Nom du produit : <input type name="nom_produit" required>
     </label>
-    <label>
+    <label class="uploadGrid3">
         Description du produit :
-        <textarea name="description_produit"></textarea>
+        <textarea name="description_produit" rows="10"></textarea>
     </label>
-    <label>
+    <label class="uploadGrid4">
         État du produit : 
         <select name="etat_produit" required>
             <option value=""></option>
@@ -25,7 +25,8 @@
             <option value="Autre">Autre</option>
         </select>
     </label>
-    <label> <!-- TEMPORAIRE -->
+    <!-- TEMPORAIRE 
+    <label> 
         Lien produit externe : 
         <div>
             <input type="url" name="url_prix[]" onchange="correct_url(this)" required>
@@ -34,6 +35,6 @@
     </label>
 
     <div class="h-captcha" data-sitekey="e6b60063-290d-4c3b-b52d-5c4a3aba9a7e"></div>
-
-    <input type="submit">
+-->
+    <input type="submit" class="uploadGrid5">
 </form>
