@@ -31,7 +31,7 @@ if(isset($_POST['log_pseudo'], $_POST['log_mdp'])) // Connexion
     {
         if(check_captcha($_POST['h-captcha-response']))
         {
-            $req = $bdd->prepare('INSERT INTO users(pseudo, lastName, firstName, country, email, phone, password, newsletter) VALUE (?, ?, ?, ?, ?, ?, ?, ?)');
+            $req = $bdd->prepare('INSERT INTO users(pseudo, lastName, firstName, country, email, phone, password, newsletter) VALUES (?, ?, ?, ?, ?, ?, ?, ?)');
             $req->execute(array($_POST['pseudo'],
                                 $_POST['nom'],
                                 $_POST['prenom'],

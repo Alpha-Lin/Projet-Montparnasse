@@ -189,4 +189,34 @@ function update_price($id)
                         $id));
 }
 
+function calculPrixMarketPosition($prix_array, $tailleArray, $position)
+{
+    if($tailleArray == 1)
+        return $prix_array[0];
+
+    $chemin_prix = array();
+    for($prixIndex = 0; $prixIndex < $tailleArray - 1; $prixIndex++) // On calcul les distances qui composent le chemin
+        $chemin_prix[] = sqrt(1 + pow($prix_array[$prixIndex + 1] - $prix_array[$prixIndex], 2));
+
+    $position_prix_chemin = array_sum($chemin_prix) * $position / 100;
+
+    $balade_prix = 0;
+
+    for($prixIndex = 1; $prixIndex < $tailleArray; $prixIndex++){
+        $balade_prix += $chemin_prix[$prixIndex - 1]; // Commence à partir du 2nd indice
+
+        if($position_prix_chemin <= $balade_prix){ // On vient de trouver l'intervalle dans lequel le prix se trouve, on doit calculer la fonction affine de l'intervalle (Yb - Ya) / (Xb - Xa)
+            $pente = $prix_array[$prixIndex] - $prix_array[$prixIndex - 1]; // Xb - Xa vaut tjrs 1
+
+            // On corrige le position du prix voulu sur le chemin pour coller au chemin trouvé
+            for($i = 0; $i < $prixIndex - 1; $i++)
+                $position_prix_chemin -= $chemin_prix[$i];
+
+            $abscisse_x = $position_prix_chemin / $chemin_prix[$prixIndex - 1] + $prixIndex;// Un chemin étant de longeur d'abscisse 1, la valeur sera comprise entre 0 et 1
+
+            return $pente * $abscisse_x + $prix_array[$prixIndex - 1] - $pente * $prixIndex; // ax + b
+        }
+    }
+}
+
 //echo get_price('ALIEXPRESS', 1005002745180207);

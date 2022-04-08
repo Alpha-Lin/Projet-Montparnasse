@@ -69,7 +69,7 @@
             <p>Position prix :</p>
             <label>
                 Prix plus bas du marché
-                <input type="range" min="1" max="100" value="50" required>
+                <input type="range" name="marketPosition" min="1" max="100" value="50" required>
                 Prix plus haute du marché
             </label>
         </div>
@@ -79,12 +79,12 @@
     <hr>
     
     <div class="steps">
-        <button id="previousStep" hidden onclick="switchStep()">Étape précédente</button>
+        <button type="button" id="previousStep" hidden onclick="switchStep()">Étape précédente</button>
         <div id="fakeBlock"></div>
     
         <div class="h-captcha" data-sitekey="e6b60063-290d-4c3b-b52d-5c4a3aba9a7e"></div>
     
-        <button id="nextStep" onclick="switchStep()">Étape suivante</button>
+        <button type="button" id="nextStep" onclick="switchStep()">Étape suivante</button>
         <input type="submit" id="submitProduct" value="Confirmer" hidden>
     </div>
 </form>
