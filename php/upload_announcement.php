@@ -2,26 +2,29 @@
 if(!isset($_SESSION['id']))
     header('location: ?i=Compte');
 
-if(isset($_POST['nom_produit'], $_POST['description_produit'], $_POST['etat_produit'], $_POST['url_prix'], $_FILES['pictures']))
+if(isset($_POST['nom_produit'], $_POST['description_produit'], $_POST['etat_produit'], $_POST['url_prix'], $_POST['marketPosition'], $_FILES['pictures']))
 {
-    if(!empty($_POST['nom_produit']) && !empty($_POST['etat_produit']) && !empty($_POST['url_prix']))
+    if(!empty($_POST['nom_produit']) && !empty($_POST['etat_produit']) && !empty($_POST['url_prix'] && !empty($_POST['marketPosition'])))
     {
         require 'php/modules/hcaptcha.php';
 
-        if(!hcaptcha($_POST['h-captcha-response']))
-            mis_log("Captcha invalide !");
+        //if(!hcaptcha($_POST['h-captcha-response']))
+          //  mis_log("Captcha invalide !");
          if(strlen($_POST['description_produit']) > 300)
             mis_log("Description trop large.");
         else if(count($_POST['url_prix']) > 5)
             mis_log("Trop d'URLs fournis !");
+        else if($_POST['marketPosition'] < 1 || $_POST['marketPosition'] > 100) // Le prix ne peut être en dehors de cet intervalle
+            mis_log("L'intervalle du prix est incorrect !");
         else
         {
             require 'php/modules/new_extern_product.php';
 
             $prix_array = array();
 
-            $req = $bdd->prepare('INSERT INTO products(name, description, conditionP, sellerID) VALUE (?, ?, ?, ?)');
+            $req = $bdd->prepare('INSERT INTO products(name, marketPosition, description, conditionP, sellerID) VALUES (?, ?, ?, ?, ?)');
             $req->execute(array($_POST['nom_produit'],
+                                $_POST['marketPosition'],
                                 $_POST['description_produit'],
                                 $_POST['etat_produit'],
                                 $_SESSION['id'])
@@ -40,7 +43,7 @@ if(isset($_POST['nom_produit'], $_POST['description_produit'], $_POST['etat_prod
 
                 move_uploaded_file($_FILES['pictures']['tmp_name'][$i], $uploadFile);
     
-                $req = $bdd->prepare('INSERT INTO pictures(fileName, productID) VALUE (?, ?)');
+                $req = $bdd->prepare('INSERT INTO pictures(fileName, productID) VALUES (?, ?)');
                 $req->execute(array($uploadFile,
                                     $produit_id));
             }
@@ -81,8 +84,10 @@ if(isset($_POST['nom_produit'], $_POST['description_produit'], $_POST['etat_prod
             $nb_prix = count($prix_array);
 
             if($nb_prix > 0){
+                sort($prix_array);
+
                 $req = $bdd->prepare('UPDATE products SET lastPrice = ? WHERE id = ?');
-                $req->execute(array(array_sum($prix_array) / $nb_prix, // Actuellement le positionnement est sur moyen
+                $req->execute(array(calculPrixMarketPosition($prix_array, $nb_prix, $_POST['marketPosition']), // Prix adapté selon la position voulue
                                     $produit_id)
                 );
 

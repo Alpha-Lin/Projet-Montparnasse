@@ -52,7 +52,7 @@ else if(isset($_POST['addAddress'], $_POST['street'], $_POST['city'], $_POST['po
     echo '<p>Adresse supprimée.</p>';
 }else if(isset($_POST['addCard'], $_POST['cardNumber'], $_POST['cardExp'], $_POST['cardCVC'], $_POST['cardName'])) // Ajout carte bancaire
 {
-    $addBankCard = $bdd->prepare("INSERT INTO bankCards(number, expirationDate, cvc, ownerName, clientID) VALUE (?, ?, ?, ?, ?)");
+    $addBankCard = $bdd->prepare("INSERT INTO bankCards(number, expirationDate, cvc, ownerName, clientID) VALUES (?, ?, ?, ?, ?)");
     $addBankCard->execute(array($_POST['cardNumber'],
                                 $_POST['cardExp'],
                                 $_POST['cardCVC'],

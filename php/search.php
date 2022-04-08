@@ -2,7 +2,7 @@
 
 <?php
 // TODO : corriger la recherche
-$req = $bdd->prepare('SELECT id, name, description, releaseDate, sellerID, conditionP FROM products WHERE name LIKE ? ORDER BY premium LIMIT 9');
+$req = $bdd->prepare('SELECT id, name, description, releaseDate, sellerID, conditionP, marketPosition FROM products WHERE name LIKE ? ORDER BY premium LIMIT 9');
 $req->execute(array('%' . $_GET['search'] . '%'));
 
 $produits_research = $req->fetchAll(PDO::FETCH_ASSOC);
@@ -16,6 +16,7 @@ if(!empty($produits_research))
     $req_last_refresh_produit_externe = $bdd->prepare('SELECT lastRefresh FROM externalProducts WHERE id = ?');
     $req_prix_externe = $bdd->prepare('SELECT price FROM externalProducts WHERE id = ?');
     $req_update_final_price = $bdd->prepare('UPDATE products SET lastPrice = ? WHERE id = ?');
+    $req_main_picture = $bdd->prepare('SELECT fileName FROM pictures WHERE productID = ?');
     
     echo '<h2 class="recherche">Résultat de recherche pour : "' . htmlspecialchars($_GET['search']) . '"</h2>
             <div class="grilleProduits">';
@@ -24,9 +25,10 @@ if(!empty($produits_research))
 
     foreach ($produits_research as $produit) { // Chaque produit
         $prix = 0;
-        $nb_produits_externes = 0;
 
         $req_produits_externes->execute(array($produit['id']));
+
+        $prix_array = array();
 
         foreach ($req_produits_externes->fetchAll(PDO::FETCH_ASSOC) as $produit_externe) { // Chaque produit externe du produit
             $req_last_refresh_produit_externe->execute(array($produit_externe['externalProductID']));
@@ -36,11 +38,10 @@ if(!empty($produits_research))
 
             $req_prix_externe->execute(array($produit_externe['externalProductID']));
 
-            $prix += $req_prix_externe->fetch(PDO::FETCH_COLUMN);
-            $nb_produits_externes++;
+            $prix_array[] = $req_prix_externe->fetch(PDO::FETCH_COLUMN);
         }
 
-        $prix = round($prix / $nb_produits_externes, 2);
+        $prix = calculPrixMarketPosition($prix_array, count($prix_array), $produit['marketPosition']);
 
         $req_update_final_price->execute(array($prix,
                                                $produit['id'])); // Mise à jour du dernier prix
@@ -55,9 +56,9 @@ if(!empty($produits_research))
                 <hr>
 
                 <div class="detailsProduit">
-                    <img class="imageProduit">
+                    <img class="imageProduit" src="' . $req_main_picture->execute(array($produit['id'])) . '">' // TODO : charger l'image
 
-                    <div class="infosProduit">
+                    .'<div class="infosProduit">
                         <div class="vendeurProduit">
                             <p>De <a href="#" class="vendeur">' . htmlspecialchars($req_pseudo_vendeur->fetch(PDO::FETCH_COLUMN)) . '</a><br>le ' . $produit['releaseDate'] . '</p>
                         </div>
