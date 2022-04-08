@@ -2,7 +2,7 @@
 if(!isset($_SESSION['id']))
     header('location: ?i=Compte');
 
-if(isset($_POST['nom_produit'], $_POST['description_produit'], $_POST['etat_produit'], $_POST['url_prix']))
+if(isset($_POST['nom_produit'], $_POST['description_produit'], $_POST['etat_produit'], $_POST['url_prix'], $_FILES['pictures']))
 {
     if(!empty($_POST['nom_produit']) && !empty($_POST['etat_produit']) && !empty($_POST['url_prix']))
     {
@@ -10,7 +10,7 @@ if(isset($_POST['nom_produit'], $_POST['description_produit'], $_POST['etat_prod
 
         if(!hcaptcha($_POST['h-captcha-response']))
             mis_log("Captcha invalide !");
-        else if(strlen($_POST['description_produit']) > 300)
+         if(strlen($_POST['description_produit']) > 300)
             mis_log("Description trop large.");
         else if(count($_POST['url_prix']) > 5)
             mis_log("Trop d'URLs fournis !");
@@ -28,6 +28,22 @@ if(isset($_POST['nom_produit'], $_POST['description_produit'], $_POST['etat_prod
             );
 
             $produit_id = $bdd->lastInsertId();
+
+            mkdir("images/products/" . $produit_id);
+
+            for($i = 0; $i < 4; $i++)
+            {
+                if(empty($_FILES['pictures']['name'][$i]))
+                    continue;
+
+                $uploadFile = "images/products/" . $produit_id . "/" . basename($_FILES['pictures']['name'][$i]);
+
+                move_uploaded_file($_FILES['pictures']['tmp_name'][$i], $uploadFile);
+    
+                $req = $bdd->prepare('INSERT INTO pictures(fileName, productID) VALUE (?, ?)');
+                $req->execute(array($uploadFile,
+                                    $produit_id));
+            }
 
             foreach ($_POST['url_prix'] as $url) {
                 $prix = extract_infos_product($url, $produit_id);

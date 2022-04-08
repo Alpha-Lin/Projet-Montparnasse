@@ -4,7 +4,7 @@ function add_url(url_input)
 {
     const new_url = document.createElement("div")
     new_url.className = "url_prix"
-    new_url.innerHTML = '<input type="url" name="url_prix[]" onchange="correct_url(this)" required><img src="svg/remove-button.svg" width="20" onclick="remove_url(this.parentElement)">'
+    new_url.innerHTML = '<input type="url" name="url_prix[]" onchange="correct_url(this)" class="externalProductsLinks" required><img src="svg/remove-button.svg" width="20" onclick="remove_url(this.parentElement)">'
 
     url_input.parentElement.appendChild(new_url)
 

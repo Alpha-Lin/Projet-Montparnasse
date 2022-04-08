@@ -1,40 +1,90 @@
 <script src="https://www.hCaptcha.com/1/api.js" async defer></script>
 <script src="js/edit_links_price.js"></script>
+<script src="js/uploadProduct.js"></script>
+<script src="js/changeDisplay.js"></script>
 
-<form class="uploadGrid" method="post">
-    <h1 class="uploadGrid1">Mettre en ligne une annonce</h1>
+<link rel="stylesheet" href="/css/uploadProduct.css">
 
-    <label class="uploadGrid2">
-        Nom du produit : <input type name="nom_produit" required>
-    </label>
-    <label class="uploadGrid3">
-        Description du produit :
-        <textarea name="description_produit" rows="10"></textarea>
-    </label>
-    <label class="uploadGrid4">
-        État du produit : 
-        <select name="etat_produit" required>
-            <option value=""></option>
-            <option value="Neuf">Neuf</option>
-            <option value="Comme neuf">Comme neuf</option>
-            <option value="Très bon état">Très bon état</option>
-            <option value="Bon état">Bon état</option>
-            <option value="État correct">État correct</option>
-            <option value="Mauvais état">Mauvais état</option>
-            <option value="Hors service">Hors service</option>
-            <option value="Autre">Autre</option>
-        </select>
-    </label>
-    <!-- TEMPORAIRE 
-    <label> 
-        Lien produit externe : 
-        <div>
-            <input type="url" name="url_prix[]" onchange="correct_url(this)" required>
+<h1>Mettre en ligne une annonce</h1>
+
+<form method="post" id="blocPrincipal" enctype="multipart/form-data">
+    <div id="step1">
+        <input type="text" placeholder="Titre..." name="nom_produit" required>
+
+        <div class="blocImgs">
+            <div>
+                <img src="svg/defaultPicture.svg" alt="Image du produit" width="300" onclick="this.nextElementSibling.click()">
+                <input type="file" name="pictures[]" hidden onchange="showPicture(this)">
+                <img src="svg/remove-button.svg" alt="Image du produit" width="20" onclick="resetPicture(this)" hidden>
+            </div>
+                
+            <div>
+                <img src="svg/defaultPicture.svg" alt="Image du produit" width="80" onclick="this.nextElementSibling.click()">
+                <input type="file" name="pictures[]" hidden onchange="showPicture(this)">
+                <img src="svg/remove-button.svg" alt="Image du produit" width="20" onclick="resetPicture(this)" hidden>
+            </div>
+            <div>
+                <img src="svg/defaultPicture.svg" alt="Image du produit" width="80" onclick="this.nextElementSibling.click()">
+                <input type="file" name="pictures[]" hidden onchange="showPicture(this)">
+                <img src="svg/remove-button.svg" alt="Image du produit" width="20" onclick="resetPicture(this)" hidden>
+            </div>
+            <div>
+                <img src="svg/defaultPicture.svg" alt="Image du produit" width="80" onclick="this.nextElementSibling.click()">
+                <input type="file" name="pictures[]" hidden onchange="showPicture(this)">
+                <img src="svg/remove-button.svg" alt="Image du produit" width="20" onclick="resetPicture(this)" hidden>
+            </div>
+        </div>
+
+        <div class="blocInfosProduit">
+            <label>
+                <p>État du produit :</p>
+                <select name="etat_produit" required>
+                    <option selected value="" hidden></option>
+                    <option value="Neuf">Neuf</option>
+                    <option value="Comme neuf">Comme neuf</option>
+                    <option value="Très bon état">Très bon état</option>
+                    <option value="Bon état">Bon état</option>
+                    <option value="État correct">État correct</option>
+                    <option value="Mauvais état">Mauvais état</option>
+                    <option value="Hors service">Hors service</option>
+                    <option value="Autre">Autre</option>
+                </select>
+            </label>
+
+            <label>
+                <p>Description :</p>
+                <textarea name="description_produit" placeholder="Petite description" maxlength="300" required></textarea>
+            </label>
+        </div>
+    </div>
+
+    <div id="step2" style="display: none;">
+        <div id="externalProducts">
+            <h2>Comparer votre offre avec d'autres sites</h2>
+            <input type="url" name="url_prix[]" onchange="correct_url(this)" class="externalProductsLinks" required>
             <img src="svg/add-button.svg" width="20" onclick="add_url(this)" id="add_url_image">
         </div>
-    </label>
 
-    <div class="h-captcha" data-sitekey="e6b60063-290d-4c3b-b52d-5c4a3aba9a7e"></div>
--->
-    <input type="submit" class="uploadGrid5">
+        <div class="marketPosition">
+            <p>Position prix :</p>
+            <label>
+                Prix plus bas du marché
+                <input type="range" min="1" max="100" value="50" required>
+                Prix plus haute du marché
+            </label>
+        </div>
+
+    </div>
+
+    <hr>
+    
+    <div class="steps">
+        <button id="previousStep" hidden onclick="switchStep()">Étape précédente</button>
+        <div id="fakeBlock"></div>
+    
+        <div class="h-captcha" data-sitekey="e6b60063-290d-4c3b-b52d-5c4a3aba9a7e"></div>
+    
+        <button id="nextStep" onclick="switchStep()">Étape suivante</button>
+        <input type="submit" id="submitProduct" value="Confirmer" hidden>
+    </div>
 </form>

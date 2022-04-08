@@ -68,6 +68,7 @@ require 'php/modules/accountRequests.php';?>
             </label>
 
             <script src="js/edit_profile.js"></script>
+            <script src="js/changeDisplay.js"></script>
 
             <input type="submit" class="edit_input" hidden>
         </form>
