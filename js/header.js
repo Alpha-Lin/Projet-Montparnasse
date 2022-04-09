@@ -34,11 +34,16 @@ btn.addEventListener("click", function open(){
 });
 
 
+/* Doesn't work
 
 panier.addEventListener("mouseover", function(){
+    iconeB.style.opacity = "0";
     iconeB.classList.remove.apply(iconeB.classList, basketClass.split(" "));
-    iconeB.innerHTML = "Panier";
+    iconeB.opacity = "1";
+    setTimeout(() => {iconeB.innerHTML = "Panier";}, 1000);
+    
     panier.addEventListener("mouseout", function(){
+        iconeB.style.opacity = "1";
         iconeB.innerHTML = "";
         iconeB.classList.add.apply(iconeB.classList, basketClass.split(" "));
     });
@@ -51,4 +56,4 @@ user.addEventListener("mouseover", function(){
         iconeU.innerHTML = "";
         iconeU.classList.add.apply(iconeU.classList, userClass.split(" "));
     });
-});
+});*/
