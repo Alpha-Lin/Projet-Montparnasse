@@ -3,6 +3,7 @@ var bouton = document.getElementById("button");
 var arrow = document.getElementById("arrow");
 var content = bouton.getAttribute("valeur");
 
+
 bouton.addEventListener("click", function open() {
     if(content == "closed")
     {

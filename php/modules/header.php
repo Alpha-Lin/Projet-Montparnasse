@@ -14,9 +14,6 @@ if(isset($_SESSION['id']))
         require 'html/slide_down_menu.html';    
     }
 
- 
-
-require 'html/sidebar.html';
 
 ?>
 

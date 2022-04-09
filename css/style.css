@@ -7,6 +7,7 @@ body {
   background-color: #e4f4fb;
 }
 
+
 input[type="text"],
 input[type="search"],
 input[type="password"],
@@ -110,6 +111,10 @@ nav a:hover {
   z-index: -1;
 }
 
+#iconeB {
+  transition-duration: 1s;
+}
+
 /* style settings for the footer */
 
 footer {
@@ -122,8 +127,7 @@ footer {
   color: white;
   text-align: center;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: repeat(3, 70px);
-  row-gap: 10px;
+  grid-template-rows: repeat(3, 45px);
 }
 
 .footerGrid1 {
@@ -136,10 +140,13 @@ footer {
   grid-column: 1/-1;
   grid-row: 2;
   font-family: sans-serif;
+  font-size: 10pt;
 }
 
 
 .formGrid {
+  margin-top: -20px;
+  margin-bottom: 10px;
   grid-column: 2;
   grid-row: 3;
   display: grid;
@@ -202,6 +209,24 @@ input[name="tabs"]:checked + label {
   border: solid 2px #fff;
 }
 
+/* css for the side bar */
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  border: solid rgb(41, 43, 42) 3px;
+  background-color: rgb(41, 43, 42);
+  top: 2.7em;
+  left: 0;
+  z-index: 7;
+}
+
+.sidebar label {
+  color: white;
+  font-family: sans-serif;
+}
+
 .circle {
   background: #ff7a59;
   width: 50px;
@@ -214,20 +239,13 @@ input[name="tabs"]:checked + label {
   cursor: pointer;
 }
 
-.circle p {
+.circle i {
+  font-size: 2rem;
   margin: auto;
-  font-family: sans-serif;
   color: white;
 }
 
-.sidebar {
-  display: flex;
-  flex-direction: column;
-  position: fixed;
-  margin-top: 4%;
-  margin-left: 0.5%;
-  gap: 10px;
-}
+
 
 /* Css for the sorting options window */ 
 
@@ -375,4 +393,42 @@ input[name="tabs"]:checked + label {
   grid-column: 2;
   grid-row: 4;
   justify-self: center;
+}
+
+
+/* css carousel for the home page */
+
+.carousel {
+  position: fixed;
+  border: solid red 3px;
+  margin-top: 10%;
+  margin-left: 40%;
+}
+
+.center {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
+  padding-top: 20%; 
+}
+
+.cadre {
+  display: flex;
+  grid-gap: 1em;
+  overflow: hidden;
+  width: 55em;
+  transition-duration: 1s;
+}
+
+.element {
+  border-radius: 0.5em;
+  border: solid black 2px;
+}
+
+.cadre > .element {
+  display: flex;
+  grid-gap: 1em;
+  transition: all 1s ease-in-out;
 }

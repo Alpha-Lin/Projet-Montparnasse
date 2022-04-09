@@ -6,6 +6,8 @@ error_reporting(E_ALL);
 
 require 'php/modules/header.php';
 
+require 'html/sidebar.html';
+
 if(isset($_GET['i']) && !empty($_GET['i']))
 {
     $path_include = 'php/' . $_GET['i'] . '.php';
@@ -14,6 +16,8 @@ if(isset($_GET['i']) && !empty($_GET['i']))
         require $path_include;
 }else if(isset($_GET['search']) && !empty($_GET['search']))
     require 'php/search.php';
+
+// require 'html/carousel.html';   Tempative de carousel/slideshow
 
 require 'html/footer.html';
 
