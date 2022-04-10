@@ -211,6 +211,81 @@ input[name="tabs"]:checked + label {
 
 /* css for the side bar */
 
+@media only screen and (max-width: 600px){ /* specific style for low resolution screen */
+  .sidebar{
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    height: 100%;
+    border: solid rgb(41, 43, 42) 3px;
+    background-color: rgb(41, 43, 42);
+    top: 2.7em;
+    left: -120px;
+    z-index: 0;
+  }
+
+
+  .circle {
+    background: #ff7a59;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    justify-items: center;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+  }
+
+
+  .btnCategories {
+    z-index: 0;
+    position: fixed;
+    background: rgb(54, 54, 54);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    text-align: center;
+    cursor: pointer;
+    margin-left: -27px;
+    margin-top: 50%;
+    left: 0;
+    top: 0;
+  }
+
+  
+.fleche {
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  margin-top: 22px;
+  margin-left: 20px;
+  padding: 2px;
+  transform: rotate(315deg);
+  transition: transform 1s;
+  height: 0;
+  overflow: hidden;
+}
+
+.sidebar label {
+  font-size: 12pt;
+}
+
+}
+
+.sidebar label {
+  color: white;
+  font-family: sans-serif;
+}
+
+.circle i {
+  font-size: 2rem;
+  margin: auto;
+  color: white;
+}
+
+@media only screen and (min-width: 600px){  /* specific style for high resolution screen */
+
 .sidebar {
   display: flex;
   flex-direction: column;
@@ -223,10 +298,6 @@ input[name="tabs"]:checked + label {
   z-index: 0;
 }
 
-.sidebar label {
-  color: white;
-  font-family: sans-serif;
-}
 
 .circle {
   background: #ff7a59;
@@ -240,12 +311,12 @@ input[name="tabs"]:checked + label {
   cursor: pointer;
 }
 
-.circle i {
-  font-size: 2rem;
-  margin: auto;
-  color: white;
+.fleche {
+  display: none;
 }
 
+
+}
 
 
 /* Css for the sorting options window */ 
@@ -279,8 +350,8 @@ input[name="tabs"]:checked + label {
 
 #wrapper {
   position: fixed;
-  margin-left: 22%;
-  margin-top: -6px;
+  margin-left: 25%;
+  margin-top: -7px;
   transition: height;
   height: 0;
   overflow: hidden;
