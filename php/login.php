@@ -41,7 +41,9 @@ if(isset($_POST['log_pseudo'], $_POST['log_mdp'])) // Connexion
                                 password_hash($_POST['mdp'], PASSWORD_ARGON2ID),
                                 isset($_POST['newsletter']) ? 1 : 0)
             );
-            mis_log('Inscription réussi, veuillez vous connecter.');
+            $_SESSION['pseudo'] = $_POST['log_pseudo'];
+            $_SESSION['id'] = $userInfos[0];
+            header('location: ?i=Compte');
         }
     }
 }else
