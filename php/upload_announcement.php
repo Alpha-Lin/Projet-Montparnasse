@@ -39,9 +39,9 @@ if(isset($_POST['nom_produit'], $_POST['description_produit'], $_POST['etat_prod
                 if(empty($_FILES['pictures']['name'][$i]))
                     continue;
 
-                $uploadFile = "images/products/" . $produit_id . "/" . basename($_FILES['pictures']['name'][$i]);
+                $uploadFile = substr($produit_id . "/" . basename($_FILES['pictures']['name'][$i]), 0, 48);
 
-                move_uploaded_file($_FILES['pictures']['tmp_name'][$i], $uploadFile);
+                move_uploaded_file($_FILES['pictures']['tmp_name'][$i], "images/products/" . $uploadFile);
     
                 $req = $bdd->prepare('INSERT INTO pictures(fileName, productID) VALUES (?, ?)');
                 $req->execute(array($uploadFile,

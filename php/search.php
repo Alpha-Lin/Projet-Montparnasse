@@ -47,6 +47,7 @@ if(!empty($produits_research))
                                                $produit['id'])); // Mise à jour du dernier prix
 
         $req_pseudo_vendeur->execute(array($produit['sellerID']));
+        $req_main_picture->execute(array($produit['id']));
 
         echo '
             <div class="produit">
@@ -56,9 +57,9 @@ if(!empty($produits_research))
                 <hr>
 
                 <div class="detailsProduit">
-                    <img class="imageProduit" src="' . $req_main_picture->execute(array($produit['id'])) . '">' // TODO : charger l'image
+                    <img class="imageProduit" src="images/products/' . htmlspecialchars($req_main_picture->fetch(PDO::FETCH_COLUMN)) . '">
 
-                    .'<div class="infosProduit">
+                    <div class="infosProduit">
                         <div class="vendeurProduit">
                             <p>De <a href="#" class="vendeur">' . htmlspecialchars($req_pseudo_vendeur->fetch(PDO::FETCH_COLUMN)) . '</a><br>le ' . $produit['releaseDate'] . '</p>
                         </div>
