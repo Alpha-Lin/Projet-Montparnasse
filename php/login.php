@@ -42,7 +42,7 @@ if(isset($_POST['log_pseudo'], $_POST['log_mdp'])) // Connexion
                                 isset($_POST['newsletter']) ? 1 : 0)
             );
             $_SESSION['pseudo'] = $_POST['log_pseudo'];
-            $_SESSION['id'] = $userInfos[0];
+            $_SESSION['id'] = $bdd->lastInsertId();
             header('location: ?i=Compte');
         }
     }
