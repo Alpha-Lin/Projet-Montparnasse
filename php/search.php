@@ -66,7 +66,7 @@ if(!empty($produits_research))
 
                         <p class="descProduit">' . htmlspecialchars($produit['description']) . '</p>
 
-                        <p class="prixProduit">' . $prix . '€</p>
+                        <p class="prixProduit">' . number_format($prix, 2, '.', '') . '€</p>
                     </div>
                 </div>
 
