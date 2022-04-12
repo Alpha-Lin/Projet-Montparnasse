@@ -1,9 +1,8 @@
 <?php // TODO : edit password
 if(!isset($_SESSION['id']))
     header('location: ?i=login');
-    
-require 'php/modules/accountRequests.php';?>
 
+require 'php/modules/accountRequests.php';?>
 <link rel="stylesheet" href="/css/compte.css">
 
 <div class="headAccount">
@@ -11,8 +10,14 @@ require 'php/modules/accountRequests.php';?>
 
     <div class="subHeadAccont_1">
         <div class="iconAccount">
-            <img width="128" height="128"><br>
-            <a href="#">Modifier</a>
+            <img src="<?=$userInfos['picture'] === NULL ? "svg/avatar.svg" : "data:image;base64," . base64_encode($userInfos['picture'])?>" width="128" height="128" onclick="this.nextElementSibling.firstElementChild.click()">
+            
+            <form method="post" enctype="multipart/form-data">
+                <input type="file" name="picture" hidden onchange="this.nextElementSibling.click()" accept="image/*">
+                <input type="submit" hidden>
+            </form>
+
+            <p onclick="this.previousElementSibling.firstElementChild.click()">Modifier</p>
         </div>
 
         <p><?=$userInfos['firstName'] . ' ' . $userInfos['lastName']?></p>
@@ -21,7 +26,7 @@ require 'php/modules/accountRequests.php';?>
     </div>
 
     <div>
-        <img class="iconRank" width="64" height="64">
+        <img src="svg/medals/<?=strtolower($userInfos['rank'])?>-medal.svg" class="iconRank" width="64" height="64">
         <p><span class="boldInfo">Score :</span> <?=$userInfos['score']?> pts<br/>
         <span class="boldInfo">Nombre de ventes :</span> <?=$userInfos['sales']?><br/>
         <span class="boldInfo">Nombre d'achats :</span> <?=$userInfos['purchases']?></p>

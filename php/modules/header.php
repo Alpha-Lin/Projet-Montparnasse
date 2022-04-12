@@ -8,13 +8,10 @@ if(isset($_SESSION['id']))
 </nav> 
 
 <?php
-
     if(isset($_GET['search']) && !empty($_GET['search']))
-    {
-        require 'html/slide_down_menu.html';    
-    }
-
-
+        require 'html/slide_down_menu.html';  
+        
+require 'html/sidebar.html';
 ?>
 
 <main>

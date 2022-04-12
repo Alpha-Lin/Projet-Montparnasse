@@ -13,6 +13,18 @@ if(isset($_POST['pseudo'], $_POST['nom'], $_POST['prenom'], $_POST['pays'], $_PO
     echo '<p>Mise à jour du profil réussie.</p>';
 
     $_SESSION['pseudo'] = $_POST['pseudo'];
+}else if(isset($_FILES['picture'])){
+    if(!getimagesize($_FILES['picture']['tmp_name']))
+        echo '<p>Erreur : le fichier envoyé n\'est pas une image !</p>';
+    else if($_FILES['picture']['size'] > 16777216) // Inférieur à 16 Mo
+        echo '<p>Fichier trop lourd, taille maximum 16 Mo.</p>';
+    else{
+        $req = $bdd->prepare("UPDATE users SET picture = ? WHERE id = ?");
+        $req->execute(array(file_get_contents($_FILES["picture"]["tmp_name"]),
+                                            $_SESSION['id']));
+
+        echo '<p>Mise à jour de l\'avatar réussie.</p>';
+    }
 }
 else if(isset($_POST['addAddress'], $_POST['street'], $_POST['city'], $_POST['postalCode'], $_POST['country'], $_POST['phone'], $_POST['nameResident'])) // Ajout adresse
 {
@@ -80,7 +92,7 @@ else if(isset($_POST['addAddress'], $_POST['street'], $_POST['city'], $_POST['po
     echo '<p>Carte bancaire supprimée.</p>';
 }
 
-$req = $bdd->prepare("SELECT pseudo, lastName, firstName, country, email, registerDate, reputation, sales, purchases, description, rank, score FROM users WHERE id = ?");
+$req = $bdd->prepare("SELECT pseudo, lastName, firstName, country, email, registerDate, reputation, sales, purchases, picture, description, rank, score FROM users WHERE id = ?");
 $req->execute(array($_SESSION['id']));
 $userInfos = $req->fetch(PDO::FETCH_ASSOC);
 
