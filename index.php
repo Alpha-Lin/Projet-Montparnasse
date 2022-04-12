@@ -6,8 +6,6 @@ error_reporting(E_ALL);
 
 require 'php/modules/header.php';
 
-require 'html/sidebar.html';
-
 if(isset($_GET['i']) && !empty($_GET['i']))
 {
     $path_include = 'php/' . $_GET['i'] . '.php';

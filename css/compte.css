@@ -28,6 +28,8 @@ h3 {
 
 .iconAccount {
   grid-row: 1 / 4;
+  text-align: center;
+  cursor: pointer;
 }
 
 .iconAccount > img {

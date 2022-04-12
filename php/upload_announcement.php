@@ -34,18 +34,25 @@ if(isset($_POST['nom_produit'], $_POST['description_produit'], $_POST['etat_prod
 
             mkdir("images/products/" . $produit_id);
 
+            $time = time();
+
             for($i = 0; $i < 4; $i++)
             {
                 if(empty($_FILES['pictures']['name'][$i]))
                     continue;
+                else if(!getimagesize($_FILES['pictures']['tmp_name'][$i]))
+                    echo '<p>Attention : Image ' . $i .', le fichier envoyé n\'est pas une image !</p>';
+                else if($_FILES['pictures']['size'][$i] > 16777216) // Inférieur à 16 Mo
+                    echo '<p>Attention : Image ' . $i .', fichier trop lourd, taille maximum 16 Mo.</p>';
+                else{
+                    $uploadFile = substr($produit_id . "/" . $time . basename($_FILES['pictures']['name'][$i]), 0, 48);
 
-                $uploadFile = substr($produit_id . "/" . basename($_FILES['pictures']['name'][$i]), 0, 48);
-
-                move_uploaded_file($_FILES['pictures']['tmp_name'][$i], "images/products/" . $uploadFile);
-    
-                $req = $bdd->prepare('INSERT INTO pictures(fileName, productID) VALUES (?, ?)');
-                $req->execute(array($uploadFile,
-                                    $produit_id));
+                    move_uploaded_file($_FILES['pictures']['tmp_name'][$i], "images/products/" . $uploadFile);
+        
+                    $req = $bdd->prepare('INSERT INTO pictures(fileName, productID) VALUES (?, ?)');
+                    $req->execute(array($uploadFile,
+                                        $produit_id));
+                }
             }
 
             foreach ($_POST['url_prix'] as $url) {

@@ -12,8 +12,8 @@ CREATE TABLE users (
     description VARCHAR(300),
     sales INT UNSIGNED NOT NULL DEFAULT 0,
     purchases INT UNSIGNED NOT NULL DEFAULT 0,
-    picture longblob,
-    rank ENUM("Bronze", "Fer", "Argent", "Or", "Diamant", "Platoie") NOT NULL DEFAULT "Bronze",
+    picture mediumblob,
+    rank ENUM("Bronze", "Fer", "Argent", "Or", "Diamant", "Platine") NOT NULL DEFAULT "Bronze",
     newsletter BOOLEAN NOT NULL DEFAULT 0,
     score INT NOT NULL DEFAULT 0,
     premium BOOLEAN NOT NULL DEFAULT 0
