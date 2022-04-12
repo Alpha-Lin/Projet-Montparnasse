@@ -104,7 +104,7 @@ function extract_infos_product($url, $produit_id)
 
             return add_extern_product_in_db($produit_id, 'LEBONCOIN', $id);
         case "www.cdiscount.com":
-            if(strlen($url) < 107) // Taille minimum
+            if(strlen($url) < 99) // Taille minimum
                 return ERROR_URL;
 
             return add_extern_product_in_db($produit_id, 'CDISCOUNT', $url);
