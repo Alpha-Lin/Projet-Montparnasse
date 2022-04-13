@@ -1,9 +1,73 @@
 <link rel="stylesheet" href="/css/search.css">
 
 <?php
-// TODO : corriger la recherche
-$req = $bdd->prepare('SELECT id, name, description, releaseDate, sellerID, conditionP, marketPosition FROM products WHERE name LIKE ? ORDER BY premium LIMIT 9');
-$req->execute(array('%' . $_GET['search'] . '%'));
+$reqOrder = '';
+
+if(isset($_GET['tri'])){
+    switch($_GET['tri']){
+        case 'priceASC':
+            $reqOrder = ', lastPrice ASC';
+            break;
+        case 'priceDESC':
+            $reqOrder = ', lastPrice DESC';
+            break;
+        case 'bestToWorth':
+            $reqOrder = ', conditionP ASC';
+            break;
+        case 'worthToBest':
+            $reqOrder = ', conditionP DESC';
+            break;
+        default:
+            break;
+    }
+}
+
+$reqFilter = 'WHERE name LIKE :search';
+
+if(isset($_GET['filtres'])){
+    switch($_GET['filtres']){
+        case 'seller':
+            $reqFilter = 'JOIN users ON sellerID = users.id ' . $reqFilter . ' AND reputation > 2.5';
+            break;
+        case 'marketPrice':
+            $reqFilter .= ' AND lastPrice <= (SELECT AVG(lastPrice) FROM products WHERE name LIKE :search)';
+            break;
+        case 'delivering':
+            $reqFilter .= ' AND 1=1'; // TODO later
+            break;
+        case 'lessThanFive':
+            $reqFilter .= ' AND lastPrice <= 5';
+            break;
+        default:
+            break;
+    }
+}
+
+$req = $bdd->prepare('SELECT products.id, name, products.description, releaseDate, sellerID, conditionP, marketPosition FROM products ' . $reqFilter . ' ORDER BY products.premium DESC' . $reqOrder . ' LIMIT :limitRes');
+$req->bindValue(':search', '%' . $_GET['search'] . '%');
+
+if(isset($_GET['nbResult'])){
+    switch($_GET['nbResult']){
+        case '12':
+            $req->bindValue(':limitRes', 12, PDO::PARAM_INT);
+            break;
+        case '32':
+            $req->bindValue(':limitRes', 32, PDO::PARAM_INT);
+            break;
+        case '64':
+            $req->bindValue(':limitRes', 64, PDO::PARAM_INT);
+            break;
+        case '128':
+            $req->bindValue(':limitRes', 128, PDO::PARAM_INT);
+            break;
+        default:
+            $req->bindValue(':limitRes', 9, PDO::PARAM_INT);
+            break;
+    }
+}else
+    $req->bindValue(':limitRes', 9, PDO::PARAM_INT);
+
+$req->execute();
 
 $produits_research = $req->fetchAll(PDO::FETCH_ASSOC);
 

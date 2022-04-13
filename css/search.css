@@ -68,3 +68,7 @@ hr {
 .ajoutPanier {
   text-align: right;
 }
+
+#submitFilters{
+  margin-top: 10px;
+}
