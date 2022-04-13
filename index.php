@@ -12,7 +12,7 @@ if(isset($_GET['i']) && !empty($_GET['i']))
 
     if(dirname($path_include) === 'php')
         require $path_include;
-}else if(isset($_GET['search']) && !empty($_GET['search']))
+}else if(isset($_GET['search']))
     require 'php/search.php';
 
 // require 'html/carousel.html';   Tempative de carousel/slideshow

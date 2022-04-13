@@ -8,9 +8,9 @@ bouton.addEventListener("click", function open() {
     if(content == "closed")
     {
         volet.style.transitionDuration = "1s";
-        volet.style.height = "200px";
+        volet.style.height = "220px";
         button.style.transitionDuration = "1s";
-        button.style.top = "202px"
+        button.style.top = "222px"
         arrow.style.transform = "rotate(225deg)";
         content = "opened";
     }

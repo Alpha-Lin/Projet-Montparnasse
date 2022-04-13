@@ -7,6 +7,7 @@ main {
   padding-left: 2.4%;
   padding-right: 2.4%;
   border-radius: 10px;
+  height: 100%;
 }
 
 .grilleProduits {
@@ -66,4 +67,8 @@ hr {
 
 .ajoutPanier {
   text-align: right;
+}
+
+#submitFilters{
+  margin-top: 10px;
 }
