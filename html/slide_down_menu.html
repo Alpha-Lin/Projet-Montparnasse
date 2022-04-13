@@ -9,27 +9,29 @@
             <label class="grid3">Résultats par page:</label>
             <br>
             <select class="grid4" name="filtres" size="4">
-                <option value="vendeur">Meilleurs vendeurs</option>
-                <option value="prix">Meilleurs prix du marché</option>
-                <option value="livraison">Livraison express</option>
-                <option value="moinsDeCinq">Moins de 5$</option>
+                <option value="seller">Meilleurs vendeurs</option>
+                <option value="marketPrice">Meilleurs prix du marché</option>
+                <option value="delivering">Livraison express</option>
+                <option value="lessThanFive">Moins de 5€</option>
             </select>
-            
-            
+
             <select class="grid5" name="tri" size="4">
-                <option value="croissant">Prix croissant</option>
-                <option value="décroissant">Prix décroissant</option>
+                <option value="priceASC">Prix croissant</option>
+                <option value="priceDESC">Prix décroissant</option>
                 <option value="bestToWorth">Du meilleur au pire état</option>
                 <option value="worthToBest">Du pire au meilleur état</option>
             </select>
-            
-            
+
             <select class="grid6" name="nbResult" size="4">
-                <option value="douze">12</option>
-                <option value="trente-deux">32</option>
-                <option value="soixante-quatre">64</option>
-                <option value="cent-vingt-huit">128</option>
-            </select>    
+                <option value="12">12</option>
+                <option value="32">32</option>
+                <option value="64">64</option>
+                <option value="128">128</option>
+            </select>
+
+            <input type="hidden" name="search" value="<?=htmlspecialchars($_GET['search'])?>">
+
+            <input type="submit" id="submitFilters" value="Rechercher">
         </form>
     </div>
 </div>

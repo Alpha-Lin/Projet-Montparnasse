@@ -411,7 +411,6 @@ input[name="tabs"]:checked + label {
 
 .slideMeDown select option {
   border: solid rgb(41, 43, 42) 3px;
-  background-color: rgb(255, 255, 255);
 }
 
 .slideMeDown select option:first-child {
@@ -424,10 +423,13 @@ input[name="tabs"]:checked + label {
   border-bottom-right-radius: 10px;
 }
 
+.slideMeDown select option:checked{
+  background: #ff9500 -webkit-linear-gradient(bottom, #ff9500 0%, #ff9500 100%);
+}
+
 .inBold {
   font-weight: bold;
 }
-
 
 /* Css for the forms to add a product */
 
