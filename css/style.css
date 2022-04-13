@@ -117,18 +117,39 @@ nav a:hover {
 
 /* style settings for the footer */
 
+@media only screen and (max-width: 600px){
+
 footer {
   display: grid;
   position: sticky;
   left: 0;
   top: 100%;
-  width: 100%;
+  width: 100vh;
   background-color: rgb(41, 43, 42);
   color: white;
   text-align: center;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: repeat(3, 45px);
 }
+
+}
+
+@media only screen and (min-width: 600px){
+
+  footer {
+    display: grid;
+    position: sticky;
+    left: 0;
+    top: 100%;
+    width: 100%;
+    background-color: rgb(41, 43, 42);
+    color: white;
+    text-align: center;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: repeat(3, 45px);
+  }
+  
+  }
 
 .footerGrid1 {
   grid-column: 1/-1;
@@ -357,45 +378,95 @@ input[name="tabs"]:checked + label {
   overflow: hidden;
   z-index: 7;
 }
-.slideMeDown {
-  font-size: 24px;
-  background: rgb(51, 54, 53);
-  color: white;
-  width: 800px;
-  height: 200px;
-  padding: 20px;
+
+
+
+@media only screen and (max-width: 600px){
+  .slideMeDown {
+    font-size: 24px;
+    background: rgb(51, 54, 53);
+    color: white;
+    width: 210px;
+    height: 800px;
+    padding: 20px;
+  }
+
+  .gridBox {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 50px 1fr 50px 1fr 50px 1fr;
+  }
+
+  .grid1 {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .grid2 {
+    grid-column: 1;
+    grid-row: 3;
+  }
+  .grid3 {
+    grid-column: 1;
+    grid-row: 5;
+  }
+  .grid4 {
+    grid-column: 1;
+    grid-row: 2;
+  }
+  .grid5 {
+    grid-column: 1;
+    grid-row: 4;
+  }
+  .grid6 {
+    grid-column: 1;
+    grid-row: 6;
+  }
 }
 
-.gridBox {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 50px 1fr;
-}
+@media only screen and (min-width: 600px){
 
-.grid1 {
-  grid-column: 1;
-  grid-row: 1;
-}
+  .slideMeDown {
+    font-size: 24px;
+    background: rgb(51, 54, 53);
+    color: white;
+    width: 700px;
+    height: 200px;
+    padding: 20px;
+  }
 
-.grid2 {
-  grid-column: 2;
-  grid-row: 1;
-}
-.grid3 {
-  grid-column: 3;
-  grid-row: 1;
-}
-.grid4 {
-  grid-column: 1;
-  grid-row: 2;
-}
-.grid5 {
-  grid-column: 2;
-  grid-row: 2;
-}
-.grid6 {
-  grid-column: 3;
-  grid-row: 2;
+  .gridBox {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 50px 1fr;
+  }
+
+  .grid1 {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .grid2 {
+    grid-column: 2;
+    grid-row: 1;
+  }
+  .grid3 {
+    grid-column: 3;
+    grid-row: 1;
+  }
+  .grid4 {
+    grid-column: 1;
+    grid-row: 2;
+  }
+  .grid5 {
+    grid-column: 2;
+    grid-row: 2;
+  }
+  .grid6 {
+    grid-column: 3;
+    grid-row: 2;
+  }
+
 }
 
 .slideMeDown label {
