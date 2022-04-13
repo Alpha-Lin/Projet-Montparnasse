@@ -7,6 +7,8 @@ $req->execute(array('%' . $_GET['search'] . '%'));
 
 $produits_research = $req->fetchAll(PDO::FETCH_ASSOC);
 
+echo '<h2 class="recherche">Résultat de recherche pour : "' . htmlspecialchars($_GET['search']) . '"</h2>';
+
 if(!empty($produits_research))
 {
     require 'php/modules/price.php';
@@ -17,9 +19,8 @@ if(!empty($produits_research))
     $req_prix_externe = $bdd->prepare('SELECT price FROM externalProducts WHERE id = ?');
     $req_update_final_price = $bdd->prepare('UPDATE products SET lastPrice = ? WHERE id = ?');
     $req_main_picture = $bdd->prepare('SELECT fileName FROM pictures WHERE productID = ?');
-    
-    echo '<h2 class="recherche">Résultat de recherche pour : "' . htmlspecialchars($_GET['search']) . '"</h2>
-            <div class="grilleProduits">';
+
+    echo '<div class="grilleProduits">';
 
     $temps = time();
 
