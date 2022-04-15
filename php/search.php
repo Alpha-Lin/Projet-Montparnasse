@@ -78,10 +78,6 @@ if(!empty($produits_research))
     require 'php/modules/price.php';
 
     $req_pseudo_vendeur = $bdd->prepare('SELECT pseudo FROM users WHERE id = ?');
-    $req_produits_externes = $bdd->prepare('SELECT externalProductID FROM externalAssociations WHERE productID = ?');
-    $req_last_refresh_produit_externe = $bdd->prepare('SELECT lastRefresh FROM externalProducts WHERE id = ?');
-    $req_prix_externe = $bdd->prepare('SELECT price FROM externalProducts WHERE id = ?');
-    $req_update_final_price = $bdd->prepare('UPDATE products SET lastPrice = ? WHERE id = ?');
     $req_main_picture = $bdd->prepare('SELECT fileName FROM pictures WHERE productID = ?');
 
     echo '<div class="grilleProduits">';
@@ -89,28 +85,6 @@ if(!empty($produits_research))
     $temps = time();
 
     foreach ($produits_research as $produit) { // Chaque produit
-        $prix = 0;
-
-        $req_produits_externes->execute(array($produit['id']));
-
-        $prix_array = array();
-
-        foreach ($req_produits_externes->fetchAll(PDO::FETCH_ASSOC) as $produit_externe) { // Chaque produit externe du produit
-            $req_last_refresh_produit_externe->execute(array($produit_externe['externalProductID']));
-
-            if($temps - strtotime($req_last_refresh_produit_externe->fetch(PDO::FETCH_COLUMN)) > 604800) // Si ça fait plus de 1 semaine
-                update_price($produit_externe['externalProductID']); // Mise à jour du prix du produit externe
-
-            $req_prix_externe->execute(array($produit_externe['externalProductID']));
-
-            $prix_array[] = $req_prix_externe->fetch(PDO::FETCH_COLUMN);
-        }
-
-        $prix = calculPrixMarketPosition($prix_array, count($prix_array), $produit['marketPosition']);
-
-        $req_update_final_price->execute(array($prix,
-                                               $produit['id'])); // Mise à jour du dernier prix
-
         $req_pseudo_vendeur->execute(array($produit['sellerID']));
         $req_main_picture->execute(array($produit['id']));
 
@@ -131,7 +105,7 @@ if(!empty($produits_research))
 
                         <p class="descProduit">' . htmlspecialchars($produit['description']) . '</p>
 
-                        <p class="prixProduit">' . number_format($prix, 2, '.', '') . '€</p>
+                        <p class="prixProduit">' . number_format(reloadExternalPrices($produit, $temps), 2, '.', '') . '€</p>
                     </div>
                 </div>
 
