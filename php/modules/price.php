@@ -219,4 +219,35 @@ function calculPrixMarketPosition($prix_array, $tailleArray, $position)
     }
 }
 
+function reloadExternalPrices($produit, $temps){
+    $prix_array = array();
+
+    global $bdd;
+
+    $req_produits_externes = $bdd->prepare('SELECT externalProductID FROM externalAssociations WHERE productID = ?');
+    $req_prix_externe = $bdd->prepare('SELECT price FROM externalProducts WHERE id = ?');
+    $req_last_refresh_produit_externe = $bdd->prepare('SELECT lastRefresh FROM externalProducts WHERE id = ?');
+    $req_update_final_price = $bdd->prepare('UPDATE products SET lastPrice = ? WHERE id = ?');
+
+    $req_produits_externes->execute(array($produit['id']));
+
+    foreach ($req_produits_externes->fetchAll(PDO::FETCH_ASSOC) as $produit_externe) { // Chaque produit externe du produit
+        $req_last_refresh_produit_externe->execute(array($produit_externe['externalProductID']));
+
+        if($temps - strtotime($req_last_refresh_produit_externe->fetch(PDO::FETCH_COLUMN)) > 604800) // Si ça fait plus de 1 semaine
+            update_price($produit_externe['externalProductID']); // Mise à jour du prix du produit externe
+
+        $req_prix_externe->execute(array($produit_externe['externalProductID']));
+
+        $prix_array[] = $req_prix_externe->fetch(PDO::FETCH_COLUMN);
+    }
+
+    $prix = calculPrixMarketPosition($prix_array, count($prix_array), $produit['marketPosition']);
+
+    $req_update_final_price->execute(array($prix,
+                                            $produit['id'])); // Mise à jour du dernier prix
+
+    return $prix;
+}
+
 //echo get_price('ALIEXPRESS', 1005002745180207);
