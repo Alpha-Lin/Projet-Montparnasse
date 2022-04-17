@@ -8,13 +8,27 @@ buttonsWrapper.addEventListener("click", e => {
       item.classList.remove("active")
     );
     if (e.target.classList.contains("first")) {
-      slides.style.transform = "translateX(-0%)";
+      slides.style.transform = "translateX(0px)";
       e.target.classList.add("active");
     } else if (e.target.classList.contains("second")) {
-      slides.style.transform = "translateX(-33.33333333333333%)";
+      if(window.innerWidth < 600)
+      {
+        slides.style.transform = "translateX(-30.2em)";
+      }
+      else
+      {
+        slides.style.transform = "translateX(-33.7em)";
+      }
       e.target.classList.add("active");
     } else if (e.target.classList.contains('third')){
-      slides.style.transform = 'translatex(-66.6666666667%)';
+      if(window.innerWidth < 600)
+      {
+        slides.style.transform = 'translatex(-60.5em)';
+      }
+      else
+      {
+        slides.style.transform = 'translatex(-67.5em)';
+      }
       e.target.classList.add('active');
     }
   }

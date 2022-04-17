@@ -15,7 +15,10 @@ if(isset($_GET['i']) && !empty($_GET['i']))
 }else if(isset($_GET['search']))
     require 'php/search.php';
 
-// require 'html/carousel.html';   Tempative de carousel/slideshow
+if($_SERVER['REQUEST_URI'] == "/")
+{
+    require 'html/carousel.html';
+}
 
 require 'html/footer.html';
 
