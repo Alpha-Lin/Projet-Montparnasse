@@ -1,6 +1,7 @@
+@media only screen and (max-width: 600px){
+
 main {
   margin-left: 20%;
-  margin-right: 20%;
   border: solid 2px blue;
   margin-top: 50px;
   padding-bottom: 18%;
@@ -8,7 +9,27 @@ main {
   padding-right: 2.4%;
   border-radius: 10px;
   height: 100%;
+  width: 100%;
 }
+
+}
+
+@media only screen and (min-width: 600px){
+
+  main {
+    margin-left: 20%;
+    margin-right: 20%;
+    border: solid 2px blue;
+    margin-top: 50px;
+    padding-bottom: 18%;
+    padding-left: 2.4%;
+    padding-right: 2.4%;
+    border-radius: 10px;
+    height: 100%;
+  }
+  
+  }
+
 
 .grilleProduits {
   display: grid;
@@ -71,4 +92,8 @@ hr {
 
 #submitFilters{
   margin-top: 10px;
+}
+
+h2 {
+  text-align: center;
 }

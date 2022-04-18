@@ -91,12 +91,14 @@ if(!empty($produits_research))
         echo '
             <div class="produit">
                 
-                <h3 class="titreProduit">' . htmlspecialchars($produit['name']) . '</h3>
+                <h3 class="titreProduit"><a href="?i=product&id=' . $produit['id'] . '">' . htmlspecialchars($produit['name']) . '</a></h3>
 
                 <hr>
 
                 <div class="detailsProduit">
-                    <img class="imageProduit" src="images/products/' . htmlspecialchars($req_main_picture->fetch(PDO::FETCH_COLUMN)) . '">
+                    <a href="?i=product&id=' . $produit['id'] . '">
+                        <img class="imageProduit" src="images/products/' . htmlspecialchars($req_main_picture->fetch(PDO::FETCH_COLUMN)) . '">
+                    </a>
 
                     <div class="infosProduit">
                         <div class="vendeurProduit">

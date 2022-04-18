@@ -14,8 +14,8 @@ if(isset($_GET['i']) && !empty($_GET['i']))
         require $path_include;
 }else if(isset($_GET['search']))
     require 'php/search.php';
-
-// require 'html/carousel.html';   Tempative de carousel/slideshow
+else
+    require 'php/carousel.php';
 
 require 'html/footer.html';
 
