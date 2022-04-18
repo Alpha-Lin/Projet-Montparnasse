@@ -7,7 +7,6 @@ body {
   background-color: #e4f4fb;
 }
 
-
 input[type="text"],
 input[type="search"],
 input[type="password"],
@@ -242,7 +241,7 @@ input[name="tabs"]:checked + label {
     background-color: rgb(41, 43, 42);
     top: 2.7em;
     left: -120px;
-    z-index: 0;
+    z-index: 7;
   }
 
 
@@ -256,6 +255,7 @@ input[name="tabs"]:checked + label {
     align-items: center;
     text-align: center;
     cursor: pointer;
+    z-index: 7;
   }
 
 
@@ -276,7 +276,7 @@ input[name="tabs"]:checked + label {
 
   
 .fleche {
-  border: solid white;
+  border: solid red;
   border-width: 0 3px 3px 0;
   display: inline-block;
   margin-top: 22px;
@@ -543,11 +543,27 @@ input[name="tabs"]:checked + label {
 
 /* css carousel for the home page */
 
-.carousel {
-  position: fixed;
-  border: solid red 3px;
-  margin-top: 10%;
-  margin-left: 40%;
+@media only screen and (max-width: 600px){
+
+  .carousel {
+    position: absolute;
+    overflow: hidden;
+    width: 100%;
+    margin-top: 10%;
+  }
+
+}
+
+@media only screen and (min-width: 600px){
+
+  .carousel {
+    position: absolute;
+    overflow: hidden;
+    width: 36%;
+    margin-top: 10%;
+    margin-left: 10%;
+  }
+
 }
 
 .center {
@@ -556,15 +572,30 @@ input[name="tabs"]:checked + label {
   flex-direction: column;
   height: 100%;
   justify-content: center;
-  padding-top: 20%; 
 }
 
-.cadre {
-  display: flex;
-  grid-gap: 1em;
-  overflow: hidden;
-  width: 55em;
-  transition-duration: 1s;
+@media only screen and (max-width: 600px){
+
+  .cadre {
+    display: flex;
+    grid-gap: 1em;
+    overflow: hidden;
+    width: 90em;
+    padding-left: 60.5em;
+    transition-duration: 1s;
+  }
+
+}
+
+@media only screen and (min-width: 600px){
+  .cadre {
+    display: flex;
+    grid-gap: 1em;
+    overflow: hidden;
+    width: 100em;
+    padding-left: 67.5em;
+    transition-duration: 1s;
+  }
 }
 
 .element {
@@ -576,4 +607,60 @@ input[name="tabs"]:checked + label {
   display: flex;
   grid-gap: 1em;
   transition: all 1s ease-in-out;
+}
+
+.produitCarousel {
+  display: grid;
+  grid-template-rows: auto auto auto auto;
+  grid-template-columns: repeat(auto-fit, minmax(1fr, 1fr));
+  border: solid 2px #5b6572;
+  border-radius: 2%;
+}
+
+.recherche,
+.titreProduitCarousel {
+  text-align: center;
+}
+
+hr {
+  width: 100%;
+  color: #b5bcc7;
+}
+
+.detailsProduitCarousel {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 5px;
+}
+
+.imageProduitCarousel {
+  width: 80%;
+  height: 80%;
+  border: solid 1px black;
+  z-index: 1;
+}
+
+.infosProduitCarousel {
+  display: grid;
+}
+
+.vendeurProduitCarousel {
+  font-style: italic;
+}
+
+.vendeurCarousel {
+  text-decoration: underline;
+  color: inherit;
+}
+
+.prixProduitCarousel {
+  font-weight: bold;
+}
+
+.ajoutPanierCarousel {
+  text-align: right;
+}
+
+#submitFilters{
+  margin-top: 10px;
 }
