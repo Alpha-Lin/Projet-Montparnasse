@@ -14,11 +14,8 @@ if(isset($_GET['i']) && !empty($_GET['i']))
         require $path_include;
 }else if(isset($_GET['search']))
     require 'php/search.php';
-
-if($_SERVER['REQUEST_URI'] == "/")
-{
-    require 'html/carousel.html';
-}
+else
+    require 'php/carousel.php';
 
 require 'html/footer.html';
 
