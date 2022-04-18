@@ -8,7 +8,9 @@
     <link rel="icon" href="../images/Stonks.jpg" type="image/x-icon">   <!-- small picture on the tab -->
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> <!-- stylesheet to use little icons-->
-    <link rel="stylesheet" href="../css/articles.css">
+
+    <link rel="stylesheet" href="../css/article.css">
+
 </head>
 <body>
     <script src="../js/header.js"></script>
@@ -32,7 +34,7 @@
     
 <h1 id="articleName">Nom de l'article</h1>
     <div id="articleHolder"></div>
-        <div id="left">
+        <div id="Articleleft">
             <div id="listImage">
                 <img id="img1" src="" alt="image of the product">
             </div>
@@ -40,34 +42,31 @@
         </div>
         <div id="Articleright">
             <div class="article">
-
-                    <div id="rightArticle">
-                        <img id="picUser" alt="User Picture" src="">
-                        <i class="fa fa-check-circle-o" aria-hidden="true"></i>
-                        <div id="starsArticle">
-                            <img alt="Stars" src="" id="starsBackgroundArticle">
-                            <img alt="Stars Foreground" src="" id="starsForegroundArticle">
-                        </div>
-                        <img alt="medal" src="" id="medalUserInArticle">
-                        <p>Par <span id="userNameInArticle"></span> le <span id="dateArticle"></span></p>
-                        <p id="descriptionOnArticle">Petite description</p>
-                        <p id="priceArticle"><span id="curency"></span></p>
+                <div id="rightArticle">
+                    <img id="picUser" alt="User Picture" src="">
+                    <i class="fa fa-check-circle-o" aria-hidden="true"></i>
+                    <div id="starsArticle">
+                        <img alt="Stars" src="" id="starsBackgroundArticle">
+                        <img alt="Stars Foreground" src="" id="starsForegroundArticle">
+                    </div>
+                    <img alt="medal" src="" id="medalUserInArticle">
+                    <p>Par <span id="userNameInArticle"></span> le <span id="dateArticle"></span></p>
+                    <p class="inBold">Description:</p>
+                    <p id="descriptionOnArticle">Petite descriptionkjbfkjbsfkbsjfb fhjbsjhfb bjhbfjbsfjhv hjv jbhjhvfj hbjhvbq jhvfj hv jhbv jhv jhv jbv jh vjfske jbfiue giu gi gui iu hifebh fb hui g uib iuef</p>
+                    <p id="priceArticle"><span id="curency"></span></p>
                         <!-- 
                         <p id="deliveryDateText">Livré le         <span id="deliveryDate"></span>
                             <i class="fa fa-truck"></i></p>-->
-                    </div>
-                    <div id="bottomArticle">
+                </div>
+                <div id="bottomArticle">
                         <!-- <img alt="Heart" src=""> -->
-                        <button id="addToCartBtn">
-                            <p>Ajouter au panier
-                                <i class="fa fa-cart-plus" aria-hidden="true"></i></p>
-                           </button>
-                    </div>
-                </div>   
-    
-    
+                    <button id="addToCartBtn">
+                        <p>Ajouter au panier
+                        <i class="fa fa-cart-plus" aria-hidden="true"></i></p>
+                    </button>
+                </div>
+            </div>   
         </div>
-    
     <div id="questionHolder">
         <h2>Questions</h2>
         <div class="questionAnswer">
@@ -104,48 +103,46 @@
         
     </div>
     <div id="youWillLikeToo">
-        <h2 id="showcaseArticle" class="toCenter">Les articles en vente par </h2>
-            <div id="articleConatiner">
-                <div class="article">
-                 <div id="topArticle">
+        <h2 id="showcaseArticle" class="toCenter">Vous aimerez aussi:</h2>
+        <div id="articleConatiner">
+            <div class="article">
+                <div id="topArticle">
                     <p id="articleName" class="toCenter">Nom de l'article</p>
                 </div>
 
-                    <div id="leftArticle">
-                        <img src="" alt="article picture">
+                <div id="leftArticle">
+                    <img src="" alt="article picture">
+                </div>
+                <div id="rightArticle">
+                    <img id="picUser" alt="User Picture" src="">
+                    <i class="fa fa-check-circle-o" aria-hidden="true"></i>
+                    <div id="starsArticle">
+                        <img alt="Stars" src="" id="starsBackgroundArticle">
+                        <img alt="Stars Foreground" src="" id="starsForegroundArticle">
                     </div>
-                    <div id="rightArticle">
-                        <img id="picUser" alt="User Picture" src="">
-                        <i class="fa fa-check-circle-o" aria-hidden="true"></i>
-                        <div id="starsArticle">
-                            <img alt="Stars" src="" id="starsBackgroundArticle">
-                            <img alt="Stars Foreground" src="" id="starsForegroundArticle">
-                        </div>
-                        <img alt="medal" src="" id="medalUserInArticle">
-                        <p>Par <span id="userNameInArticle"></span> le <span id="dateArticle"></span></p>
-                        <p id="descriptionOnArticle">Petite description</p>
-                        <p id="priceArticle"><span id="curency"></span></p>
+                    <img alt="medal" src="" id="medalUserInArticle">
+                    <p>Par <span id="userNameInArticle"></span> le <span id="dateArticle"></span></p>
+                    <p id="descriptionOnArticle">Petite description</p>
+                    <p id="priceArticle"><span id="curency"></span></p>
                         <!-- 
                         <p id="deliveryDateText">Livré le         <span id="deliveryDate"></span>
                             <i class="fa fa-truck"></i></p>-->
-                    </div>
-                    <div id="bottomArticle">
-                        <!-- <img alt="Heart" src=""> -->
-                        <button id="addToCartBtn">
-                            <p>Ajouter au panier
-                                <i class="fa fa-cart-plus" aria-hidden="true"></i></p>
-                           </button>
-                    </div>
-                </div>               
-                
-                
                 </div>
-
-                <p class="toCenter">
-                    <a id="arrowBtnArticle" href="" >
-                        <i class="fa fa-arrow-circle-down" aria-hidden="true"></i>
-                    </a>
-                </p>
+                <div id="bottomArticle">
+                        <!-- <img alt="Heart" src=""> -->
+                    <button id="addToCartBtn">
+                        <p>Ajouter au panier
+                        <i class="fa fa-cart-plus" aria-hidden="true"></i></p>
+                    </button>
+                </div>
+            </div>               
+        </div>
+            <p class="toCenter">
+                <a id="arrowBtnArticle" href="" >
+                    <i class="fa fa-arrow-circle-down" aria-hidden="true"></i>
+                </a>
+            </p>
+        <a href=""><p id="seeMore">Voir plus</p></a>
     </div>
 
 </main>
