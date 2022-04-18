@@ -90,6 +90,10 @@ hr {
   text-align: right;
 }
 
+.ajoutPanierCarousel{
+    text-align: right;
+}
+
 #submitFilters{
   margin-top: 10px;
 }
