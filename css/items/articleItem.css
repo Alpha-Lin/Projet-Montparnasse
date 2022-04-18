@@ -3,6 +3,10 @@
     text-align: center;
 
 }
+#bottomArticle{
+    
+    background-color: aqua;
+}
 
 .articleCase{
     border-color: grey;
@@ -30,7 +34,4 @@
     float: left;
 }
 
-#bottomArticle{
-    background-color: aqua;
-}
 
