@@ -1,7 +1,6 @@
 /* etoile grise*/
 .fa-star {
 	color: gray;
-	cursor: pointer;
 	padding: 0.0625rem;
 }
 /* etoile or*/
@@ -9,26 +8,9 @@
 	color: #ffdc0f;
 }
 
-/* Le parent global '.rating' positionne le groupe des étoiles et le lien en colonne */
-.rating {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
+/*positionnement des etoile*/
+.stars {
+	display: inline-flex;
+	justify-content: center;
+	font-size: 3em;
 }
-
-	/*positionnement des etoile*/
-	.stars {
-		display: inline-flex;
-		justify-content: center;
-		font-size: 3em;
-	}
-
-	/*hover qui met les etoile en jaune*/
-	.stars:hover .fa-star {
-		color: #ffdc0f;
-	}
-	/* hover qui laisse les etoile grise qui sont apres l etoile ciblé*/
-	.stars .fa-star:hover ~ .fa-star {
-		color: gray;
-	}
-

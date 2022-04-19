@@ -22,7 +22,7 @@ require 'php/modules/accountRequests.php';?>
 
         <p><?=$userInfos['firstName'] . ' ' . $userInfos['lastName']?></p>
         <p>Rang : <?=$userInfos['rank']?></p>
-        <p>TODO Stars</p>
+        <?php require 'php/modules/etoile.php'?>
     </div>
 
     <div>
