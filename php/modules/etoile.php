@@ -1,12 +1,16 @@
 <link rel="stylesheet" href="css/etoile.css">
 
-<div class="stars">
-	<?php
+<?php
+function reputationStars($reputation){
+	echo '<div class="stars">';
+
 	for ($i = 1; $i < 6; $i++) {
-		if($userInfos['reputation'] >= $i)
+		if($reputation >= $i)
 			echo '<i class="fa fa-star gold"></i>';
 		else
 			echo '<i class="fa fa-star"></i>';
 	}
-	?>
-</div>
+
+	echo '</div>';
+}
+?>

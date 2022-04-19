@@ -22,7 +22,10 @@ require 'php/modules/accountRequests.php';?>
 
         <p><?=$userInfos['firstName'] . ' ' . $userInfos['lastName']?></p>
         <p>Rang : <?=$userInfos['rank']?></p>
-        <?php require 'php/modules/etoile.php'?>
+        <?php
+            require 'php/modules/etoile.php';
+            reputationStars($userInfos['reputation']);
+        ?>
     </div>
 
     <div>
