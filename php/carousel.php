@@ -40,7 +40,7 @@ foreach ($req->fetchAll(PDO::FETCH_ASSOC) as $produit) {
                 </div>
             </div>
 
-            <p class="ajoutPanierCarousel">Ajouter au panier</p>
+            <p class="ajoutPanierCarousel"><a href="?i=panier&add=' . $produit['id'] . '">Ajouter au panier</a></p>
 
 
         </div>';
