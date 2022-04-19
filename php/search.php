@@ -111,7 +111,7 @@ if(!empty($produits_research))
                     </div>
                 </div>
 
-                <p class="ajoutPanier">Ajouter au panier</p>
+                <p class="ajoutPanier"><a href="?i=panier&add=' . $produit['id'] . '">Ajouter au panier</a></p>
 
                 
             </div>'; // TODO : envoyer le dernier prix pour montrer l'évolution

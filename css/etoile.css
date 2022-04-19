@@ -1,0 +1,16 @@
+/* etoile grise*/
+.fa-star {
+	color: gray;
+	padding: 0.0625rem;
+}
+/* etoile or*/
+.fa-star.gold {
+	color: #ffdc0f;
+}
+
+/*positionnement des etoile*/
+.stars {
+	display: inline-flex;
+	justify-content: center;
+	font-size: 3em;
+}

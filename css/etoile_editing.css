@@ -1,0 +1,13 @@
+.fa-star {
+    cursor: pointer;
+}
+
+/*hover qui met les etoile en jaune*/
+.stars:hover .fa-star {
+    color: #ffdc0f;
+}
+
+/* hover qui laisse les etoile grise qui sont apres l etoile ciblé*/
+.stars .fa-star:hover~.fa-star {
+    color: gray;
+}
