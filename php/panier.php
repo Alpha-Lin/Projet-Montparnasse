@@ -1,6 +1,9 @@
 <link rel="stylesheet" href="css/panier.css">
 
 <?php
+    if(!isset($_SESSION['id']))
+        header('location: ?i=Compte');
+
     if(isset($_GET['del'])){
         $req = $bdd->prepare('DELETE FROM shoppingCart WHERE clientID = ? AND productID = ?');
         $req->execute(array($_SESSION['id'],
