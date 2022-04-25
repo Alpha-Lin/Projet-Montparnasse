@@ -26,7 +26,7 @@
     {
         require 'php/modules/etoile.php';
 
-        echo '<div id="articles">';
+        echo '<form id="articles">';
 
         require 'php/modules/price.php';
 
@@ -42,6 +42,7 @@
             $vendorInfos = $req_pseudo_reputation_vendeur->fetch(PDO::FETCH_ASSOC);
 
             echo '<div class="article">
+                    <input type="hidden" name="paiement[]" value="' . $produit['id'] . '">
                     <a href="?i=product&id=' . $produit['id'] . '">
                         <img class="articleImage" src="images/products/' . htmlspecialchars($req_main_picture->fetch(PDO::FETCH_COLUMN)) . '" alt="Article picture" width="100">
                     </a>
@@ -63,13 +64,13 @@
                         </ul>
                     </div>
                     <p class="price">' . number_format(reloadExternalPrices($produit, $temps), 2, '.', '') . '€</p>
-                    <button>Acheter</button>
+                    <button onClick="location.href=\'?paiement=' . $produit['id'] . '\'">Acheter</button>
                     <p><a href="?i=panier&del=' . $produit['id'] . '">Retirer du Panier</a></p>
                 </div>';
         }
 
-        echo '<button id="buyButton">Tout acheter</button>
-        </div>';
+        echo '<input type="submit" value="Tout acheter">
+        </form>';
     }
 
     // pas fini
