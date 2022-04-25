@@ -1,4 +1,4 @@
-<?php     /* the front page */
+<?php
 require 'php/modules/init_bdd.php';
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
@@ -14,6 +14,8 @@ if(isset($_GET['i']) && !empty($_GET['i']))
         require $path_include;
 }else if(isset($_GET['search']))
     require 'php/search.php';
+else if(isset($_GET['paiement']))
+    require 'php/paiement.php';
 else
     require 'php/carousel.php';
 
