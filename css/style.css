@@ -254,7 +254,6 @@ input[name="tabs"]:checked + label {
     justify-items: center;
     align-items: center;
     text-align: center;
-    cursor: pointer;
     z-index: 7;
   }
 
@@ -267,7 +266,6 @@ input[name="tabs"]:checked + label {
     height: 50px;
     border-radius: 50%;
     text-align: center;
-    cursor: pointer;
     margin-left: -27px;
     margin-top: 50%;
     left: 0;
@@ -329,14 +327,24 @@ input[name="tabs"]:checked + label {
   justify-items: center;
   align-items: center;
   text-align: center;
-  cursor: pointer;
 }
 
 .fleche {
   display: none;
 }
+}
 
-
+.category {
+  border: none;
+  background-color: transparent;
+  outline: none;
+  position: absolute;
+  color: rgba(0, 0, 0, 0);
+  height: 55px;
+  width: 50%;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 8;
 }
 
 
@@ -682,4 +690,12 @@ hr {
 
 #submitFilters{
   margin-top: 10px;
+}
+
+.btnMap button {
+  height: 10px;
+  border-radius: 50%;
+  border: none;
+  background-color: rgb(25, 25, 129);
+  cursor: pointer;
 }

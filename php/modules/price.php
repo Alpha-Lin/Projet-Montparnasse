@@ -70,6 +70,7 @@ define('PLATEFORM_NOT_FOUND', '-1');
 define('PRICE_404', '-3');
 define('CDISCOUNT_TOKEN', '-5');
 define('EBAY_KEYWORD', '-6');
+define('ARTICLE_REMOVED', '-7');
 
 function get_price($plateforme, $id, $marche = 'N/A')
 {
@@ -149,14 +150,24 @@ function get_price($plateforme, $id, $marche = 'N/A')
 
             if($res === ERROR_URL || !array_key_exists('skuList', $res))
             {
+                if(substr($res['details'], 0, 17) == "Not found product")
+                    return ARTICLE_REMOVED;
+
                 $res = curl_rapidapi("https://ali-express1.p.rapidapi.com/product/" . $id . "?language=fr", "ali-express1.p.rapidapi.com");
+
+                if(is_null($res))
+                        return ARTICLE_REMOVED;
 
                 if($res === ERROR_URL || !array_key_exists('priceModule', $res))
                 {
                     $res = curl_rapidapi("https://aliexpress-unofficial.p.rapidapi.com/product/" . $id . "?country=FR&currency=EUR&locale=FR_FR", "aliexpress-unofficial.p.rapidapi.com");
 
-                    if($res === ERROR_URL || !array_key_exists('prices', $res))
+                    if($res === ERROR_URL || !array_key_exists('prices', $res)){
+                        if($res['error'] == "Item not found")
+                            return ARTICLE_REMOVED;
+
                         return ERROR_URL;
+                    }
 
                     return $res['prices']['min']['value']; // Dollar
                 }
