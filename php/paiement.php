@@ -24,6 +24,6 @@ if(isset($_POST['products'], $_POST['deliveringAddress'], $_POST['billingAddress
         }
     }
 }else
-    require 'php/paiement_interface.php';
+    require 'php/modules/paiement_interface.php';
 
 ?>
