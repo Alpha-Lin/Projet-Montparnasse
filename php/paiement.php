@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="/css/addresses_and_bankCards.css">
+
 <?php
 if(isset($_POST['products'], $_POST['deliveringAddress'], $_POST['billingAddress'], $_POST['bankCard'])){
     // Requêtes get infos
@@ -50,8 +52,25 @@ if(isset($_POST['products'], $_POST['deliveringAddress'], $_POST['billingAddress
         echo '<link rel="stylesheet" href="css/success_paiement.css">';
     else
         header('location: ?i=panier');
-}else if(isset($_GET['products']))
-    require 'php/modules/paiement_interface.php';
+}else if(isset($_GET['products'])){
+    $req = $bdd->prepare("SELECT * FROM addresses INNER JOIN addressBelongTo ON id = addressID WHERE userID = ?");
+    $req->execute(array($_SESSION['id']));
+    $addresses = $req->fetchAll(PDO::FETCH_ASSOC);
+
+    $req = $bdd->prepare("SELECT id, number, expirationDate, cvc, ownerName FROM bankCards WHERE clientID = ?");
+    $req->execute(array($_SESSION['id']));
+    $cards = $req->fetchAll(PDO::FETCH_ASSOC);
+
+    if(empty($addresses) || empty($cards))
+        echo '<h3>Veuillez remplir les informations nécessaires manquantes dans votre <a href="?i=Compte">profil</a>.</h3>
+                <ul>
+                    <li>Adresse</li>
+                    <li>Carte banquaire</li>
+                </ul>';
+    else
+        require 'php/modules/paiement_interface.php';
+}
+    
 else
     require 'php/panier.php';
 

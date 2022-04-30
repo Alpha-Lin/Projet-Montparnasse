@@ -7,7 +7,7 @@
         <div class="cadre" id="cadre">
 <?php
 
-$req = $bdd->query('SELECT id, name, description, releaseDate, sellerID, conditionP, marketPosition FROM products ORDER BY releaseDate DESC, premium DESC LIMIT 6');
+$req = $bdd->query('SELECT id, name, description, releaseDate, sellerID, conditionP, marketPosition FROM products WHERE saleStatus = 0 ORDER BY releaseDate DESC, premium DESC LIMIT 6');
 
 require 'php/modules/price.php';
 

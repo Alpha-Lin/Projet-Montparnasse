@@ -1,3 +1,7 @@
+main{
+  height: auto;
+}
+
 main>div:not(:first-of-type) {
   margin-top: 2%;
   padding-top: 2%;
