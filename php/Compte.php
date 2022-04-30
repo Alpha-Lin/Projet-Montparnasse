@@ -4,6 +4,7 @@ if(!isset($_SESSION['id']))
 
 require 'php/modules/accountRequests.php';?>
 <link rel="stylesheet" href="/css/compte.css">
+<link rel="stylesheet" href="/css/addresses_and_bankCards.css">
 
 <div class="headAccount">
     <h3 class="profilText">Mon profil</h3>

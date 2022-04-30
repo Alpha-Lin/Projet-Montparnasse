@@ -22,7 +22,7 @@ if(isset($_GET['tri'])){
     }
 }
 
-$reqFilter = 'WHERE name LIKE :search';
+$reqFilter = 'WHERE name LIKE :search AND saleStatus = 0';
 
 if(isset($_GET['filtres'])){
     switch($_GET['filtres']){

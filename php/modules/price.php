@@ -150,7 +150,7 @@ function get_price($plateforme, $id, $marche = 'N/A')
 
             if($res === ERROR_URL || !array_key_exists('skuList', $res))
             {
-                if(substr($res['details'], 0, 17) == "Not found product")
+                if(isset($res['details']) && substr($res['details'], 0, 17) == "Not found product")
                     return ARTICLE_REMOVED;
 
                 $res = curl_rapidapi("https://ali-express1.p.rapidapi.com/product/" . $id . "?language=fr", "ali-express1.p.rapidapi.com");

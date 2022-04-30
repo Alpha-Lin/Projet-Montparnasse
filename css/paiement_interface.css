@@ -1,0 +1,42 @@
+main {
+    margin-top: 75px;
+    margin-left: 20%;
+    margin-right: 20%;
+    padding: 5%;
+    border-radius: 25px 25px 0 0;
+}
+
+h3 {
+    text-align: center;
+}
+
+main>div:not(:first-of-type) {
+    margin-top: 2%;
+    padding-top: 2%;
+    border-top: 2px solid lightgray;
+}
+
+#bankCards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 50px;
+}
+
+#bankCards>* {
+    grid-template-columns: 1fr 1fr;
+}
+
+.addresses>div:not(:last-of-type),
+#addAddressForm,
+#addCardForm,
+#bankCards>* {
+    display: grid;
+    border: solid lightgray 3px;
+    border-radius: 10px;
+    padding: 2%;
+    margin: 5% 5%;
+}
+
+label> :first-child {
+    font-weight: bold;
+}
