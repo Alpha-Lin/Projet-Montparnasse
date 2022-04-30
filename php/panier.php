@@ -9,9 +9,14 @@
         $req->execute(array($_SESSION['id'],
                             $_GET['del']));
     }else if(isset($_GET['add'])){
-        $req = $bdd->prepare('INSERT INTO shoppingCart(clientID, productID) VALUES(?, ?)');
-        $req->execute(array($_SESSION['id'],
-                            $_GET['add']));
+        $req = $bdd->prepare('SELECT saleStatus FROM products WHERE id = ?');
+        $req->execute(array($_GET['add']));
+
+        if($req->fetch(PDO::FETCH_COLUMN) == 0){ // Vérifie que le produit n'est pas déjà acheté
+            $req = $bdd->prepare('INSERT INTO shoppingCart(clientID, productID) VALUES(?, ?)');
+            $req->execute(array($_SESSION['id'],
+                                $_GET['add']));
+        }
     }
 
     $req = $bdd->prepare('SELECT * FROM products JOIN shoppingCart ON id = productID WHERE clientID = ?');
@@ -42,7 +47,7 @@
             $vendorInfos = $req_pseudo_reputation_vendeur->fetch(PDO::FETCH_ASSOC);
 
             echo '<div class="article">
-                    <input type="hidden" name="paiement[]" value="' . $produit['id'] . '">
+                    <input type="hidden" name="products[]" value="' . $produit['id'] . '">
                     <a href="?i=product&id=' . $produit['id'] . '">
                         <img class="articleImage" src="images/products/' . htmlspecialchars($req_main_picture->fetch(PDO::FETCH_COLUMN)) . '" alt="Article picture" width="100">
                     </a>
@@ -64,12 +69,13 @@
                         </ul>
                     </div>
                     <p class="price">' . number_format(reloadExternalPrices($produit, $temps), 2, '.', '') . '€</p>
-                    <button onClick="location.href=\'?paiement=' . $produit['id'] . '\'">Acheter</button>
+                    <button type="button" onclick="location.href=\'?i=paiement&products[]=' . $produit['id'] . '\'">Acheter</button>
                     <p><a href="?i=panier&del=' . $produit['id'] . '">Retirer du Panier</a></p>
                 </div>';
         }
 
-        echo '<input type="submit" value="Tout acheter">
+        echo '<input type="hidden" name="i" value="paiement">
+              <input type="submit" value="Tout acheter">
         </form>';
     }
 
