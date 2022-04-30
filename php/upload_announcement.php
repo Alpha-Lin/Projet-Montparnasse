@@ -27,6 +27,7 @@ if(isset($_POST['nom_produit'], $_POST['description_produit'], $_POST['etat_prod
                                 $_POST['marketPosition'],
                                 $_POST['description_produit'],
                                 $_POST['etat_produit'],
+                               // $_POST['categorie_produit'],
                                 $_SESSION['id'])
             );
 

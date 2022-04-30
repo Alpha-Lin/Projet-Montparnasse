@@ -303,7 +303,7 @@ input[name="tabs"]:checked + label {
 
   
 .fleche {
-  border: solid red;
+  border: solid white;
   border-width: 0 3px 3px 0;
   display: inline-block;
   margin-top: 22px;
