@@ -38,6 +38,18 @@ h1{
     padding: 50px;
 }
 
+.etat {
+    grid-column: 1;
+    grid-row: 1;
+}
+
+.categorie {
+    grid-column: 1;
+    grid-row: 2;
+}
+
+
+
 textarea{
     height: 90%;
     width: 100%;
