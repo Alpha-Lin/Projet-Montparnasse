@@ -36,7 +36,7 @@
         </div>
 
         <div class="blocInfosProduit">
-            <label>
+            <label class="etat">
                 <p>État du produit :</p>
                 <select name="etat_produit" required>
                     <option selected value="" hidden></option>
@@ -47,6 +47,21 @@
                     <option value="État correct">État correct</option>
                     <option value="Mauvais état">Mauvais état</option>
                     <option value="Hors service">Hors service</option>
+                    <option value="Autre">Autre</option>
+                </select>
+            </label>
+
+            <label class="categorie">
+                <p>Catégorie du produit :</p>
+                <select name="categorie_produit" required>
+                    <option selected value="" hidden></option>
+                    <option value="Musique">Musique</option>
+                    <option value="Multimédia">Multimédia</option>
+                    <option value="Santé">Santé</option>
+                    <option value="Electroménager">Electroménager</option>
+                    <option value="Décoration">Décoration</option>
+                    <option value="Bricolage">Bricolage</option>
+                    <option value="Animaux">Animaux</option>
                     <option value="Autre">Autre</option>
                 </select>
             </label>

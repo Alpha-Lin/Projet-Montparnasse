@@ -24,6 +24,9 @@ if(isset($_GET['tri'])){
 
 $reqFilter = 'WHERE name LIKE :search AND saleStatus = 0';
 
+if(isset($_GET['category']))
+    $reqFilter .= ' AND category = :category ';
+
 if(isset($_GET['filtres'])){
     switch($_GET['filtres']){
         case 'seller':
@@ -45,6 +48,8 @@ if(isset($_GET['filtres'])){
 
 $req = $bdd->prepare('SELECT products.id, name, products.description, releaseDate, sellerID, conditionP, marketPosition FROM products ' . $reqFilter . ' ORDER BY products.premium DESC' . $reqOrder . ' LIMIT :limitRes');
 $req->bindValue(':search', '%' . $_GET['search'] . '%');
+if(isset($_GET['category']))
+    $req->bindValue(':category', $_GET['category']);
 
 if(isset($_GET['nbResult'])){
     switch($_GET['nbResult']){
@@ -120,5 +125,4 @@ if(!empty($produits_research))
     echo '</div>';
 }else
     echo '<p>Aucun résultat trouvé.</p>';
-
 ?>
