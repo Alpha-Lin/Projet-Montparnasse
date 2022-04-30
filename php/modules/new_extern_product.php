@@ -18,7 +18,6 @@
 require 'price.php';
 
 define('BAD_MARKET', '-2');
-define('PLATEFORM_NOT_FOUND', '-1');
 
 function add_extern_product_in_db($produit_id, $plateforme, $id, $marche = null)
 {

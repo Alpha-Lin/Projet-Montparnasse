@@ -2,13 +2,13 @@
 if(!isset($_SESSION['id']))
     header('location: ?i=Compte');
 
-if(isset($_POST['nom_produit'], $_POST['description_produit'], $_POST['etat_produit'], $_POST['url_prix'], $_POST['marketPosition'], $_FILES['pictures']))
+if(isset($_POST['nom_produit'], $_POST['description_produit'], $_POST['etat_produit'], $_POST['url_prix'], $_POST['marketPosition'], $_POST['categorie_produit'], $_FILES['pictures']))
 {
     if(!empty($_POST['nom_produit']) && !empty($_POST['etat_produit']) && !empty($_POST['url_prix'] && !empty($_POST['marketPosition'])))
     {
         require 'php/modules/hcaptcha.php';
 
-        if(!hcaptcha($_POST['h-captcha-response']))
+        if(hcaptcha($_POST['h-captcha-response']))
             mis_log("Captcha invalide !");
         else if(strlen($_POST['description_produit']) > 300)
             mis_log("Description trop large.");
@@ -22,12 +22,12 @@ if(isset($_POST['nom_produit'], $_POST['description_produit'], $_POST['etat_prod
 
             $prix_array = array();
 
-            $req = $bdd->prepare('INSERT INTO products(name, marketPosition, description, conditionP, sellerID) VALUES (?, ?, ?, ?, ?)');
+            $req = $bdd->prepare('INSERT INTO products(name, marketPosition, description, conditionP, category, sellerID) VALUES (?, ?, ?, ?, ?, ?)');
             $req->execute(array($_POST['nom_produit'],
                                 $_POST['marketPosition'],
                                 $_POST['description_produit'],
                                 $_POST['etat_produit'],
-                               // $_POST['categorie_produit'],
+                                $_POST['categorie_produit'],
                                 $_SESSION['id'])
             );
 

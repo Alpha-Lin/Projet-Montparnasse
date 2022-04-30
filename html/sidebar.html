@@ -1,56 +1,58 @@
 <div id="btnCategories" class="btnCategories" valeur="closed">
         <div id="fleche" class="fleche"></div>
 </div>
+
 <form>
-<div class="sidebar" id="sidebar"> 
-        <div class="circle">
-                <i class="fa fa-certificate" aria-hidden="true"></i>
-                <input class="category" id="promo" type="button" name="search" value="Promo">
-        </div>
-        <label>Promo</label>
+        <input type="hidden" name="search" value="<?=isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''?>">
+        <div class="sidebar" id="sidebar"> 
+                <div class="circle">
+                        <i class="fa fa-certificate" aria-hidden="true"></i>
+                        <input class="category" id="promo" type="submit" name="category" value="Promo">
+                </div>
+                <label>Promo</label>
 
-        <div class="circle">
-                <i class="fa fa-headphones" aria-hidden="true"></i>
-                <input class="category" id="musique" type="submit" name="search" value="Musique">
-        </div>
-        <label>Musique</label>
+                <div class="circle">
+                        <i class="fa fa-headphones" aria-hidden="true"></i>
+                        <input class="category" id="musique" type="submit" name="category" value="Musique">
+                </div>
+                <label>Musique</label>
 
-        <div class="circle">
-                <i class="fa fa-laptop" aria-hidden="true"></i>
-                <input class="category" id="multi" type="submit" name="search" value="Multimédia">
-        </div>
-        <label>Multimédia</label>
+                <div class="circle">
+                        <i class="fa fa-laptop" aria-hidden="true"></i>
+                        <input class="category" id="multi" type="submit" name="category" value="Multimédia">
+                </div>
+                <label>Multimédia</label>
 
-        <div class="circle">
-                <i class="fa fa-medkit" aria-hidden="true"></i>
-                <input class="category" id="sante" type="submit" name="search" value="Santé">
-        </div>
-        <label>Santé</label>
+                <div class="circle">
+                        <i class="fa fa-medkit" aria-hidden="true"></i>
+                        <input class="category" id="sante" type="submit" name="category" value="Santé">
+                </div>
+                <label>Santé</label>
 
-        <div class="circle">
-                <i class="fa fa-tachometer" aria-hidden="true"></i>
-                <input class="category" id="electro" type="submit" name="search" value="Electroménager">
-        </div>
-        <label>Electroménager</label>
+                <div class="circle">
+                        <i class="fa fa-tachometer" aria-hidden="true"></i>
+                        <input class="category" id="electro" type="submit" name="category" value="Electroménager">
+                </div>
+                <label>Electroménager</label>
 
-        <div class="circle">
-                <i class="fa fa-paint-brush" aria-hidden="true"></i>
-                <input class="category" id="deco" type="submit" name="search" value="Décoration">
-        </div>
-        <label>Déco</label>
+                <div class="circle">
+                        <i class="fa fa-paint-brush" aria-hidden="true"></i>
+                        <input class="category" id="deco" type="submit" name="category" value="Décoration">
+                </div>
+                <label>Déco</label>
 
-        <div class="circle">
-                <i class="fa fa-wrench" aria-hidden="true"></i>
-                <input class="category" id="bricolage" type="submit" name="search" value="Bricolage">
-        </div>
-        <label>Bricolage</label>
+                <div class="circle">
+                        <i class="fa fa-wrench" aria-hidden="true"></i>
+                        <input class="category" id="bricolage" type="submit" name="category" value="Bricolage">
+                </div>
+                <label>Bricolage</label>
 
-        <div class="circle">
-                <i class="fa fa-paw" aria-hidden="true"></i>
-                <input class="category" id="animaux" type="submit" name="search" value="Animaux">
+                <div class="circle">
+                        <i class="fa fa-paw" aria-hidden="true"></i>
+                        <input class="category" id="animaux" type="submit" name="category" value="Animaux">
+                </div>
+                <label>Animaux</label>
         </div>
-        <label>Animaux</label>
-</div>
 </form>
 
 <script src="../js/categoriesOnPhone.js"></script>
