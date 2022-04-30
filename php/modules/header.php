@@ -2,7 +2,8 @@
 require 'html/header.html';
 
 if(isset($_SESSION['id']))
-    echo '<a href="?i=upload_announcement" style="float: right"><i class="fa fa-plus" aria-hidden="true"></i></a>';
+    echo '<a href="?i=panier" id="panier" style="float: right"><i class="fa fa-shopping-basket" id="iconeB" aria-hidden="true"></i></a>
+          <a href="?i=upload_announcement" style="float: right"><i class="fa fa-plus" aria-hidden="true"></i></a>';
 ?>
 
 </nav> 
