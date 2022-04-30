@@ -1,4 +1,3 @@
-<link rel="stylesheet" href="/css/addresses_and_bankCards.css">
 <script src="js/choose_paiement.js"></script>
 
 <form action="?i=paiement" method="post">
@@ -7,15 +6,6 @@
 
         <div id="bankCards">
             <?php
-            $req = $bdd->prepare("SELECT * FROM addresses INNER JOIN addressBelongTo ON id = addressID WHERE userID = ?");
-            $req->execute(array($_SESSION['id']));
-            $addresses = $req->fetchAll(PDO::FETCH_ASSOC);
-
-            $req = $bdd->prepare("SELECT id, number, expirationDate, cvc, ownerName FROM bankCards WHERE clientID = ?");
-            $req->execute(array($_SESSION['id']));
-            $cards = $req->fetchAll(PDO::FETCH_ASSOC);
-
-            if($cards){
                 $i = 1;
                 foreach($cards as $card){
                     echo '
@@ -50,7 +40,6 @@
 
                     $i++;
                 }
-            }
             ?>
         </div>
     </div>
@@ -60,7 +49,6 @@
 
         <div id="bankCards">
             <?php
-            if($addresses){
                 $i = 1;
                 foreach($addresses as $address){
                     echo '
@@ -73,7 +61,6 @@
 
                     $i++;
                 }
-            }
             ?>
         </div>
     </div>
@@ -83,7 +70,6 @@
 
         <div id="bankCards">
             <?php
-            if($addresses){
                 $i = 1;
                 foreach($addresses as $address){
                     echo '<div onclick="this.lastElementChild.click()">
@@ -95,7 +81,6 @@
 
                     $i++;
                 }
-            }
             ?>
         </div>
     </div>
