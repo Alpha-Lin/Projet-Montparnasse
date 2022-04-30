@@ -14,8 +14,6 @@ if(isset($_GET['i']) && !empty($_GET['i']))
         require $path_include;
 }else if(isset($_GET['search']))
     require 'php/search.php';
-else if(isset($_GET['paiement']))
-    require 'php/paiement.php';
 else
     require 'php/carousel.php';
 

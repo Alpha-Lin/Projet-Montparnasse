@@ -4,6 +4,7 @@ if(!isset($_SESSION['id']))
 
 require 'php/modules/accountRequests.php';?>
 <link rel="stylesheet" href="/css/compte.css">
+<link rel="stylesheet" href="/css/addresses_and_bankCards.css">
 
 <div class="headAccount">
     <h3 class="profilText">Mon profil</h3>
@@ -29,7 +30,7 @@ require 'php/modules/accountRequests.php';?>
     </div>
 
     <div>
-        <img src="svg/medals/<?=strtolower($userInfos['rank'])?>-medal.svg" class="iconRank" width="64" height="64">
+        <img src="svg/medals/<?=strtolower($userInfos['rank'])?>-medal.svg" class="iconRank" width="128" height="128">
         <p><span class="boldInfo">Score :</span> <?=$userInfos['score']?> pts<br/>
         <span class="boldInfo">Nombre de ventes :</span> <?=$userInfos['sales']?><br/>
         <span class="boldInfo">Nombre d'achats :</span> <?=$userInfos['purchases']?></p>
