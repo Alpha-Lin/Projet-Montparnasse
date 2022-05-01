@@ -76,7 +76,15 @@ $req->execute();
 
 $produits_research = $req->fetchAll(PDO::FETCH_ASSOC);
 
-echo '<h2 class="recherche">Résultat de recherche pour : "' . htmlspecialchars($_GET['search']) . '"</h2>';
+if(isset($_GET['category']))
+{
+    echo '<h2 class="recherche">Résultat pour la catégorie : "' . htmlspecialchars($_GET['category']) . '"</h2>';
+}
+else if(isset($_GET['search']))
+{
+    echo '<h2 class="recherche">Résultat de recherche pour : "' . htmlspecialchars($_GET['search']) . '"</h2>';
+}
+
 
 if(!empty($produits_research))
 {
@@ -92,7 +100,7 @@ if(!empty($produits_research))
     foreach ($produits_research as $produit) { // Chaque produit
         $req_pseudo_vendeur->execute(array($produit['sellerID']));
         $req_main_picture->execute(array($produit['id']));
-
+        $nomVendeur = htmlspecialchars($req_pseudo_vendeur->fetch(PDO::FETCH_COLUMN));
         echo '
             <div class="produit">
                 
@@ -104,15 +112,11 @@ if(!empty($produits_research))
                     <a href="?i=product&id=' . $produit['id'] . '">
                         <img class="imageProduit" src="images/products/' . htmlspecialchars($req_main_picture->fetch(PDO::FETCH_COLUMN)) . '" alt="Image de ' . htmlspecialchars($produit['name']) . '">
                     </a>
-
+                    
                     <div class="infosProduit">
                         <div class="vendeurProduit">
-                            <p>De <a href="#" class="vendeur">' . htmlspecialchars($req_pseudo_vendeur->fetch(PDO::FETCH_COLUMN)) . '</a><br>le ' . $produit['releaseDate'] . '</p>
-                        </div>
-
-                        <p class="descProduit">' . htmlspecialchars($produit['description']) . '</p>
-
-                        <p class="prixProduit">' . number_format(reloadExternalPrices($produit, $temps), 2, '.', '') . '€</p>
+                            <p>De <a href="?i=otherUser&entry_name='.$nomVendeur.'" class="vendeur">' . $nomVendeur . '</a><br>le ' . $produit['releaseDate'] . '</p>
+                        </div>   
                     </div>
                 </div>
 
