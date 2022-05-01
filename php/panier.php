@@ -79,7 +79,7 @@
         </form>';
     }
 
-    $req = $bdd->prepare('SELECT purchases.id, pseudo, reputation, name FROM purchases JOIN products ON productID = products.id JOIN users ON users.id = products.sellerID WHERE buyerID = ?');
+    $req = $bdd->prepare('SELECT purchases.id, products.id AS productID, pseudo, reputation, name FROM purchases JOIN products ON productID = products.id JOIN users ON users.id = products.sellerID WHERE buyerID = ?');
     $req->execute(array($_SESSION['id']));
 
     $purchases_research = $req->fetchAll(PDO::FETCH_ASSOC);
@@ -94,7 +94,7 @@
         $req_main_picture = $bdd->prepare('SELECT fileName FROM pictures WHERE productID = ?');
 
         foreach ($purchases_research as $purchase) {
-            $req_main_picture->execute(array($purchase['id']));
+            $req_main_picture->execute(array($purchase['productID']));
 
             echo '<div id="container">
                     <p class="inBold purchaseFirstColumn">Commande n°' . $purchase['id'] . '<span class="numberOrder"></span></p>
