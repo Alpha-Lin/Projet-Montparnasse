@@ -6,12 +6,16 @@ if(isset($_POST['products'], $_POST['deliveringAddress'], $_POST['billingAddress
     $getProductName = $bdd->prepare("SELECT name FROM products WHERE id = ?");
     $buy_request = $bdd->prepare("INSERT INTO purchases(buyerID, productID, deliveringAddressID, billingAddressID, bankCardID) VALUES (?, ?, ?, ?, ?)");
     $change_product_state = $bdd->prepare("UPDATE products SET saleStatus = 1 WHERE id = ?");
-    $deleteFromShoppingCart = $bdd->prepare('DELETE FROM shoppingCart WHERE clientID = ? AND productID = ?');
 
-    //Requête vérification
+    // Requêtes vérifications
     $verifProduitPanier = $bdd->prepare("SELECT * FROM shoppingCart WHERE clientID = ? AND productID = ?");
     $verifCarteClient = $bdd->prepare("SELECT * FROM bankCards WHERE clientID = ? AND id = ?");
     $verifAdresseClient = $bdd->prepare("SELECT * FROM addressBelongTo WHERE userID = ? AND addressID = ?");
+
+    // Requêtes modifications des stats
+    $deleteFromShoppingCart = $bdd->prepare("DELETE FROM shoppingCart WHERE clientID = ? AND productID = ?");
+    $increaseSalesVendor = $bdd->prepare("UPDATE users SET sales = sales + 1 WHERE id = ?");
+    $increasePurchasesClient = $bdd->prepare("UPDATE users JOIN products ON users.id = sellerID SET purchases = purchases + 1 WHERE products.id = ?");
 
     $success = false;
 
@@ -43,6 +47,10 @@ if(isset($_POST['products'], $_POST['deliveringAddress'], $_POST['billingAddress
 
                 $deleteFromShoppingCart->execute(array($_SESSION['id'],
                                                         $product_id));
+
+                $increaseSalesVendor->execute(array($product_id));
+                $increasePurchasesClient->execute(array($_SESSION['id']));
+
                 $success = true;
             }
         }
