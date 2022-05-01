@@ -21,7 +21,7 @@
 
     // Panier
 
-    $req = $bdd->prepare('SELECT * FROM products JOIN shoppingCart ON id = productID WHERE clientID = ?');
+    $req = $bdd->prepare('SELECT id, name, marketPosition, description, sellerID FROM products JOIN shoppingCart ON id = productID WHERE clientID = ?');
     $req->execute(array($_SESSION['id']));
 
     $produits_research = $req->fetchAll(PDO::FETCH_ASSOC);
@@ -59,7 +59,7 @@
                         <ul>
                             <li>
                                 <p>
-                                    <span class="inBold"><a href="#" class="vendeur">' . htmlspecialchars($vendorInfos['pseudo']) . '</a></span> <span class="seller"></span>';
+                                    <span class="inBold"><a href="?i=otherUser&id=' . $produit['sellerID'] . '" class="vendeur">' . htmlspecialchars($vendorInfos['pseudo']) . '</a></span> <span class="seller"></span>';
 
                 reputationStars($vendorInfos['reputation']);
 
@@ -83,7 +83,7 @@
 
     // Commandes
 
-    $req = $bdd->prepare('SELECT purchases.id, products.id AS productID, pseudo, reputation, name FROM purchases JOIN products ON productID = products.id JOIN users ON users.id = products.sellerID WHERE buyerID = ?');
+    $req = $bdd->prepare('SELECT purchases.id, products.id AS productID, users.id AS vendorID, pseudo, reputation, name FROM purchases JOIN products ON productID = products.id JOIN users ON users.id = products.sellerID WHERE buyerID = ?');
     $req->execute(array($_SESSION['id']));
 
     $purchases_research = $req->fetchAll(PDO::FETCH_ASSOC);
@@ -104,7 +104,7 @@
                     <p class="inBold purchaseFirstColumn">Commande n°' . $purchase['id'] . '<span class="numberOrder"></span></p>
                     <ul class="purchaseFirstColumn">
                         <li>
-                            <p><span class="inBold">Vendeur : <a href="#" class="vendeur">' . htmlspecialchars($purchase['pseudo']) . '</a></span> <span class="seller"></span>';
+                            <p><span class="inBold">Vendeur : <a href="?i=otherUser&id=' . $purchase['vendorID'] . '" class="vendeur">' . htmlspecialchars($purchase['pseudo']) . '</a></span> <span class="seller"></span>';
 
             reputationStars($purchase['reputation']);
 

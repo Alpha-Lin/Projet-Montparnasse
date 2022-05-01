@@ -3,10 +3,11 @@
 <link rel="stylesheet" href="/css/addresses_and_bankCards.css">
 <?php
 
-$text = $_GET['entry_name'];
+if(!isset($_GET['id']))
+    header('location: ?');
 
-$req = $bdd->prepare("SELECT pseudo, lastName, firstName, country, email, registerDate, reputation, sales, purchases, picture, description, `rank`, score FROM users WHERE pseudo = '$text'");
-$req->execute();
+$req = $bdd->prepare("SELECT pseudo, lastName, firstName, country, registerDate, reputation, sales, purchases, picture, description, `rank`, score FROM users WHERE id = ?");
+$req->execute(array($_GET['id']));
 $userInfos = $req->fetch(PDO::FETCH_ASSOC);
 
 ?>

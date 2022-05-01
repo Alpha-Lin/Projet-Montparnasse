@@ -31,7 +31,7 @@ foreach ($req->fetchAll(PDO::FETCH_ASSOC) as $produit) {
 
                 <div class="infosProduitCrousel">
                     <div class="vendeurProduitCarousel">
-                        <p>De <a href="#" class="vendeurCarousel">' . htmlspecialchars($req_pseudo_vendeur->fetch(PDO::FETCH_COLUMN)) . '</a><br>le ' . $produit['releaseDate'] . '</a></p>
+                        <p>De <a href="?i=otherUser&id=' . $produit['sellerID'] . '" class="vendeurCarousel">' . htmlspecialchars($req_pseudo_vendeur->fetch(PDO::FETCH_COLUMN)) . '</a><br>le ' . $produit['releaseDate'] . '</a></p>
                     </div>
 
                     <p class="descProduitCarousel">' . htmlspecialchars($produit['description']) . '</p>
