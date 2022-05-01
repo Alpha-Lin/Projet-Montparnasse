@@ -102,7 +102,7 @@ if(!empty($produits_research))
 
                 <div class="detailsProduit">
                     <a href="?i=product&id=' . $produit['id'] . '">
-                        <img class="imageProduit" src="images/products/' . htmlspecialchars($req_main_picture->fetch(PDO::FETCH_COLUMN)) . '">
+                        <img class="imageProduit" src="images/products/' . htmlspecialchars($req_main_picture->fetch(PDO::FETCH_COLUMN)) . '" alt="Image de ' . htmlspecialchars($produit['name']) . '">
                     </a>
 
                     <div class="infosProduit">
