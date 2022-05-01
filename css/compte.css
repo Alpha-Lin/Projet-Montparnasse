@@ -30,6 +30,10 @@ main>div:not(:first-of-type) {
   cursor: pointer;
 }
 
+.noCursor {
+  cursor: auto;
+}
+
 .iconAccount > img {
   border-radius: 50%;
 }
