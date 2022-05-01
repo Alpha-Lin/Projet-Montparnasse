@@ -79,8 +79,7 @@
         </form>';
     }
 
-    // pas fini
-    $req = $bdd->prepare('SELECT purchases.id, pseudo FROM purchases JOIN products ON productID = products.id JOIN users ON users.id = products.sellerID WHERE buyerID = ?');
+    $req = $bdd->prepare('SELECT purchases.id, pseudo, reputation, name FROM purchases JOIN products ON productID = products.id JOIN users ON users.id = products.sellerID WHERE buyerID = ?');
     $req->execute(array($_SESSION['id']));
 
     $purchases_research = $req->fetchAll(PDO::FETCH_ASSOC);
@@ -92,28 +91,30 @@
     if(!empty($purchases_research)){
         echo '<div id="ordersContainer">';
 
+        $req_main_picture = $bdd->prepare('SELECT fileName FROM pictures WHERE productID = ?');
+
         foreach ($purchases_research as $purchase) {
+            $req_main_picture->execute(array($purchase['id']));
+
             echo '<div id="container">
-                    <p class="inBold">Commande n°' . $purchase['id'] . '<span class="numberOrder"></span></p>
-                    <ul>
+                    <p class="inBold purchaseFirstColumn">Commande n°' . $purchase['id'] . '<span class="numberOrder"></span></p>
+                    <ul class="purchaseFirstColumn">
                         <li>
-                            <p><span class="inBold">Vendeur : ' . htmlspecialchars($purchase['pseudo']) . '</span> <span class="seller"></span>
-                            <i class="fa fa-check-circle-o" aria-hidden="true"></i>
-                            <img alt="Stars" src="" id="starsBackgroundArticle">
-                            <img alt="Stars Foreground" src="" id="starsForegroundArticle">
-                            </p>
+                            <p><span class="inBold">Vendeur : <a href="#" class="vendeur">' . htmlspecialchars($purchase['pseudo']) . '</a></span> <span class="seller"></span>';
+
+            reputationStars($purchase['reputation']);
+
+            echo           '</p>
                         </li>
                         <li>
-                            <p><span class="inBold">Article(s):</span> <span class="listArticleInOrder">Truc 1, truc2</span>
+                            <p><span class="inBold">Article:</span> <span class="listArticleInOrder">' . htmlspecialchars($purchase['name']) . '</span>
 
                         </li>
                     </ul>
-                </div>
-                <p class="toCenter">
-                    <a id="arrowBtnArticle" href="" >
-                        <i class="fa fa-arrow-circle-down" aria-hidden="true"></i>
-                    </a >
-                </p>';
+                    <div class="purchaseSecondColumn">
+                        <img src="images/products/' . htmlspecialchars($req_main_picture->fetch(PDO::FETCH_COLUMN)) . '" alt="Image de ' . htmlspecialchars($purchase['name']) . '">
+                    </div>
+                </div>';
         }
 
         echo '</div>';
