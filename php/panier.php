@@ -19,6 +19,8 @@
         }
     }
 
+    // Panier
+
     $req = $bdd->prepare('SELECT * FROM products JOIN shoppingCart ON id = productID WHERE clientID = ?');
     $req->execute(array($_SESSION['id']));
 
@@ -78,6 +80,8 @@
               <input type="submit" value="Tout acheter">
         </form>';
     }
+
+    // Commandes
 
     $req = $bdd->prepare('SELECT purchases.id, products.id AS productID, pseudo, reputation, name FROM purchases JOIN products ON productID = products.id JOIN users ON users.id = products.sellerID WHERE buyerID = ?');
     $req->execute(array($_SESSION['id']));
