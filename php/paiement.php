@@ -43,13 +43,13 @@ if(isset($_POST['products'], $_POST['deliveringAddress'], $_POST['billingAddress
 
             if(true){ //TODO : vérifier pas d'erreur
                 $change_product_state->execute(array($product_id));
-                echo '<p>Article "' . htmlspecialchars($getProductName->fetch(PDO::FETCH_COLUMN)) . ' acheté.</p>';
+                echo '<p>Article "' . htmlspecialchars($getProductName->fetch(PDO::FETCH_COLUMN)) . '" acheté.</p>';
 
                 $deleteFromShoppingCart->execute(array($_SESSION['id'],
                                                         $product_id));
 
-                $increaseSalesVendor->execute(array($product_id));
-                $increasePurchasesClient->execute(array($_SESSION['id']));
+                $increaseSalesVendor->execute(array($_SESSION['id']));
+                $increasePurchasesClient->execute(array()$product_id);
 
                 $success = true;
             }
