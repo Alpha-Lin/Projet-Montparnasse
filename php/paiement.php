@@ -14,8 +14,8 @@ if(isset($_POST['products'], $_POST['deliveringAddress'], $_POST['billingAddress
 
     // Requêtes modifications des stats
     $deleteFromShoppingCart = $bdd->prepare("DELETE FROM shoppingCart WHERE clientID = ? AND productID = ?");
-    $increaseSalesVendor = $bdd->prepare("UPDATE users SET sales = sales + 1 WHERE id = ?");
-    $increasePurchasesClient = $bdd->prepare("UPDATE users JOIN products ON users.id = sellerID SET purchases = purchases + 1 WHERE products.id = ?");
+    $increaseSalesVendor = $bdd->prepare("UPDATE users JOIN products ON users.id = sellerID SET sales = sales + 1 WHERE products.id = ?");
+    $increasePurchasesClient = $bdd->prepare("UPDATE users SET purchases = purchases + 1 WHERE id = ?");
 
     $success = false;
 
@@ -48,8 +48,8 @@ if(isset($_POST['products'], $_POST['deliveringAddress'], $_POST['billingAddress
                 $deleteFromShoppingCart->execute(array($_SESSION['id'],
                                                         $product_id));
 
-                $increaseSalesVendor->execute(array($_SESSION['id']));
-                $increasePurchasesClient->execute(array($product_id));
+                $increaseSalesVendor->execute(array($product_id));
+                $increasePurchasesClient->execute(array($_SESSION['id']));
 
                 $success = true;
             }
