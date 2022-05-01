@@ -93,6 +93,8 @@
         <h2>Mes commandes</h2>';
 
     if(!empty($purchases_research)){
+        require_once 'php/modules/etoile.php';
+
         echo '<div id="ordersContainer">';
 
         $req_main_picture = $bdd->prepare('SELECT fileName FROM pictures WHERE productID = ?');
