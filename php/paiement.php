@@ -49,7 +49,7 @@ if(isset($_POST['products'], $_POST['deliveringAddress'], $_POST['billingAddress
                                                         $product_id));
 
                 $increaseSalesVendor->execute(array($_SESSION['id']));
-                $increasePurchasesClient->execute(array()$product_id);
+                $increasePurchasesClient->execute(array($product_id));
 
                 $success = true;
             }
