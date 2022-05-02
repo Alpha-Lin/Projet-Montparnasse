@@ -1,8 +1,11 @@
 main {
-    margin: 5%;
+    margin-top: 5%;
+    margin-left: 15%;
+    margin-right: 10%;
     padding: 5%;
     border-radius: 25px 25px 0 0;
     height: auto;
+    font-family: sans-serif;
 }
 
 h1{
@@ -23,12 +26,16 @@ h1{
     padding: 50px;
 }
 
+#firstImg {
+    width: 300px;
+}
+
 .blocImgs > :first-child{
     grid-row: 1 / 4;
 }
 
 .blocImgs > div > img{
-    cursor: pointer
+    cursor: pointer;
 }
 
 .blocInfosProduit {
