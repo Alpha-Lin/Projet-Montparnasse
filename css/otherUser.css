@@ -6,7 +6,6 @@
 
 .rates > :first-child {
     grid-row: 2;
-    white-space: pre-wrap;
 }
 
 .rates > p {
@@ -41,6 +40,7 @@
 
 .commentAndStars > :first-child {
     float: left;
+    white-space: pre-wrap;
 }
 
 .commentAndStars > :last-child {
