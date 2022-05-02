@@ -34,6 +34,7 @@ body {
   height: 100%;
   margin: 0;
   background-color: #e4f4fb;
+  font-family: sans-serif;
 }
 
 input[type="text"],
