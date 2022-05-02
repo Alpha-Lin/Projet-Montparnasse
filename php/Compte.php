@@ -25,7 +25,7 @@ require 'php/modules/accountRequests.php';?>
         <p>Rang : <?=$userInfos['rank']?></p>
         <?php
             require 'php/modules/etoile.php';
-            reputationStars($userInfos['reputation']);
+            echo reputationStars($userInfos['reputation']);
         ?>
     </div>
 

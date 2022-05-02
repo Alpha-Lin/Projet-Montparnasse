@@ -1,6 +1,6 @@
 <script src="js/choose_paiement.js"></script>
 
-<form action="?i=paiement" method="post">
+<form action="?i=paiement" method="post" id="formPaiement">
     <div>
         <h3>Mode de paiement</h3>
 

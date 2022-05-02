@@ -16,7 +16,7 @@ form > div:not(:first-of-type) {
     border-top: 2px solid lightgray;
 }
 
-form > :last-child{
+#formPaiement > :last-child{
     text-align: center;
 }
 

@@ -1,36 +1,31 @@
-<link rel="stylesheet" href="/css/style.css">
-<link rel="stylesheet" href="/css/search.css">
-<link rel="stylesheet" href="/css/compte.css">
-<link rel="stylesheet" href="/css/addresses_and_bankCards.css">
 <?php
-
 if(!isset($_GET['id']))
     header('location: ?');
 
-$req = $bdd->prepare("SELECT pseudo, lastName, firstName, country, registerDate, reputation, sales, purchases, picture, description, `rank`, score FROM users WHERE id = ?");
+$req = $bdd->prepare("SELECT pseudo, country, registerDate, reputation, sales, purchases, picture, description, `rank`, score FROM users WHERE id = ?");
 $req->execute(array($_GET['id']));
 $userInfos = $req->fetch(PDO::FETCH_ASSOC);
 
-$req = $bdd->prepare('SELECT products.id, name, products.description, releaseDate, conditionP, marketPosition FROM products WHERE sellerID = ?;');
-$req->execute(array($_GET['id']));
-
-$produits_research = $req->fetchAll(PDO::FETCH_ASSOC);
-
+if(empty($userInfos))
+    header('location: ?');
 ?>
 
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/compte.css">
+<link rel="stylesheet" href="/css/addresses_and_bankCards.css">
+
 <div class="headAccount">
-    <h3 class="profilText">Utilisateur: <?=$userInfos['pseudo']?></h3>
+    <h2 class="profilText">Utilisateur: <?=$userInfos['pseudo']?></h2>
 
     <div class="subHeadAccont_1">
         <div class="iconAccount noCursor">
             <img src="<?=$userInfos['picture'] === NULL ? "svg/avatar.svg" : "data:image;base64," . base64_encode($userInfos['picture'])?>" width="128" height="128">
-        
         </div>
 
         <p>Rang : <?=$userInfos['rank']?></p>
         <?php
             require 'php/modules/etoile.php';
-            reputationStars($userInfos['reputation']);
+            echo reputationStars($userInfos['reputation']);
         ?>
     </div>
 
@@ -45,13 +40,18 @@ $produits_research = $req->fetchAll(PDO::FETCH_ASSOC);
 
 <?php
 
+$req = $bdd->prepare('SELECT products.id, name, products.description, releaseDate, conditionP, marketPosition FROM products WHERE sellerID = ? AND saleStatus = 0');
+$req->execute(array($_GET['id']));
+
+$produits_research = $req->fetchAll(PDO::FETCH_ASSOC);
+
 if(!empty($produits_research))
 {
     require 'php/modules/price.php';
 
     $req_pseudo_vendeur = $bdd->prepare('SELECT pseudo FROM users WHERE id = ?');
     $req_main_picture = $bdd->prepare('SELECT fileName FROM pictures WHERE productID = ?');
-    echo '<h2>Les articles en vente par '.$userInfos['pseudo'].'</h2>';
+    echo '<h3>Les articles en vente par '.$userInfos['pseudo'].'</h3>';
     echo '<div class="grilleProduits">';
 
 
@@ -86,14 +86,12 @@ if(!empty($produits_research))
     echo '</div>';
 }
 else
-{
     echo '<p>Aucun produit en vente.</p>';
-}
 
 ?>
 
 <div>
-    <h3>Mes informations</h3>
+    <h3>Autres informations</h3>
 
     <div id="formInfosAccount">
             <label>
@@ -114,5 +112,34 @@ else
 
 <?php
 
+$req = $bdd->prepare('SELECT rating, comment, notes.releaseDate, users.id, pseudo, picture, `rank` FROM notes JOIN purchases ON purchaseID = purchases.id JOIN products ON productID = products.id JOIN users ON sellerID = users.id WHERE sellerID = ?');
+$req->execute(array($_GET['id']));
 
+$ratesInfos = $req->fetchAll(PDO::FETCH_ASSOC);
+
+if(!empty($ratesInfos)){
+    echo '<link rel="stylesheet" href="/css/otherUser.css">
+    
+          <div>
+            <h2>Les avis sur ' . $userInfos['pseudo'] . '</h2>';
+
+    foreach ($ratesInfos as $rate) {
+        echo '<div class="rates">
+                <a href="?i=otherUser&id=' . $rate['id'] . '" class="iconAccount">
+                    <img src="' . ($rate['picture'] === NULL ? "svg/avatar.svg" : "data:image;base64," . base64_encode($rate['picture'])) . '" width="64" height="64">
+                </a>
+
+                <p class="nameRater"><a href="?i=otherUser&id=' . $rate['id'] . '">' . $rate['pseudo'] . '</a><img src="svg/medals/' . strtolower($userInfos['rank']) . '-medal.svg" class="iconRank" width="64" height="64"></p>
+
+                <div class="commentAndStars">
+                    <p>' . $rate['comment'] . '</p>';
+
+        echo        reputationStars($rate['rating']) .
+               '</div>
+                
+              </div>';
+    }
+
+    echo '</div>';
+}
 ?>
