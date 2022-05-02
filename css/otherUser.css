@@ -6,6 +6,7 @@
 
 .rates > :first-child {
     grid-row: 2;
+    white-space: pre-wrap;
 }
 
 .rates > p {
