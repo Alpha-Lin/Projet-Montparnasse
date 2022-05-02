@@ -1,0 +1,47 @@
+.rates {
+    padding-top: 30px;
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+}
+
+.rates > :first-child {
+    grid-row: 2;
+}
+
+.rates > p {
+    grid-row: 1;
+    grid-column: 2;
+}
+
+.rates > :last-child {
+    grid-row: 2;
+    grid-column: 2;
+}
+
+.nameRater {
+    border: solid 1px grey;
+    border-radius: 3em;
+    text-align: center;
+    min-width: 150px;
+    width: 17%;
+    padding-bottom: 1%;
+    padding-left: 1.2%;
+    padding-right: 1.2%;
+}
+
+.commentAndStars {
+    border: solid 1px grey;
+    border-radius: 2em;
+    background-color: #F6F6F6;
+    padding: 10px;
+    display: inline-block;
+    width: 100%;
+}
+
+.commentAndStars > :first-child {
+    float: left;
+}
+
+.commentAndStars > :last-child {
+    float: right;
+}
