@@ -13,7 +13,7 @@
 
         <div class="blocImgs">
             <div>
-                <img src="svg/defaultPicture.svg" alt="Image du produit" width="300" onclick="this.nextElementSibling.click()">
+                <img src="svg/defaultPicture.svg" alt="Image du produit" id="firstImg" onclick="this.nextElementSibling.click()">
                 <input type="file" name="pictures[]" hidden onchange="showPicture(this)" accept="image/*" required>
                 <img src="svg/remove-button.svg" alt="Image du produit" width="20" onclick="resetPicture(this)" hidden>
             </div>
