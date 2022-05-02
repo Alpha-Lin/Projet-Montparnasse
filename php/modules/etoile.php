@@ -1,6 +1,7 @@
 <link rel="stylesheet" href="css/etoile.css">
 
 <?php
+// TODO : faire des étoiles plus précises
 function reputationStars($reputation){
 	echo '<div class="stars">';
 

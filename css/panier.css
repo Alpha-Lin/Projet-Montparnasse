@@ -69,3 +69,20 @@ main > div:not(:first-of-type) {
 .purchaseSecondColumn > img {
     width: 25%;
 }
+
+textarea{
+    height: 500px;
+    width: 100%;
+    border-radius: 10px;
+    font-size: 16px;
+}
+
+#formRate {
+    display: grid;
+    row-gap: 20px;
+}
+
+input[type="number"]{
+    width: 5%;
+    padding-right: inherit;
+}

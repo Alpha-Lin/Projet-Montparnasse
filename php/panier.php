@@ -1,6 +1,15 @@
 <link rel="stylesheet" href="css/panier.css">
 
 <?php
+function alreadyNoted($pruchaseID){
+    global $bdd;
+
+    $req = $bdd->prepare('SELECT purchaseID FROM notes WHERE purchaseID = ?'); // Vérifie que l'utilisateur n'a pas déjà noté l'achat
+    $req->execute(array($pruchaseID));
+
+    return $req->fetch(PDO::FETCH_COLUMN);
+}
+
     if(!isset($_SESSION['id']))
         header('location: ?i=Compte');
 
@@ -13,9 +22,30 @@
         $req->execute(array($_GET['add']));
 
         if($req->fetch(PDO::FETCH_COLUMN) == 0){ // Vérifie que le produit n'est pas déjà acheté
-            $req = $bdd->prepare('INSERT INTO shoppingCart(clientID, productID) VALUES(?, ?)');
+            $req = $bdd->prepare('INSERT INTO shoppingCart(clientID, productID) VALUES (?, ?)');
             $req->execute(array($_SESSION['id'],
                                 $_GET['add']));
+        }
+    }else if(isset($_GET['rateStars'], $_GET['purchaseID'])){ // Notations et avis
+        $req = $bdd->prepare('SELECT id FROM purchases WHERE buyerID = ? AND id = ?'); // Vérifie que l'utilisateur a bien acheté le produit
+        $req->execute(array($_SESSION['id'],
+                            $_GET['purchaseID']));
+
+        if($req->fetch(PDO::FETCH_COLUMN)){
+            $req = $bdd->prepare('SELECT purchaseID FROM notes WHERE purchaseID = ?'); // Vérifie que l'utilisateur n'a pas déjà noté l'achat
+            $req->execute(array($_GET['purchaseID']));
+
+            if(!alreadyNoted($_GET['purchaseID'])){
+                $req = $bdd->prepare('INSERT INTO notes(rating, comment, purchaseID) VALUES (?, ?, ?)'); // On inscrit la note et l'avis
+                $req->execute(array($_GET['rateStars'],
+                                    isset($_GET['rateComment']) ? $_GET['rateComment'] : '',
+                                    $_GET['purchaseID']));
+
+                $req = $bdd->prepare('UPDATE users JOIN products ON users.id = sellerID JOIN purchases ON products.id = productID SET reputation = (SELECT AVG(rating) FROM notes JOIN purchases ON purchaseID = purchases.id JOIN products ON productID = products.id WHERE sellerID = (SELECT users.id FROM users JOIN products ON users.id = sellerID JOIN purchases ON products.id = productID WHERE purchases.id = :purchase_id)) WHERE purchases.id = :purchase_id'); // On met à jour la réputation du vendeur (2H pour comprendre que WITH AS ne fonctionnait pas avec UPDATE... donc gros boudin)
+                $req->execute(array('purchase_id' => $_GET['purchaseID']));
+
+                echo '<p>Avis enregistré.</p>';
+            }
         }
     }
 
@@ -90,19 +120,20 @@
 
     echo '</div>
     <div id="orderContainer">
-        <h2>Mes commandes</h2>';
+        <h2>Historique de mes commandes</h2>';
 
     if(!empty($purchases_research)){
         require_once 'php/modules/etoile.php';
 
-        echo '<div id="ordersContainer">';
+        echo '<script src="js/panier.js"></script>
+              <div id="ordersContainer">';
 
         $req_main_picture = $bdd->prepare('SELECT fileName FROM pictures WHERE productID = ?');
 
         foreach ($purchases_research as $purchase) {
             $req_main_picture->execute(array($purchase['productID']));
 
-            echo '<div id="container">
+            echo '<div id="container" onclick="rating(' . $purchase['id'] . ')">
                     <p class="inBold purchaseFirstColumn">Commande n°' . $purchase['id'] . '<span class="numberOrder"></span></p>
                     <ul class="purchaseFirstColumn">
                         <li>
@@ -124,6 +155,58 @@
         }
 
         echo '</div>';
+
+        // TODO si avis déjà fait
+
+        $reqGetNotes = $bdd->prepare('SELECT rating, comment, releaseDate FROM notes WHERE purchaseID = ?');
+        
+        foreach ($purchases_research as $purchase) {
+            if(alreadyNoted($purchase['id'])){
+                $reqGetNotes->execute(array($purchase['id']));
+
+                $infosNotes = $reqGetNotes->fetch(PDO::FETCH_ASSOC);
+
+                echo   '<div id="rate_' . $purchase['id'] . '" class="rate" hidden>
+                            <h2>Votre avis donné sur votre commande (n°' . $purchase['id'] . ') le ' . $infosNotes['releaseDate'] . '</h2>
+
+                            <form id="formRate">
+                                <label>
+                                    Votre expérience avec votre commande :
+                                    <textarea readonly>' . $infosNotes['comment'] . '</textarea>
+                                </label>
+
+                                <label>
+                                    Votre note à votre commande :';
+
+                reputationStars($infosNotes['rating']);
+
+                echo           '</label>
+                            </form>
+                        </div>';
+            }
+            else
+                echo   '<div id="rate_' . $purchase['id'] . '" class="rate" hidden>
+                            <h2>Laisser un avis sur votre commande (n°' . $purchase['id'] . ')</h2>
+
+                            <form id="formRate">
+                                <input type="hidden" name="i" value="panier">
+                                <input type="hidden" name="purchaseID" value="' . $purchase['id'] . '">
+
+                                <label>
+                                    Décrivez votre expérience avec votre commande :
+                                    <textarea maxlength="1500" name="rateComment" placeholder="Type here"></textarea>
+                                </label>
+
+                                <label>
+                                    Donnez une note à votre commande :
+                                    <input type="number" step="0.1" min="0.1" max="5" name="rateStars" required>
+                                    <i class="fa fa-star gold"></i>
+                                </label>
+
+                                <input type="submit" value="Envoyer l\'avis">
+                            </form>
+                        </div>';
+        }
     }
 
     echo '</div>';
