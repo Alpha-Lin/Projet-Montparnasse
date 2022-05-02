@@ -89,11 +89,9 @@ function alreadyNoted($pruchaseID){
                         <ul>
                             <li>
                                 <p>
-                                    <span class="inBold"><a href="?i=otherUser&id=' . $produit['sellerID'] . '" class="vendeur">' . htmlspecialchars($vendorInfos['pseudo']) . '</a></span> <span class="seller"></span>';
-
-                reputationStars($vendorInfos['reputation']);
-
-                echo           '</p>
+                                    <span class="inBold"><a href="?i=otherUser&id=' . $produit['sellerID'] . '" class="vendeur">' . htmlspecialchars($vendorInfos['pseudo']) . '</a></span> <span class="seller"></span>' .
+                                    reputationStars($vendorInfos['reputation']) .
+                               '</p>
                             </li>
                             <li>
                                 <p class="descriptionArticle">' . htmlspecialchars($produit['description']) . '</p>
@@ -137,11 +135,9 @@ function alreadyNoted($pruchaseID){
                     <p class="inBold purchaseFirstColumn">Commande n°' . $purchase['id'] . '<span class="numberOrder"></span></p>
                     <ul class="purchaseFirstColumn">
                         <li>
-                            <p><span class="inBold">Vendeur : <a href="?i=otherUser&id=' . $purchase['vendorID'] . '" class="vendeur">' . htmlspecialchars($purchase['pseudo']) . '</a></span> <span class="seller"></span>';
-
-            reputationStars($purchase['reputation']);
-
-            echo           '</p>
+                            <p><span class="inBold">Vendeur : <a href="?i=otherUser&id=' . $purchase['vendorID'] . '" class="vendeur">' . htmlspecialchars($purchase['pseudo']) . '</a></span> <span class="seller"></span>' .
+            reputationStars($purchase['reputation']) .
+                           '</p>
                         </li>
                         <li>
                             <p><span class="inBold">Article:</span> <span class="listArticleInOrder">' . htmlspecialchars($purchase['name']) . '</span>
@@ -176,11 +172,9 @@ function alreadyNoted($pruchaseID){
                                 </label>
 
                                 <label>
-                                    Votre note à votre commande :';
-
-                reputationStars($infosNotes['rating']);
-
-                echo           '</label>
+                                    Votre note à votre commande :' .
+                                    reputationStars($infosNotes['rating']) .
+                               '</label>
                             </form>
                         </div>';
             }
