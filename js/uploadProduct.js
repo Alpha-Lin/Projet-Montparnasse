@@ -1,8 +1,8 @@
 function switchStep() {
     const formUploadProduct = document.getElementById("blocPrincipal");
 
-    changeDisplay(formUploadProduct.firstElementChild)
-    changeDisplay(formUploadProduct.firstElementChild.nextElementSibling)
+    changeDisplay(formUploadProduct.firstElementChild);
+    changeDisplay(formUploadProduct.firstElementChild.nextElementSibling);
 
     document.getElementById('previousStep').hidden = !document.getElementById('previousStep').hidden
     document.getElementById('nextStep').hidden = !document.getElementById('nextStep').hidden
@@ -11,6 +11,7 @@ function switchStep() {
 }
 
 function showPicture(input) {
+    var image =  document.getElementById('firstImg');
     if (input.files && input.files[0]) {
         var reader = new FileReader()
 
@@ -18,9 +19,22 @@ function showPicture(input) {
             input.previousElementSibling.src = e.target.result
         }
 
-        reader.readAsDataURL(input.files[0])
+       if(image.offsetWidth > "300")
+       {
+            image.style.width = "300px";
+            image.style.objectFit = "cover";
+       }
 
-        input.nextElementSibling.hidden = false
+       if(image.offsetHeight > "100")
+       {
+            image.style.height = "300px";
+            image.style.objectFit = "cover";
+       }
+        
+
+        reader.readAsDataURL(input.files[0]);
+
+        input.nextElementSibling.hidden = false;
     }
 }
 
