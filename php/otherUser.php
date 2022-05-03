@@ -126,12 +126,12 @@ if(!empty($ratesInfos)){
     foreach ($ratesInfos as $rate) {
         echo '<div class="rates">
 
-                <div class="iconAccount">
-                    <p class="nameRater">
+                <div>
+                    <p class="rater">
                         <a href="?i=otherUser&id=' . $rate['id'] . '" class="raterHead">
-                            <img src="' . ($rate['picture'] === NULL ? "svg/avatar.svg" : "data:image;base64," . base64_encode($rate['picture'])) . '" width="64" height="64">
-                        </a>
-                        <a href="?i=otherUser&id=' . $rate['id'] . '" class="raterName">' . $rate['pseudo'] . '</a>
+                            <img src="' . ($rate['picture'] === NULL ? "svg/avatar.svg" : "data:image;base64," . base64_encode($rate['picture'])) . '" width="64" height="64">' . 
+                            $rate['pseudo'] .
+                       '</a>
                         <img src="svg/medals/' . strtolower($userInfos['rank']) . '-medal.svg" class="iconRank" width="64" height="64">
                     </p>
                 </div>
