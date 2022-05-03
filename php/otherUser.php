@@ -126,7 +126,7 @@ if(!empty($ratesInfos)){
     foreach ($ratesInfos as $rate) {
         echo '<div class="rates">
 
-                <div class="iconAccount">
+                <div>
                     <p class="rater">
                         <a href="?i=otherUser&id=' . $rate['id'] . '" class="raterHead">
                             <img src="' . ($rate['picture'] === NULL ? "svg/avatar.svg" : "data:image;base64," . base64_encode($rate['picture'])) . '" width="64" height="64">' . 
