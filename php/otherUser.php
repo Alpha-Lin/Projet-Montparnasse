@@ -82,7 +82,7 @@ else
 
 <?php
 
-$req = $bdd->prepare('SELECT rating, comment, notes.releaseDate, users.id, pseudo, picture, `rank` FROM notes JOIN purchases ON purchaseID = purchases.id JOIN products ON productID = products.id JOIN users ON sellerID = users.id WHERE sellerID = ?');
+$req = $bdd->prepare('SELECT rating, comment, notes.releaseDate, users.id, pseudo, picture, `rank` FROM notes JOIN purchases ON purchaseID = purchases.id JOIN products ON productID = products.id JOIN users ON buyerID = users.id WHERE sellerID = ?');
 $req->execute(array($_GET['id']));
 
 $ratesInfos = $req->fetchAll(PDO::FETCH_ASSOC);
