@@ -2,6 +2,7 @@
     padding-top: 30px;
     display: grid;
     grid-template-columns: 1fr 5fr;
+    gap: 10px;
 }
 
 .rates > :first-child {
@@ -18,15 +19,33 @@
     grid-column: 2;
 }
 
-.nameRater {
+.rater {
     border: solid 1px grey;
-    border-radius: 3em;
+    border-radius: 1em;
     text-align: center;
-    min-width: 150px;
+    min-width: 130px;
     width: 17%;
+    padding-top: 2%;
     padding-bottom: 1%;
-    padding-left: 1.2%;
-    padding-right: 1.2%;
+    padding-right: 5%;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto auto;
+}
+
+.raterHead {
+    grid-column: 2;
+    grid-row: 1;
+}
+
+.raterName {
+    grid-column: 2;
+    grid-row: 2;
+}
+
+.iconRank {
+    grid-column: 1;
+    grid-row: 1;
 }
 
 .commentAndStars {

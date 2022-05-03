@@ -125,12 +125,17 @@ if(!empty($ratesInfos)){
 
     foreach ($ratesInfos as $rate) {
         echo '<div class="rates">
-                <a href="?i=otherUser&id=' . $rate['id'] . '" class="iconAccount">
-                    <img src="' . ($rate['picture'] === NULL ? "svg/avatar.svg" : "data:image;base64," . base64_encode($rate['picture'])) . '" width="64" height="64">
-                </a>
 
-                <p class="nameRater"><a href="?i=otherUser&id=' . $rate['id'] . '">' . $rate['pseudo'] . '</a><img src="svg/medals/' . strtolower($userInfos['rank']) . '-medal.svg" class="iconRank" width="64" height="64"></p>
-
+                <div class="iconAccount">
+                    <p class="nameRater">
+                        <a href="?i=otherUser&id=' . $rate['id'] . '" class="raterHead">
+                            <img src="' . ($rate['picture'] === NULL ? "svg/avatar.svg" : "data:image;base64," . base64_encode($rate['picture'])) . '" width="64" height="64">
+                        </a>
+                        <a href="?i=otherUser&id=' . $rate['id'] . '" class="raterName">' . $rate['pseudo'] . '</a>
+                        <img src="svg/medals/' . strtolower($userInfos['rank']) . '-medal.svg" class="iconRank" width="64" height="64">
+                    </p>
+                </div>
+                
                 <div class="commentAndStars">
                     <p>' . $rate['comment'] . '</p>';
 
