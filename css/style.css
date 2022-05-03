@@ -1,5 +1,12 @@
-/* some tags changes */
-@media only screen and (max-width: 600px) {
+html,   
+body {
+  height: 100%;
+  margin: 0;
+  background-color: #e4f4fb;
+  font-family: sans-serif;
+}
+
+@media only screen and (max-width: 600px) { /* css uniquement pour les téléphones */
 
   main {
     margin-left: 20%;
@@ -14,7 +21,7 @@
 
 }
 
-@media only screen and (min-width: 600px) {
+@media only screen and (min-width: 600px) { /* css uniquement pour les ordinateurs */
 
   main {
     margin-left: 20%;
@@ -29,13 +36,6 @@
 
 }
 
-html,
-body {
-  height: 100%;
-  margin: 0;
-  background-color: #e4f4fb;
-  font-family: sans-serif;
-}
 
 input[type="text"],
 input[type="search"],
@@ -56,9 +56,10 @@ input[type="number"] {
   border-bottom: 2px solid rgb(54, 54, 54);
 }
 
-/* placeholder settings for the search bar */
 
-input::placeholder {
+
+input::placeholder { 
+  /* paramètre du placeholder pour la barre de recherche */
   color: rgba(126, 125, 125, 0.2);
   font-size: 1.5em;
 }
@@ -68,7 +69,7 @@ main {
 }
 
 nav {
-  /* style that makes the navbar to be horizontal */
+  /* style de la barre de navigation horizontal */
   margin: 0;
   padding: 0;
   background-color: rgb(41, 43, 42);
@@ -80,58 +81,58 @@ nav {
 }
 
 nav a {
-  /* settings of the a tag when influenced by the nav */
+  /* paramètre des balises d'ancrage dans la balise nav */
   float: left;
   padding: 10px;
   color: white;
   text-decoration: none;
   font-size: 20px;
-  width: 10%; /* makes it so the links are of equal widths */
+  width: 10%; /* fait en sorte que chaque lien sont de même largeur */
   text-align: center;
 }
 
 i {
-  color: white; /* the color of the little icons */
+  color: white; /* couleur des icônes importées de font-awesome */
 }
 
 nav a:hover {
-  /* tweek the background of the navbar item that is hovered on */
+  /* modifie le fond des cases de la barre de navigation lorsqu'on passe dessus */
   transition: 1s;
   background-color: black;
 }
 
 .dropdown {
-  /* class that set the magnifying glass as a dropdown menu */
+  /* classe qui paramètre le menu déroulant de la loupe */
   float: left;
   width: 10%;
   text-align: center;
   overflow: hidden;
 }
 
-.dropdown,
+.dropdown, 
 .dropdown > * {
   cursor: pointer;
 }
 
 .dropdown:hover {
-  /* tweek thee background of the dropdown menu when hovered on */
+  /* modifie le fond du menu déroulant lorsqu'on passe dessus */
   transition: 1s;
   background-color: black;
 }
 
 .dropdown .dropbtn {
-  /* the settings of the navbar item that make the dropdown menu appear  */
+  /* paramètres du bouton qui fait apparaître la barre de recherche  */
   border: none;
   outline: none;
   color: white;
   padding: 14px 16px;
   background-color: inherit;
-  font-family: inherit; /* Important for vertical align on mobile phones */
-  margin: 0; /* Important for vertical align on mobile phones */
+  font-family: inherit; 
+  margin: 0; 
 }
 
 .dropdown-content {
-  /* settings of the dropdown menu */
+  /* paramètres de la barre de recherche */
   visibility: hidden;
   opacity: 0;
   position: fixed;
@@ -145,9 +146,9 @@ nav a:hover {
   transition-duration: 1s;
 }
 
-/* style settings for the footer */
+/* Paramètres du footer */
 
-@media only screen and (max-width: 600px){
+@media only screen and (max-width: 600px){  /* css uniquement pour les téléphones */
 
 footer {
   display: grid;
@@ -160,11 +161,12 @@ footer {
   text-align: center;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: repeat(3, 45px);
+  z-index: 8;
 }
 
 }
 
-@media only screen and (min-width: 600px){
+@media only screen and (min-width: 600px){  /* css uniquement pour les ordinateurs */
 
   footer {
     display: grid;
@@ -260,9 +262,9 @@ input[name="tabs"]:checked + label {
   border: solid 2px #fff;
 }
 
-/* css for the side bar */
+/* css pour la barre latérale */
 
-@media only screen and (max-width: 600px){ /* specific style for low resolution screen */
+@media only screen and (max-width: 600px){ /* css uniquement pour les téléphones */
   .sidebar{
     display: flex;
     flex-direction: column;
@@ -290,7 +292,7 @@ input[name="tabs"]:checked + label {
 
 
   .btnCategories {
-    z-index: 0;
+    z-index: 8;
     position: fixed;
     background: rgb(54, 54, 54);
     width: 50px;
@@ -301,6 +303,8 @@ input[name="tabs"]:checked + label {
     margin-top: 50%;
     left: 0;
     top: 0;
+    cursor: pointer;
+    z-index: 7;
   }
 
   
@@ -334,7 +338,7 @@ input[name="tabs"]:checked + label {
   color: white;
 }
 
-@media only screen and (min-width: 600px){  /* specific style for high resolution screen */
+@media only screen and (min-width: 600px){  /* css uniquement pour les ordinateurs */
 
 .sidebar {
   display: flex;
@@ -379,7 +383,7 @@ input[name="tabs"]:checked + label {
 }
 
 
-/* Css for the sorting options window */ 
+/* Css pour le volet de trie */ 
 
 .volet {
   z-index: 0;
@@ -541,7 +545,7 @@ input[name="tabs"]:checked + label {
   font-weight: bold;
 }
 
-/* Css for the forms to add a product */
+/* Css pour le formulaire d'ajout de produit */
 
 .uploadGrid {
   display: grid;
@@ -580,9 +584,9 @@ input[name="tabs"]:checked + label {
 }
 
 
-/* css carousel for the home page */
+/* css pour le slideshow/carousel de la page d'accueil */
 
-@media only screen and (max-width: 600px){
+@media only screen and (max-width: 600px){ /* css uniquement pour les téléphones */
 
   .carousel {
     position: absolute;
@@ -593,7 +597,7 @@ input[name="tabs"]:checked + label {
 
 }
 
-@media only screen and (min-width: 600px){
+@media only screen and (min-width: 600px){  /* css uniquement pour les ordinateurs */
 
   .carousel {
     position: absolute;
@@ -729,4 +733,8 @@ hr {
   border: none;
   background-color: rgb(25, 25, 129);
   cursor: pointer;
+}
+
+.littlePDP {
+  border-radius: 2em;
 }

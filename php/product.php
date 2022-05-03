@@ -1,6 +1,6 @@
 <?php
 if(isset($_GET['id'])){
-    $req = $bdd->prepare('SELECT * FROM products WHERE id = ?');
+    $req = $bdd->prepare('SELECT products.id, name, marketPosition, products.description, releaseDate, conditionP, users.id AS vendorID, pseudo, reputation, picture, `rank` FROM products JOIN users ON sellerID = users.id WHERE products.id = ?');
     $req->execute(array($_GET['id']));
 
     $produit = $req->fetch(PDO::FETCH_ASSOC);
@@ -11,130 +11,65 @@ if(isset($_GET['id'])){
 
         $pictures = $req->fetchAll(PDO::FETCH_ASSOC);
 
-        echo '<link rel="stylesheet" href="css/article.css">';
+        require 'php/modules/etoile.php';
+        require 'php/modules/price.php';
 
-        echo '<h1 id="articleName">' . $produit['name'] . '</h1>
-                <div id="articleHolder"></div>
-                    <div id="left">
-                        <div id="listImage">';
-                            for($i = 1; $i < 4; $i++){
-                                if(!isset($pictures[$i]))
-                                    break;
-                                
-                                echo '<img id="img' . $i .'" src="images/products/' . htmlspecialchars($pictures[$i]['fileName']) . '" alt="image of the product">';
-                            }
-        echo           '</div>
-                        <img id="bigPic" src="images/products/' . htmlspecialchars($pictures[0]['fileName']) . '" alt="Image principale">
-                    </div>
-                    <div id="Articleright">
-                        <div class="article">
+        echo '<h2 id="articleName">' . $produit['name'] . '</h2>
 
-                                <div id="rightArticle">
-                                    <img id="picUser" alt="User Picture" src="">
-                                    <i class="fa fa-check-circle-o" aria-hidden="true"></i>
-                                    <div id="starsArticle">
-                                        <img alt="Stars" src="" id="starsBackgroundArticle">
-                                        <img alt="Stars Foreground" src="" id="starsForegroundArticle">
-                                    </div>
-                                    <img alt="medal" src="" id="medalUserInArticle">
-                                    <p>Par <span id="userNameInArticle"></span> le <span id="dateArticle"></span></p>
-                                    <p id="descriptionOnArticle">Petite description</p>
-                                    <p id="priceArticle"><span id="curency"></span></p>
-                                    <!-- 
-                                    <p id="deliveryDateText">Livré le         <span id="deliveryDate"></span>
-                                        <i class="fa fa-truck"></i></p>-->
-                                </div>
-                                <div id="bottomArticle">
-                                    <!-- <img alt="Heart" src=""> -->
-                                    <button id="addToCartBtn">
-                                        <p>Ajouter au panier
-                                            <i class="fa fa-cart-plus" aria-hidden="true"></i></p>
-                                    </button>
-                                </div>
-                            </div>   
+              <div id="blocArticle">
+                <div id="picturesProduct">
+                    <div id="minorBlocPictures">';
                 
-                
-                    </div>
-                
-                <div id="questionHolder">
-                    <h2>Questions</h2>
-                    <div class="questionAnswer">
-                        <div class="questionPart">
-                            <div class="questionUser">
-                                <img id="picUser" src="" alt="user pic">
-                                <p id="titleNameReview">
-                                    <span id="userName">Name</span>
-                                    <img id="medalUserComent" src="" alt="user medal">
-                                </p>
-                                <div id="starsShowcase">
-                                    <img alt="Stars" src="" id="starsBackgroundShowcase">
-                                    <img alt="Stars Foreground" src="" id="starsForegroundShowcase">
-                                </div>
-                                <p id="review">Lukjbdhjsebfjhsef</p>
-                            </div>
-                        </div>
-                        <div class="answerPart">
-                            <div class="answerSeller">
-                                <img id="picUser" src="" alt="user pic">
-                                <p id="titleNameReview">
-                                    <span id="userName">Name</span>
-                                    <img id="medalUserComent" src="" alt="user medal">
-                                </p>
-                                <div id="starsShowcase">
-                                    <img alt="Stars" src="" id="starsBackgroundShowcase">
-                                    <img alt="Stars Foreground" src="" id="starsForegroundShowcase">
-                                </div>
-                                <p id="review">Lukjbdhjsebfjhsef</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    
+                for($i = 1; $i < count($pictures); $i++)
+                    echo '<img class="minorPictures" src="images/products/' . htmlspecialchars($pictures[$i]['fileName']) . '" alt="Image de ' . htmlspecialchars($produit['name']) . '">';
+
+        echo   '    </div>
+                    <img id="mainPicture" src="images/products/' . htmlspecialchars($pictures[0]['fileName']) . '" alt="Image de ' . htmlspecialchars($produit['name']) . '">
+        
                 </div>
-                <div id="youWillLikeToo">
-                    <h2 id="showcaseArticle" class="toCenter">Les articles en vente par </h2>
-                        <div id="articleConatiner">
-                            <div class="article">
-                            <div id="topArticle">
-                                <p id="articleName" class="toCenter">Nom de l\'article</p>
-                            </div>
+                <div id="infosProduct">
+                    <div id="headerInfos">
+                        <div id="pdpStarsRank">
+                            <img class="littlePDP" src="' . ($produit['picture'] === NULL ? "svg/avatar.svg" : "data:image;base64," . base64_encode($produit['picture'])) . '" width="64" height="64">' .
+                            reputationStars($produit['reputation']) .
+                            '<img src="svg/medals/' . strtolower($produit['rank']) . '-medal.svg" class="iconRank" width="64" height="64">
+                        </div>
+                        <p id="linkVendor">
+                            Par <a href="?i=otherUser&id=' . $produit['vendorID']  . '">' . $produit['pseudo'] . '</a><br>
+                            le ' . $produit['releaseDate'] .
+                       '</p>
+                    </div>
 
-                                <div id="leftArticle">
-                                    <img src="" alt="article picture">
-                                </div>
-                                <div id="rightArticle">
-                                    <img id="picUser" alt="User Picture" src="">
-                                    <i class="fa fa-check-circle-o" aria-hidden="true"></i>
-                                    <div id="starsArticle">
-                                        <img alt="Stars" src="" id="starsBackgroundArticle">
-                                        <img alt="Stars Foreground" src="" id="starsForegroundArticle">
-                                    </div>
-                                    <img alt="medal" src="" id="medalUserInArticle">
-                                    <p>Par <span id="userNameInArticle"></span> le <span id="dateArticle"></span></p>
-                                    <p id="descriptionOnArticle">Petite description</p>
-                                    <p id="priceArticle"><span id="curency"></span></p>
-                                    <!-- 
-                                    <p id="deliveryDateText">Livré le         <span id="deliveryDate"></span>
-                                        <i class="fa fa-truck"></i></p>-->
-                                </div>
-                                <div id="bottomArticle">
-                                    <!-- <img alt="Heart" src=""> -->
-                                    <button id="addToCartBtn">
-                                        <p>Ajouter au panier
-                                            <i class="fa fa-cart-plus" aria-hidden="true"></i></p>
-                                    </button>
-                                </div>
-                            </div>               
-                            
-                            
-                            </div>
+                    <div id="descritionProduct">
+                        <h3>Description :</h3>
+                        <p>' . $produit['description'] . '</p>
+                    </div>
 
-                            <p class="toCenter">
-                                <a id="arrowBtnArticle" href="" >
-                                    <i class="fa fa-arrow-circle-down" aria-hidden="true"></i>
-                                </a>
-                            </p>
-                </div>';
+                    <div id="marketBlock">' .
+                        number_format(reloadExternalPrices($produit, time()), 2, '.', '') . '€
+                        <button type="button" onclick="location.href=\'?i=panier&add=' . $produit['id'] . '\'">Ajouter au panier</button>
+                    </div>
+                </div>
+              </div>';
+
+        $req = $bdd->prepare('SELECT * FROM products WHERE name LIKE ? AND id <> ? LIMIT 3');
+        $req->execute(array('%' . $produit['name'] . '%',
+                            $produit['id']));
+
+        $produitsRecommandation = $req->fetchAll(PDO::FETCH_ASSOC);
+
+        if(!empty($produitsRecommandation)){
+            echo '<div id="recommandations">
+                    <h3>Vous aimerez aussi</h3>';
+
+            require 'php/modules/blocItems.php';
+
+            blocItems($produitsRecommandation);
+
+            echo '</div>';
+        }
+
+        echo '<link rel="stylesheet" href="css/article.css">';
     }else
         header('location: ?');
 }

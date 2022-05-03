@@ -1,6 +1,6 @@
-/* CSS for user page, made by Andreas */
+/* CSS pour la page d'utilisateur, fait par Andreas */
 
-/* Main grid of the page */
+/* Grille principale de la page  */
 .grid { 
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -9,24 +9,24 @@
     grid-row-gap: 0px;
 }
 
-/* Class to center every elements who required it */
+/* Classe pour centrer tous les éléments qui le requièrent */
 .toCenter{
     margin: auto;
     text-align: center;
 
 }
 
-/* User Showcase */
+/* Présentation utilisateur */
 #mainIntroductionUser{
     background-color: green;
     grid-area: 1 / 1 / 2 / 3;
 }
-/* Statistic about the User*/
+/* Statistique à propos de l'utilisateur */
 #rankingInfo{
     background-color: yellow;
     grid-area: 1 / 3 / 2 / 4;
 }
-/* Show some article */
+/* Montre quelques articles */
 .showCaseDiv{
     background-color: red;
     grid-area: 2 / 1 / 3 / 4;
@@ -34,7 +34,7 @@
 #articleConatiner{
     display: inline;
 }
-/* Individual Article*/
+/* Article individuel */
 .article{
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -48,37 +48,37 @@
     
 }
 
-/* Top part of an article */
+/* Partie supérieur d'un article */
 #topArticle { 
     grid-area: 1 / 1 / 2 / 3; 
     background-color: purple;
 }
 
-/* Center-left part of an article */
+/* Partie centrale-gauche d'un article */
 #leftArticle {
     grid-area: 2 / 1 / 5 / 2; 
     background-color: aqua;
 }
 
-/* Center-right part of an article */
+/* Partie centre-droite d'un article */
 #rightArticle { 
     grid-area: 2 / 2 / 5 / 3; 
     background-color: hotpink;
 }
 
-/* Bottom part of an article */
+/* Partie basse d'un article */
 #bottomArticle {
     grid-area: 5 / 1 / 6 / 3; 
     background-color: darkcyan;
 }
 
-/* Div that contain review */
+/* Div qui contient l'avis */
 #commentSection{
     background-color: blue;
     grid-area: 3 / 1 / 4 / 4;
 }
 
-/* Single review */
+/* Un avis seul */
 .review{
     background-color: white;
     margin: 10px;

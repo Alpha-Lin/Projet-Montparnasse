@@ -22,7 +22,6 @@ require 'php/modules/accountRequests.php';?>
         </div>
 
         <p><?=$userInfos['firstName'] . ' ' . $userInfos['lastName']?></p>
-        <p>Rang : <?=$userInfos['rank']?></p>
         <?php
             require 'php/modules/etoile.php';
             echo reputationStars($userInfos['reputation']);

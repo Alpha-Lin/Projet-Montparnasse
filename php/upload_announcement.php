@@ -8,7 +8,7 @@ if(isset($_POST['nom_produit'], $_POST['description_produit'], $_POST['etat_prod
     {
         require 'php/modules/hcaptcha.php';
 
-        if(hcaptcha($_POST['h-captcha-response']))
+        if(!hcaptcha($_POST['h-captcha-response']))
             mis_log("Captcha invalide !");
         else if(strlen($_POST['description_produit']) > 300)
             mis_log("Description trop large.");
