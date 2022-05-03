@@ -83,42 +83,9 @@ else
 
 if(!empty($produits_research))
 {
-    require 'php/modules/price.php';
+    require 'php/modules/blocItems.php';
 
-    $req_pseudo_vendeur = $bdd->prepare('SELECT pseudo FROM users WHERE id = ?');
-    $req_main_picture = $bdd->prepare('SELECT fileName FROM pictures WHERE productID = ?');
-
-    echo '<div class="grilleProduits">';
-
-    $temps = time();
-
-    foreach ($produits_research as $produit) { // Chaque produit
-        $req_pseudo_vendeur->execute(array($produit['sellerID']));
-        $req_main_picture->execute(array($produit['id']));
-
-        echo '
-            <div class="produit">
-                
-                <h3 class="titreProduit"><a href="?i=product&id=' . $produit['id'] . '">' . htmlspecialchars($produit['name']) . '</a></h3>
-                <hr>
-                <div class="detailsProduit">
-                    <a href="?i=product&id=' . $produit['id'] . '">
-                        <img class="imageProduit" src="images/products/' . htmlspecialchars($req_main_picture->fetch(PDO::FETCH_COLUMN)) . '" alt="Image de ' . htmlspecialchars($produit['name']) . '">
-                    </a>
-                    <div class="infosProduit">
-                        <div class="vendeurProduit">
-                            <p>De <a href="?i=otherUser&id=' . $produit['sellerID'] . '" class="vendeur">' . htmlspecialchars($req_pseudo_vendeur->fetch(PDO::FETCH_COLUMN)) . '</a><br>le ' . $produit['releaseDate'] . '</p>
-                        </div>
-                        <p class="descProduit">' . htmlspecialchars($produit['description']) . '</p>
-                        <p class="prixProduit">' . number_format(reloadExternalPrices($produit, $temps), 2, '.', '') . '€</p>
-                    </div>
-                </div>
-                <p class="ajoutPanier"><a href="?i=panier&add=' . $produit['id'] . '">Ajouter au panier</a></p>
-                
-            </div>'; // TODO : envoyer le dernier prix pour montrer l'évolution
-    }
-
-    echo '</div>';
+    blocItems($produits_research);
 }else
     echo '<p>Aucun résultat trouvé.</p>';
 ?>

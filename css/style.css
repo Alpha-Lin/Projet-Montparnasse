@@ -734,3 +734,7 @@ hr {
   background-color: rgb(25, 25, 129);
   cursor: pointer;
 }
+
+.littlePDP {
+  border-radius: 2em;
+}

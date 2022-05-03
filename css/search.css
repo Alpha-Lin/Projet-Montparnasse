@@ -1,16 +1,16 @@
 @media only screen and (max-width: 600px){ /* css pour les basse résolution */
 
-main {
-  margin-left: 20%;
-  border: solid 2px blue;
-  margin-top: 50px;
-  padding-bottom: 18%;
-  padding-left: 2.4%;
-  padding-right: 2.4%;
-  border-radius: 10px;
-  height: 100%;
-  width: 100%;
-}
+  main {
+    margin-left: 20%;
+    border: solid 2px blue;
+    margin-top: 50px;
+    padding-bottom: 18%;
+    padding-left: 2.4%;
+    padding-right: 2.4%;
+    border-radius: 10px;
+    height: 100%;
+    width: 100%;
+  }
 
 }
 
@@ -28,7 +28,7 @@ main {
     height: 100%;
   }
   
-  }
+}
 
 
 .grilleProduits {

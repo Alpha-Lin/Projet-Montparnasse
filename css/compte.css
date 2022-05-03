@@ -1,5 +1,6 @@
 main{
   height: auto;
+  padding: 5%
 }
 
 main>div:not(:first-of-type) {
