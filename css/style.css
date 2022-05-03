@@ -161,6 +161,7 @@ footer {
   text-align: center;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: repeat(3, 45px);
+  z-index: 8;
 }
 
 }
@@ -291,7 +292,7 @@ input[name="tabs"]:checked + label {
 
 
   .btnCategories {
-    z-index: 0;
+    z-index: 8;
     position: fixed;
     background: rgb(54, 54, 54);
     width: 50px;
@@ -302,6 +303,8 @@ input[name="tabs"]:checked + label {
     margin-top: 50%;
     left: 0;
     top: 0;
+    cursor: pointer;
+    z-index: 7;
   }
 
   
