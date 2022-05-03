@@ -10,9 +10,8 @@ if(empty($userInfos))
     header('location: ?');
 ?>
 
-<link rel="stylesheet" href="/css/search.css">
-<link rel="stylesheet" href="/css/compte.css">
 <link rel="stylesheet" href="/css/addresses_and_bankCards.css">
+<link rel="stylesheet" href="/css/otherUser.css">
 
 <div class="headAccount">
     <h2 class="profilText">Utilisateur: <?=$userInfos['pseudo']?></h2>
@@ -22,7 +21,6 @@ if(empty($userInfos))
             <img src="<?=$userInfos['picture'] === NULL ? "svg/avatar.svg" : "data:image;base64," . base64_encode($userInfos['picture'])?>" width="128" height="128">
         </div>
 
-        <p>Rang : <?=$userInfos['rank']?></p>
         <?php
             require 'php/modules/etoile.php';
             echo reputationStars($userInfos['reputation']);
@@ -40,7 +38,7 @@ if(empty($userInfos))
 
 <?php
 
-$req = $bdd->prepare('SELECT products.id, name, products.description, releaseDate, conditionP, marketPosition FROM products WHERE sellerID = ? AND saleStatus = 0');
+$req = $bdd->prepare('SELECT products.id, name, products.description, releaseDate, conditionP, marketPosition, sellerID FROM products WHERE sellerID = ? AND saleStatus = 0');
 $req->execute(array($_GET['id']));
 
 $produits_research = $req->fetchAll(PDO::FETCH_ASSOC);
@@ -49,39 +47,11 @@ if(!empty($produits_research))
 {
     require 'php/modules/price.php';
 
-    $req_pseudo_vendeur = $bdd->prepare('SELECT pseudo FROM users WHERE id = ?');
-    $req_main_picture = $bdd->prepare('SELECT fileName FROM pictures WHERE productID = ?');
     echo '<h3>Les articles en vente par '.$userInfos['pseudo'].'</h3>';
-    echo '<div class="grilleProduits">';
+    
+    require 'php/modules/blocItems.php';
 
-
-    $temps = time();
-
-    foreach ($produits_research as $produit) { // Chaque produit
-        $req_pseudo_vendeur->execute(array($_GET['id']));
-        $req_main_picture->execute(array($produit['id']));
-
-        echo '
-            <div class="produit">
-                
-                <h3 class="titreProduit"><a href="?i=product&id=' . $produit['id'] . '">' . htmlspecialchars($produit['name']) . '</a></h3>
-                <hr>
-                <div class="detailsProduit">
-                    <a href="?i=product&id=' . $produit['id'] . '">
-                        <img class="imageProduit" src="images/products/' . htmlspecialchars($req_main_picture->fetch(PDO::FETCH_COLUMN)) . '" alt="Image de ' . htmlspecialchars($produit['name']) . '">
-                    </a>
-                    <div class="infosProduit">
-                        <div class="vendeurProduit">
-                            <p>De <a href="?i=otherUser&id=' . $_GET['id'] . '" class="vendeur">' . htmlspecialchars($req_pseudo_vendeur->fetch(PDO::FETCH_COLUMN)) . '</a><br>le ' . $produit['releaseDate'] . '</p>
-                        </div>
-                        <p class="descProduit">' . htmlspecialchars($produit['description']) . '</p>
-                        <p class="prixProduit">'. number_format(reloadExternalPrices($produit, $temps), 2, '.', ''). '€</p>
-                    </div>
-                </div>
-                <p class="ajoutPanier"><a href="?i=panier&add=' . $produit['id'] . '">Ajouter au panier</a></p>
-                
-            </div>'; // TODO : envoyer le dernier prix pour montrer l'évolution
-    }
+    blocItems($produits_research);
 
     echo '</div>';
 }
@@ -118,7 +88,7 @@ $req->execute(array($_GET['id']));
 $ratesInfos = $req->fetchAll(PDO::FETCH_ASSOC);
 
 if(!empty($ratesInfos)){
-    echo '<link rel="stylesheet" href="/css/otherUser.css">
+    echo '<link rel="stylesheet" href="/css/rates.css">
     
           <div>
             <h2>Les avis sur ' . $userInfos['pseudo'] . '</h2>';
@@ -129,7 +99,7 @@ if(!empty($ratesInfos)){
                 <div>
                     <p class="rater">
                         <a href="?i=otherUser&id=' . $rate['id'] . '" class="raterHead">
-                            <img src="' . ($rate['picture'] === NULL ? "svg/avatar.svg" : "data:image;base64," . base64_encode($rate['picture'])) . '" width="64" height="64">' . 
+                            <img class="littlePDP" src="' . ($rate['picture'] === NULL ? "svg/avatar.svg" : "data:image;base64," . base64_encode($rate['picture'])) . '" width="64" height="64">' . 
                             $rate['pseudo'] .
                        '</a>
                         <img src="svg/medals/' . strtolower($userInfos['rank']) . '-medal.svg" class="iconRank" width="64" height="64">
@@ -148,3 +118,6 @@ if(!empty($ratesInfos)){
     echo '</div>';
 }
 ?>
+
+<link rel="stylesheet" href="/css/compte.css">
+

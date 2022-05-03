@@ -1,0 +1,68 @@
+.rates {
+    padding-top: 30px;
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+    gap: 10px;
+}
+
+.rates > :first-child {
+    grid-row: 2;
+}
+
+.rates > p {
+    grid-row: 1;
+    grid-column: 2;
+}
+
+.rates > :last-child {
+    grid-row: 2;
+    grid-column: 2;
+}
+
+.rater {
+    border: solid 1px grey;
+    border-radius: 1em;
+    text-align: center;
+    min-width: 130px;
+    width: 17%;
+    padding-top: 2%;
+    padding-bottom: 1%;
+    padding-right: 5%;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto auto;
+}
+
+.raterHead {
+    grid-column: 2;
+    grid-row: 1;
+}
+
+.raterName {
+    grid-column: 2;
+    grid-row: 2;
+}
+
+.iconRank {
+    grid-column: 1;
+    grid-row: 1;
+}
+
+.commentAndStars {
+    border: solid 1px grey;
+    border-radius: 2em;
+    background-color: #F6F6F6;
+    padding: 10px;
+    display: inline-block;
+    width: 100%;
+}
+
+.commentAndStars > :first-child {
+    float: left;
+    white-space: pre-wrap;
+}
+
+.commentAndStars > :last-child {
+    float: right;
+    padding: 5%;
+}
