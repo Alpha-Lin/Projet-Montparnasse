@@ -17,15 +17,12 @@ if(isset($_GET['id'])){
         echo '<h2 id="articleName">' . $produit['name'] . '</h2>
 
               <div id="blocArticle">
-                <div id="picturesProduct">
-                    <div id="minorBlocPictures">';
+                <div id="picturesProduct">';
                 
-                for($i = 1; $i < count($pictures); $i++)
-                    echo '<img class="minorPictures" src="images/products/' . htmlspecialchars($pictures[$i]['fileName']) . '" alt="Image de ' . htmlspecialchars($produit['name']) . '">';
+            for($i = 1; $i < count($pictures); $i++)
+                echo '<img class="minorPictures" src="images/products/' . htmlspecialchars($pictures[$i]['fileName']) . '" alt="Image de ' . htmlspecialchars($produit['name']) . '">';
 
-        echo   '    </div>
-                    <img id="mainPicture" src="images/products/' . htmlspecialchars($pictures[0]['fileName']) . '" alt="Image de ' . htmlspecialchars($produit['name']) . '">
-        
+            echo     '<img id="mainPicture" src="images/products/' . htmlspecialchars($pictures[0]['fileName']) . '" alt="Image de ' . htmlspecialchars($produit['name']) . '">
                 </div>
                 <div id="infosProduct">
                     <div id="headerInfos">
