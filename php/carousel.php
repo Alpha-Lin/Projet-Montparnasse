@@ -1,4 +1,5 @@
 <link rel="stylesheet" href="css/search.css">
+<link rel="stylesheet" href="css/style.css">
 
 <h2>Derniers produits mis en vente :</h2>
 
@@ -16,7 +17,7 @@ $req_main_picture = $bdd->prepare('SELECT fileName FROM pictures WHERE productID
 
 $temps = time();
 
-foreach ($req->fetchAll(PDO::FETCH_ASSOC) as $produit) {
+foreach (array_slice($req->fetchAll(PDO::FETCH_ASSOC), 0, 3) as $produit) {
     $req_pseudo_vendeur->execute(array($produit['sellerID']));
     $req_main_picture->execute(array($produit['id']));
 

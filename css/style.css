@@ -582,23 +582,23 @@ input[name="tabs"]:checked + label {
 
 /* css carousel for the home page */
 
-@media only screen and (max-width: 600px){
+@media only screen and (max-width: 600px){ /* css for lower resolution */
 
   .carousel {
     position: absolute;
     overflow: hidden;
-    width: 100%;
+    width: 95%;
     margin-top: 10%;
   }
 
 }
 
-@media only screen and (min-width: 600px){
+@media only screen and (min-width: 600px){ /* css for higher resolution */
 
   .carousel {
     position: absolute;
     overflow: hidden;
-    width: 36%;
+    width: 30%;
     margin-top: 10%;
     margin-left: 10%;
   }
@@ -613,25 +613,25 @@ input[name="tabs"]:checked + label {
   justify-content: center;
 }
 
-@media only screen and (max-width: 600px){
+@media only screen and (max-width: 600px){ /* css for lower resolution */
 
   .cadre {
     display: flex;
-    grid-gap: 1em;
+    grid-gap: 2em;
     overflow: hidden;
-    width: 90em;
+    width: 85em;
     padding-left: 60.5em;
     transition-duration: 1s;
   }
 
 }
 
-@media only screen and (min-width: 600px){
+@media only screen and (min-width: 600px){ /* css for higher resolution */
   .cadre {
     display: flex;
-    grid-gap: 1em;
+    grid-gap: 2em;
     overflow: hidden;
-    width: 100em;
+    width: 92em;
     padding-left: 67.5em;
     transition-duration: 1s;
   }
@@ -674,8 +674,9 @@ hr {
 }
 
 .imageProduitCarousel {
-  width: 80%;
-  height: 80%;
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
   border: solid 1px black;
   z-index: 1;
 }
