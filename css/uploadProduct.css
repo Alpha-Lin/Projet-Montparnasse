@@ -1,14 +1,88 @@
-main {
-    margin-top: 5%;
-    margin-left: 15%;
-    margin-right: 10%;
-    padding: 5%;
-    border-radius: 25px 25px 0 0;
-    height: auto;
-    font-family: sans-serif;
+@media only screen and (max-width: 600px){  /* css pour les basses résolutions */
+
+    main {
+        margin-top: 5%;
+        margin-left: 15%;
+        margin-right: 10%;
+        padding: 5%;
+        padding-right: 70%;
+        border-radius: 25px 25px 0 0;
+        height: auto;
+        font-family: sans-serif;
+    }
+
+    .blocImgs{
+        grid-row: 2;
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        grid-template-rows: 1fr 1fr 1fr;
+        border-right: solid black 2px;
+
+    }
+
+    .blocInfosProduit {
+        grid-row: 2;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 100px 100px;
+        padding-left: 10%;
+        gap: 20%;
+    }
+
+    h1 {
+        margin-left: 50%;
+    }
+
+    hr {
+        width: 100vh;
+    }
+
+    textarea{
+        height: 90%;
+        width: 20vh;
+        border-radius: 2%;
+    }
+
 }
 
-h1{
+@media only screen and (min-width: 600px){  /* css pour les hautes résolutions */
+
+    main {
+        margin-top: 5%;
+        margin-left: 15%;
+        margin-right: 10%;
+        padding: 5%;
+        border-radius: 25px 25px 0 0;
+        height: auto;
+        font-family: sans-serif;
+    }
+
+    .blocImgs{
+        grid-row: 2;
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        grid-template-rows: 1fr 1fr 1fr;
+        border-right: solid black 2px;
+        padding: 50px;
+    }
+
+    .blocInfosProduit {
+        grid-row: 2;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        padding: 50px;
+    }
+
+    textarea{
+        height: 90%;
+        width: 100%;
+        border-radius: 2%;
+    }
+    
+}
+
+
+h1 {
     text-align: center;
 }
 
@@ -17,14 +91,7 @@ h1{
     grid-template-columns: 1fr 1fr;
 }
 
-.blocImgs{
-    grid-row: 2;
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
-    border-right: solid black 2px;
-    padding: 50px;
-}
+
 
 #firstImg {
     width: 300px;
@@ -38,12 +105,6 @@ h1{
     cursor: pointer;
 }
 
-.blocInfosProduit {
-    grid-row: 2;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 50px;
-}
 
 .etat {
     grid-column: 1;
@@ -55,13 +116,12 @@ h1{
     grid-row: 2;
 }
 
-
-
-textarea{
-    height: 90%;
-    width: 100%;
-    border-radius: 2%;
+.descriptionObj {
+    grid-column: 2;
+    grid-row: 1/-1;
 }
+
+
 
 label{
     text-align: center;
