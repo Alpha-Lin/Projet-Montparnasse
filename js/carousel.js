@@ -11,25 +11,29 @@ buttonsWrapper.addEventListener("click", e => { // si un bouton est cliqué...
       slides.style.transform = "translateX(0px)";  
       e.target.classList.add("active"); // ajouter la classe "active" au bouton ciblé
     } else if (e.target.classList.contains("second")) {
-      if(window.innerWidth > 600) // test pour savoir si l'appareille utilisé est un ordinateur ou un téléphone
+      if(window.innerWidth > 600) // test pour savoir si l'appareille utilisé est un ordinateur ou un téléphone (si > 600 ordinateurs sinon téléphone)
       {
-        slides.style.transform = "translateX(-28.2em)";
+        slides.style.transform = "translateX(-27em)";
       }
       else
       {
-        slides.style.transform = "translateX(-28em)";
+        slides.style.transform = "translateX(-28.1em)";
       }
       e.target.classList.add("active");
     } else if (e.target.classList.contains('third')){
       if(window.innerWidth > 600)
       {
-        slides.style.transform = 'translatex(-56.5em)';
+        slides.style.transform = 'translatex(-54em)';
       }
       else
       {
-        slides.style.transform = 'translatex(-56em)';
+        slides.style.transform = 'translatex(-55.9em)';
       }
       e.target.classList.add('active');
     }
   }
+});
+
+window.addEventListener("resize", function(){
+  slides.style.transform = "translateX(0px)";  
 });
