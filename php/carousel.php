@@ -8,7 +8,7 @@
         <div class="cadre" id="cadre">
 <?php
 
-$req = $bdd->query('SELECT id, name, description, releaseDate, sellerID, conditionP, marketPosition FROM products WHERE saleStatus = 0 ORDER BY releaseDate DESC, premium DESC LIMIT 6');
+$req = $bdd->query('SELECT id, name, lastPrice, marketPosition, description, releaseDate, sellerID, conditionP, saleStatus FROM products WHERE saleStatus = 0 ORDER BY releaseDate DESC, premium DESC LIMIT 6');
 
 require 'php/modules/price.php';
 
@@ -39,12 +39,12 @@ foreach (array_slice($req->fetchAll(PDO::FETCH_ASSOC), 0, 3) as $produit) {
 
                     <p class="prixProduitCarousel">' . number_format(reloadExternalPrices($produit, $temps), 2, '.', '') . '€</p>
                 </div>
-            </div>
+            </div>';
 
-            <p class="ajoutPanierCarousel"><a href="?i=panier&add=' . $produit['id'] . '">Ajouter au panier</a></p>
+    if(!isset($_SESSION['id']) || $_SESSION['id'] != $produit['sellerID'])
+        echo '<p class="ajoutPanierCarousel"><a href="?i=panier&add=' . $produit['id'] . '">Ajouter au panier</a></p>';
 
-
-        </div>';
+    echo '</div>';
 }
 ?>
         </div> 
