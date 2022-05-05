@@ -25,6 +25,12 @@ require 'php/modules/accountRequests.php';?>
         <?php
             require 'php/modules/etoile.php';
             echo reputationStars($userInfos['reputation']);
+
+            $req = $bdd->prepare('SELECT COUNT(id) FROM products WHERE sellerID = ?');
+            $req->execute(array($_SESSION['id']));
+
+            if($req->fetch(PDO::FETCH_COLUMN) > 0)
+                echo '<a href="?i=sales">accéder à vos annonces</a>';
         ?>
     </div>
 

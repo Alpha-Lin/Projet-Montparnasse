@@ -231,6 +231,9 @@ function calculPrixMarketPosition($prix_array, $tailleArray, $position)
 }
 
 function reloadExternalPrices($produit, $temps){
+    if($produit['saleStatus'] == 1)
+        return $produit['lastPrice'];
+
     $prix_array = array();
 
     global $bdd;

@@ -1,6 +1,6 @@
 <?php
 if(isset($_GET['id'])){
-    $req = $bdd->prepare('SELECT products.id, name, marketPosition, products.description, releaseDate, conditionP, users.id AS vendorID, pseudo, reputation, picture, `rank` FROM products JOIN users ON sellerID = users.id WHERE products.id = ?');
+    $req = $bdd->prepare('SELECT products.id, name, marketPosition, products.description, releaseDate, conditionP, saleStatus, sellerID, users.id AS vendorID, pseudo, reputation, picture, `rank` FROM products JOIN users ON sellerID = users.id WHERE products.id = ?');
     $req->execute(array($_GET['id']));
 
     $produit = $req->fetch(PDO::FETCH_ASSOC);
@@ -43,13 +43,16 @@ if(isset($_GET['id'])){
                     </div>
 
                     <div id="marketBlock">' .
-                        number_format(reloadExternalPrices($produit, time()), 2, '.', '') . '€
-                        <button type="button" onclick="location.href=\'?i=panier&add=' . $produit['id'] . '\'">Ajouter au panier</button>
-                    </div>
+                        number_format(reloadExternalPrices($produit, time()), 2, '.', '') . '€';
+                        if($produit['saleStatus'] == 1)
+                            echo '<p>Article Vendu</p>';
+                        else if(!isset($_SESSION['id']) || $produit['sellerID'] != $_SESSION['id'])
+                            echo '<button type="button" onclick="location.href=\'?i=panier&add=' . $produit['id'] . '\'">Ajouter au panier</button>';
+            echo '</div>
                 </div>
               </div>';
 
-        $req = $bdd->prepare('SELECT * FROM products WHERE name LIKE ? AND id <> ? LIMIT 3');
+        $req = $bdd->prepare('SELECT id, name, lastPrice, marketPosition, description, releaseDate, saleStatus, sellerID FROM products WHERE name LIKE ? AND id <> ? AND saleStatus = 0 LIMIT 3');
         $req->execute(array('%' . $produit['name'] . '%',
                             $produit['id']));
 
