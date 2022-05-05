@@ -1,0 +1,9 @@
+main {
+    height: auto;
+}
+
+#itemsSold {
+    margin-top: 5%;
+    padding-top: 2%;
+    border-top: 2px solid lightgray;
+}

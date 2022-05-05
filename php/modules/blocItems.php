@@ -34,10 +34,12 @@ function blocItems($produits){
                         <p class="descProduit">' . htmlspecialchars($produit['description']) . '</p>
                         <p class="prixProduit">' . number_format(reloadExternalPrices($produit, $temps), 2, '.', '') . '€</p>
                     </div>
-                </div>
-                <p class="ajoutPanier"><a href="?i=panier&add=' . $produit['id'] . '">Ajouter au panier</a></p>
+                </div>';
+
+        if(!isset($_SESSION['id']) || $_SESSION['id'] != $produit['sellerID'])
+            echo '<p class="ajoutPanier"><a href="?i=panier&add=' . $produit['id'] . '">Ajouter au panier</a></p>';
                 
-            </div>'; // TODO : envoyer le dernier prix pour montrer l'évolution
+        echo '</div>'; // TODO : envoyer le dernier prix pour montrer l'évolution
     }
 
     echo '</div>';
