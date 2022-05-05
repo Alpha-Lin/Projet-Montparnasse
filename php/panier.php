@@ -51,7 +51,7 @@ function alreadyNoted($pruchaseID){
 
     // Panier
 
-    $req = $bdd->prepare('SELECT id, name, marketPosition, description, sellerID FROM products JOIN shoppingCart ON id = productID WHERE clientID = ?');
+    $req = $bdd->prepare('SELECT id, name, lastPrice, marketPosition, description, saleStatus, sellerID FROM products JOIN shoppingCart ON id = productID WHERE clientID = ?');
     $req->execute(array($_SESSION['id']));
 
     $produits_research = $req->fetchAll(PDO::FETCH_ASSOC);
