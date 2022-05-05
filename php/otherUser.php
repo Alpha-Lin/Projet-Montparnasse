@@ -38,7 +38,7 @@ if(empty($userInfos))
 
 <?php
 
-$req = $bdd->prepare('SELECT products.id, name, products.description, releaseDate, conditionP, marketPosition, sellerID FROM products WHERE sellerID = ? AND saleStatus = 0');
+$req = $bdd->prepare('SELECT products.id, name, lastPrice, marketPosition, products.description, releaseDate, conditionP, saleStatus, sellerID FROM products WHERE sellerID = ? AND saleStatus = 0');
 $req->execute(array($_GET['id']));
 
 $produits_research = $req->fetchAll(PDO::FETCH_ASSOC);
@@ -47,7 +47,8 @@ if(!empty($produits_research))
 {
     require 'php/modules/price.php';
 
-    echo '<h3>Les articles en vente par '.$userInfos['pseudo'].'</h3>';
+    echo '<div>
+            <h3>Les articles en vente par '.$userInfos['pseudo'].'</h3>';
     
     require 'php/modules/blocItems.php';
 

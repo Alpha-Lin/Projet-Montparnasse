@@ -18,10 +18,10 @@ function alreadyNoted($pruchaseID){
         $req->execute(array($_SESSION['id'],
                             $_GET['del']));
     }else if(isset($_GET['add'])){
-        $req = $bdd->prepare('SELECT saleStatus FROM products WHERE id = ?');
+        $req = $bdd->prepare('SELECT id FROM products WHERE id = ? AND saleStatus = 0 AND sellerID <> ?');
         $req->execute(array($_GET['add']));
 
-        if($req->fetch(PDO::FETCH_COLUMN) == 0){ // Vérifie que le produit n'est pas déjà acheté
+        if(!empty($req->fetch(PDO::FETCH_COLUMN))){ // Vérifie que le produit n'est pas déjà acheté et que l'utilisateur n'est pas le vendeur
             $req = $bdd->prepare('INSERT INTO shoppingCart(clientID, productID) VALUES (?, ?)');
             $req->execute(array($_SESSION['id'],
                                 $_GET['add']));

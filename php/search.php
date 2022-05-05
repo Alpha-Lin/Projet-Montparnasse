@@ -46,7 +46,7 @@ if(isset($_GET['filtres'])){
     }
 }
 
-$req = $bdd->prepare('SELECT products.id, name, products.description, releaseDate, sellerID, conditionP, marketPosition FROM products ' . $reqFilter . ' ORDER BY products.premium DESC' . $reqOrder . ' LIMIT :limitRes');
+$req = $bdd->prepare('SELECT products.id, name, lastPrice, marketPosition, products.description, releaseDate, conditionP, saleStatus, sellerID FROM products ' . $reqFilter . ' ORDER BY products.premium DESC' . $reqOrder . ' LIMIT :limitRes');
 $req->bindValue(':search', '%' . $_GET['search'] . '%');
 if(isset($_GET['category']))
     $req->bindValue(':category', $_GET['category']);
