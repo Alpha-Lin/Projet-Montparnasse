@@ -17,7 +17,7 @@ buttonsWrapper.addEventListener("click", e => { // si un bouton est cliqué...
       }
       else
       {
-        slides.style.transform = "translateX(-28.1em)";
+        slides.style.transform = "translateX(-27.2em)";
       }
       e.target.classList.add("active");
     } else if (e.target.classList.contains('third')){
@@ -27,7 +27,7 @@ buttonsWrapper.addEventListener("click", e => { // si un bouton est cliqué...
       }
       else
       {
-        slides.style.transform = 'translatex(-55.9em)';
+        slides.style.transform = 'translatex(-54.5em)';
       }
       e.target.classList.add('active');
     }
