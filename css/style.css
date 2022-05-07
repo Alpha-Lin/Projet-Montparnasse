@@ -748,3 +748,8 @@ hr {
 .littlePDP {
   border-radius: 2em;
 }
+
+.removeURL{
+    color: #FFFFFF;
+    text-decoration: none;
+}
