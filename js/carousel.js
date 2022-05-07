@@ -13,7 +13,7 @@ buttonsWrapper.addEventListener("click", e => { // si un bouton est cliqué...
     } else if (e.target.classList.contains("second")) {
       if(window.innerWidth > 600) // test pour savoir si l'appareille utilisé est un ordinateur ou un téléphone (si > 600 ordinateurs sinon téléphone)
       {
-        slides.style.transform = "translateX(-27em)";
+        slides.style.transform = "translateX(-26.8em)";
       }
       else
       {
@@ -23,7 +23,7 @@ buttonsWrapper.addEventListener("click", e => { // si un bouton est cliqué...
     } else if (e.target.classList.contains('third')){
       if(window.innerWidth > 600)
       {
-        slides.style.transform = 'translatex(-54em)';
+        slides.style.transform = 'translatex(-53.6em)';
       }
       else
       {

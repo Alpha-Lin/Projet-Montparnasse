@@ -10,15 +10,15 @@ body {
 @media only screen and (max-width: 600px) { /* css pour les basses résolutions */
 
   main {
-    margin-left: 50%;
-    margin-right: 50%;
+    margin-left: 5%;
     margin-top: 50px;
     padding-bottom: 18%;
     padding-left: 2.4%;
     padding-right: 2.4%;
     border-radius: 10px;
+    width: 80%;
+    min-width: 26pc;
     height: 100%;
-    width: 100%;
   }
 
 }
@@ -26,13 +26,14 @@ body {
 @media only screen and (min-width: 600px) { /* css pour les hautes résolutions */
 
   main {
-    margin-left: 20%;
+    margin-left: 23%;
     margin-right: 20%;
     margin-top: 50px;
     padding-bottom: 18%;
     padding-left: 2.4%;
     padding-right: 2.4%;
     border-radius: 10px;
+    min-width: 26pc;
     height: 100%;
   }
 
@@ -157,7 +158,7 @@ footer {
   position: sticky;
   left: 0;
   top: 100%;
-  width: 200%; /* remettre à 100vh si bug */
+  width: 100%; /* remettre à 100vh si bug */
   background-color: rgb(41, 43, 42);
   color: white;
   text-align: center;
@@ -591,11 +592,10 @@ input[name="tabs"]:checked + label {
 @media only screen and (max-width: 600px){ /* css pour les basses résolutions */
 
   .carousel {
-    position: absolute;
+    position: relative;
     overflow: hidden;
-    width: 85%;
-    margin-left: 7%;
-    margin-top: 10%;
+    width: 26pc;
+    margin: 10% auto;
   }
 
   .cadre {
@@ -616,11 +616,11 @@ input[name="tabs"]:checked + label {
 @media only screen and (min-width: 600px){  /* css pour les hautes résolutions */
 
   .carousel {
-    position: absolute;
+    position: relative;
     overflow: hidden;
-    width: 28%;
-    margin-top: 10%;
-    margin-left: 13%;
+    width: 26pc;
+    margin: 10% auto;
+    
   }
 
   .cadre {
@@ -628,7 +628,7 @@ input[name="tabs"]:checked + label {
     grid-gap: 1em;
     overflow: hidden;
     width: 93em;
-    padding-left: 67.5em;
+    padding-left: 67.2pc;
     transition-duration: 1s;
   }
 
