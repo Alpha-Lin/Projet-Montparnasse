@@ -3,6 +3,7 @@ referencementVariable //defined how much worth to pay for referencement
 tagVariable //defined the bonus for each tag matching with the research
 dateVariable //defined how much priority should be given to newer product
 malusNonMatchingTag //defined how much non matching tag reduced the referencement
+sellerVariable //defined how much the score of the seller matter
 
 ##variable
 String searchBar
@@ -20,6 +21,7 @@ for each element i in listProducts
 	n=numberTagMatching(i.tag, searchBar)
 	score+=n*tagVariable
 	score+=-n*numberTagMatching
+    score+=i.sellerScore*sellerVariable
 	d=avantageDate(p.getDate());
 	score=dateVariable/(currentDate-i.date)
 	newList.add(i,score)
