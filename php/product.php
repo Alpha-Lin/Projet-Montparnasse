@@ -20,10 +20,11 @@ if(isset($_GET['id'])){
                 <div id="picturesProduct">';
                 
             for($i = 1; $i < count($pictures); $i++)
-                echo '<img class="minorPictures" src="images/products/' . htmlspecialchars($pictures[$i]['fileName']) . '" alt="Image de ' . htmlspecialchars($produit['name']) . '">';
+                echo '<img class="minorPictures" src="images/products/' . htmlspecialchars($pictures[$i]['fileName']) . '" alt="Image de ' . htmlspecialchars($produit['name']) . '" onclick="switchToMainPicture(this)">';
 
             echo     '<img id="mainPicture" src="images/products/' . htmlspecialchars($pictures[0]['fileName']) . '" alt="Image de ' . htmlspecialchars($produit['name']) . '">
                 </div>
+                <script src="js/product.js"></script>
                 <div id="infosProduct">
                     <div id="headerInfos">
                         <div id="pdpStarsRank">
