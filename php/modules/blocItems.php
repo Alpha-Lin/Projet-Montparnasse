@@ -38,6 +38,11 @@ function blocItems($produits){
 
         if(!isset($_SESSION['id']) || $_SESSION['id'] != $produit['sellerID'])
             echo '<p class="ajoutPanier"><a href="?i=panier&add=' . $produit['id'] . '">Ajouter au panier</a></p>';
+        else if($produit['saleStatus'] == 0)
+            echo '<p class="ajoutPanier">
+                    <a href="?i=sales&saleID=' . $produit['id'] . '"><img src="svg/edit.svg" alt="éditer une annonce" width="30"></a>
+                    <a href="?i=sales&del=' . $produit['id'] . '"><img src="svg/remove-button.svg" alt="Supprimer une annnonce" width="30"></a>
+                  </p>';
                 
         echo '</div>'; // TODO : envoyer le dernier prix pour montrer l'évolution
     }

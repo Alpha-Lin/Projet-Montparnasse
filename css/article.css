@@ -35,12 +35,18 @@ h2, h3 {
 
 .minorPictures {
   width: 90%;
+  cursor: pointer;
 }
 
 #mainPicture {
   width: 90%;
   margin-left: 5%;
   margin-right: 5%;
+  transition: transform .2s;
+}
+
+#mainPicture:hover {
+  transform: scale(1.5);
 }
 
 #infosProduct {
