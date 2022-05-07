@@ -1,0 +1,98 @@
+##defined value
+referencementVariable //defined how much worth to pay for referencement 
+tagVariable //defined the bonus for each tag matching with the research
+dateVariable //defined how much priority should be given to newer product
+malusNonMatchingTag //defined how much non matching tag reduced the referencement
+
+##variable
+String searchBar
+
+
+##pertinenceAlgorithm
+#parameters
+list[product] listProducts
+
+
+newList[product][int] 
+for each element i in listProducts
+	score=o
+	score+=i.referencement*referencementVariable
+	n=numberTagMatching(i.tag, searchBar)
+	score+=n*tagVariable
+	score+=-n*numberTagMatching
+	d=avantageDate(p.getDate());
+	score=dateVariable/(currentDate-i.date)
+	newList.add(i,score)
+return newList
+
+##numberTagMatching
+#parameters
+String[] l
+String[] research
+
+somme=0
+for int i=0 to l.length-1
+	haveBeenspoted=false
+	for int j=0 to research.length-1
+		if l[i].contain(research[j]) &&!haveBeenspoted
+			somme++;
+			haveBeenspoted=true
+return somme
+
+
+
+##mergeSort
+#parameters
+list[product][int] list
+int lengthList
+
+if n<2
+	return
+mid=n/2
+list[product][int] l=new list[mid]
+list[product][int] r=new list[n-mid]
+for int i=0 to n
+	l[i]=list[i]
+for int i=mid to n
+	r[i-mid]=list[i]
+mergeSort l mid
+mergeSort r n-mid
+mergePertinence list l r mid n-mid
+
+
+
+##mergePertinence
+#parameters
+list[product][int] list
+list[product][int] l
+list[product][int] r
+int left
+int right
+
+i=j=k=0
+while i<left && j<right
+	if l[i][1]>r[i][1]
+		list[k++]=l[i++]
+	else if l[i][1]=r[j][1]
+		if l[i][0].referencement>r[i][0].referencement
+			list[k++]=l[i++]
+		else
+			list[k++]=r[j++]
+	else
+		a[k++]=l[i++]
+while i<left
+	list[k++]=l[i++]
+while j<right
+	list[k++]=r[j++]
+
+
+
+
+
+
+
+
+
+
+
+

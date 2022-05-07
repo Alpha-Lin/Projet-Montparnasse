@@ -10,7 +10,8 @@ body {
 @media only screen and (max-width: 600px) { /* css pour les basses résolutions */
 
   main {
-    margin-left: 20%;
+    margin-left: 50%;
+    margin-right: 50%;
     margin-top: 50px;
     padding-bottom: 18%;
     padding-left: 2.4%;
@@ -592,7 +593,8 @@ input[name="tabs"]:checked + label {
   .carousel {
     position: absolute;
     overflow: hidden;
-    width: 93%;
+    width: 85%;
+    margin-left: 7%;
     margin-top: 10%;
   }
 
@@ -600,8 +602,8 @@ input[name="tabs"]:checked + label {
     display: flex;
     grid-gap: 2em;
     overflow: hidden;
-    width: 84em;
-    padding-left: 60.5em;
+    width: 80em;
+    padding-left: 54.5em;
     transition-duration: 1s;
   }
 
@@ -721,6 +723,15 @@ hr {
     margin-top: 7px;
     margin-bottom: 0px;
 }
+
+.descProduitCarousel {
+  word-wrap: break-word;
+  overflow: auto;
+  overflow-wrap: normal;
+  width: 10em;
+  height: 50%;
+}
+
 
 #submitFilters{
   margin-top: 10px;

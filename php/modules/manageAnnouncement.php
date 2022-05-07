@@ -4,6 +4,7 @@
 <script src="js/changeDisplay.js"></script>
 
 <link rel="stylesheet" href="/css/uploadProduct.css">
+<link rel="stylesheet" href="/css/saleManagement.css">
 
 <h1>Gérer son annonce</h1>
 
@@ -12,27 +13,36 @@
         <input type="text" placeholder="Titre..." name="nom_produit" value="<?=htmlspecialchars($sale['name'])?>" required>
 
         <div class="blocImgs">
-            <div>
-                <img src="svg/defaultPicture.svg" alt="Image du produit" id="firstImg" onclick="this.nextElementSibling.click()">
-                <input type="file" name="pictures[]" hidden onchange="showPicture(this)" accept="image/*" required>
-                <img src="svg/remove-button.svg" alt="Image du produit" width="20" onclick="resetPicture(this)" hidden>
-            </div>
-                
-            <div>
-                <img src="svg/defaultPicture.svg" alt="Image du produit" width="80" onclick="this.nextElementSibling.click()">
-                <input type="file" name="pictures[]" hidden onchange="showPicture(this)" accept="image/*">
-                <img src="svg/remove-button.svg" alt="Image du produit" width="20" onclick="resetPicture(this)" hidden>
-            </div>
-            <div>
-                <img src="svg/defaultPicture.svg" alt="Image du produit" width="80" onclick="this.nextElementSibling.click()">
-                <input type="file" name="pictures[]" hidden onchange="showPicture(this)" accept="image/*">
-                <img src="svg/remove-button.svg" alt="Image du produit" width="20" onclick="resetPicture(this)" hidden>
-            </div>
-            <div>
-                <img src="svg/defaultPicture.svg" alt="Image du produit" width="80" onclick="this.nextElementSibling.click()">
-                <input type="file" name="pictures[]" hidden onchange="showPicture(this)" accept="image/*">
-                <img src="svg/remove-button.svg" alt="Image du produit" width="20" onclick="resetPicture(this)" hidden>
-            </div>
+            <?php
+                $req = $bdd->prepare('SELECT id, fileName FROM pictures WHERE productID = ?');
+                $req->execute(array($_GET['saleID']));
+
+                $pictures = $req->fetchAll(PDO::FETCH_ASSOC);
+                // TODO : essayer de faire un required pour le premier
+                echo '<div>
+                        <img src="images/products/' . $pictures[0]['fileName'] . '" alt="Image du produit" id="firstImg" onclick="this.nextElementSibling.click()">
+                        <input type="file" name="pictures[]" hidden onchange="managePicture(this,' . $pictures[0]['id'] . ')" accept="image/*">
+                        <img src="svg/remove-button.svg" alt="Image du produit" width="20" onclick="resetPictureManagement(this,' . $pictures[0]['id'] . ')">
+                        <input type="hidden" name="idOldPictures[]">
+                      </div>';
+
+                for($i = 1; $i < 4; $i++){
+                    if(isset($pictures[$i]))
+                        echo '<div>
+                                <img src="images/products/' . $pictures[$i]['fileName'] . '" alt="Image du produit" width="80" onclick="this.nextElementSibling.click()">
+                                <input type="file" name="pictures[]" hidden onchange="managePicture(this,' . $pictures[$i]['id'] . ')" accept="image/*">
+                                <img src="svg/remove-button.svg" alt="Image du produit" width="20" onclick="resetPictureManagement(this,' . $pictures[$i]['id'] . ')">
+                                <input type="hidden" name="idOldPictures[]">
+                              </div>';
+                    else
+                        echo '<div>
+                                <img src="svg/defaultPicture.svg" alt="Image du produit" width="80" onclick="this.nextElementSibling.click()">
+                                <input type="file" name="pictures[]" hidden onchange="managePicture(this)" accept="image/*">
+                                <img src="svg/remove-button.svg" alt="Image du produit" width="20" onclick="resetPicture(this)" hidden>
+                                <input type="hidden" name="idOldPictures[]">
+                              </div>';
+                }
+            ?>
         </div>
 
         <div class="blocInfosProduit">
@@ -81,21 +91,18 @@
                 $getExternalURL->execute(array($externalProducts[$i]));
                 $infoExternalProduct = $getExternalURL->fetch(PDO::FETCH_ASSOC);
 
-                echo '<div>
-                        <p>Plateforme : ' . $infoExternalProduct['platform'] . ' Id : ' . $infoExternalProduct['productID'] . '</p>
-                        <input type="hidden" name="idExtneralProducts[]" value="' . $externalProducts[$i] . '">
-                        <img src="svg/remove-button.svg" width="20" onclick="remove_url(this.parentElement)">
+                echo '<div class="externalURL">
+                        <p><span class="urlField">Plateforme :</span> ' . $infoExternalProduct['platform'] . '<br><span class="urlField">ID :</span> ' . $infoExternalProduct['productID'] . '</p>
+                        <img src="svg/remove-button.svg" width="20" onclick="remove_url_ById(this.parentElement,' . $externalProducts[$i] . ')">
                       </div>';
             }
 
             if($numberOfExternalProducts < 5)
-                echo '<input type="url" name="url_prix[]" onchange="correct_url(this)" class="externalProductsLinks" required>
-            
-                      <img src="svg/add-button.svg" width="20" onclick="add_url(this)" id="add_url_image">';
+                echo '<img src="svg/add-button.svg" width="20" onclick="add_url(this)" id="add_url_image">';
             else
                 echo '<img src="svg/add-button.svg" width="20" onclick="add_url(this)" id="add_url_image" hidden>';
 
-            echo '<script>nb_url_input = ' . ($numberOfExternalProducts + 1) . '</script>';
+            echo '<script>nb_url_input = ' . $numberOfExternalProducts . '</script>';
             ?>
         </div>
 

@@ -42,9 +42,9 @@ if(isset($_POST['nom_produit'], $_POST['description_produit'], $_POST['etat_prod
                 if(empty($_FILES['pictures']['name'][$i]))
                     continue;
                 else if(!getimagesize($_FILES['pictures']['tmp_name'][$i]))
-                    echo '<p>Attention : Image ' . $i .', le fichier envoyé n\'est pas une image !</p>';
+                    echo '<p>Attention : Image ' . ($i + 1) .', le fichier envoyé n\'est pas une image !</p>';
                 else if($_FILES['pictures']['size'][$i] > 16777216) // Inférieur à 16 Mo
-                    echo '<p>Attention : Image ' . $i .', fichier trop lourd, taille maximum 16 Mo.</p>';
+                    echo '<p>Attention : Image ' . ($i + 1) .', fichier trop lourd, taille maximum 16 Mo.</p>';
                 else{
                     $uploadFile = substr($produit_id . "/" . $time . basename($_FILES['pictures']['name'][$i]), 0, 48);
 

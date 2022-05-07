@@ -1,21 +1,9 @@
-<link rel="stylesheet" href="/css/aide.css">
+<link rel="stylesheet" href="../css/aide.css">
 
 <h1>Aide</h1>
 
-<h2>Sommaire :</h2>
-
-<ul>
-    <li><a href="#createAccount">Créer un compte</a></li>
-    <li><a href="#account">Gérer son compte</a></li>
-    <li><a href="#search">Trouver un produit</a></li>
-    <li><a href="#vendor">Se renseigner sur le vendeur</a></li>
-    <li><a href="#shoppingCart">Gérer son panier</a></li>
-    <li><a href="#buyProduct">Acheter votre commande</a></li>
-    <li><a href="#rate">Laisser un avis</a></li>
-    <li><a href="#uploadAnnouncement">Mettre en ligne une annonce</a></li>
-</ul>
-
-<h3 id="createAccount">Créer un compte</h3>
+<div class="voletAide" id="createAccount" valeur="closed">
+<h3>Créer un compte</h3>
 <ol>
     <li>Cliquez sur l'icône utilisateur</li>
     <li>Cliquez sur l'onglet inscription</li>
@@ -23,8 +11,10 @@
     <li>Validez le captcha</li>
     <li>Confirmer votre inscription</li>
 </ol>
+</div>
 
-<h3 id="account">Gérer son compte</h3>
+<div class="voletAide" id="account" valeur="closed">
+<h3>Gérer son compte</h3>
 <ol>
     <li>Connectez-vous via l'icône utilisateur</li>
     <li>
@@ -90,31 +80,39 @@
         </ul>
     </li>
 </ol>
+</div>
 
-<h3 id="search">Trouver un produit</h3>
+<div class="voletAide" id="searchHelp" valeur="closed">
+<h3>Trouver un produit</h3>
 <ol>
     <li>Cliquez sur l'icône de loupe et rapez votre recherche</li>
     <li>Une liste de produit apparaît, il vous est alors possible d'y appliquer des filtres en cliquant sur le demi-cercle en haut de la page</li>
     <li>Une fois vos filtres sélectionnés, cliquez sur "Rechercher" pour les appliquer</li>
     <li>Il vous est aussi possible de filtrer les résultats en fonction de leur catégorie, dans ce cas là vous n'avez qu'à cliquer sur la catégorie que vous recherchez</li>
 </ol>
+</div>
 
-<h3 id="vendor">Se renseigner sur le vendeur</h3>
+<div class="voletAide" id="vendor"  valeur="closed">
+<h3>Se renseigner sur le vendeur</h3>
 <ol>
     Pour vous assurer de la confiance à accorder à nos vendeurs, nous mettons à votre disposition un système de notation basé sur l'activité de ces derniers ainsi que sur les avis accumulés tout au long de leurs ventes.
     <li>Cliquez sur l'icône du vendeur ou son pseudo</li>
     <li>En défilant sur la page, vous pourrez apercevoir les derniers avis ainsi que ses notations.</li>
 </ol>
+</div>
 
-<h3 id="shoppingCart">Gérer son panier</h3>
+<div class="voletAide" id="shoppingCart" valeur="closed">
+<h3>Gérer son panier</h3>
 <ol>
     À tout moment pendant votre recherche, vous pourrez ajouter un article qui vous plaît à votre panier
     <li>Cliquez sur "ajouter au panier"</li>
     <li>Accédez ensuite à votre panier en cliquant sur l'icône en haut à droite</li>
     <li>Vous pouvez voir tous les articles que vous avez mis de côté, vous pouvez ainsi soit tous les acheter en cliquant sur "Tout acheter", soit en acheter un seul en cliquant sur son boutton "Acheter"</li>
 </ol>
+</div>
 
-<h3 id="buyProduct">Acheter votre commande</h3>
+<div class="voletAide" id="buyProduct" valeur="closed">
+<h3>Acheter votre commande</h3>
 <ol>
     <li>Afin de finaliser votre achat, veillez à ce qu'au moins une adresse et une carte bancaire soit enregistrées.</li>
     <li>Sélectionnez ensuite :
@@ -126,8 +124,10 @@
     </li>
     <li>Enfin cliquez sur "Payer"</li>
 </ol>
+</div>
 
-<h3 id="rate">Laisser un avis</h3>
+<div class="voletAide" id="rate" valeur="closed">
+<h3>Laisser un avis</h3>
 <ol>
     Une fois votre commande effectuée il vous est possible de noter votre achat :
     <li>Rendez vous dans votre panier</li>
@@ -149,8 +149,10 @@
         </ul>
     </li>
 </ol>
+</div>
 
-<h3 id="uploadAnnouncement">Mettre en ligne une annonce</h3>
+<div class="voletAide" id="uploadAnnouncement" valeur="closed">
+<h3>Mettre en ligne une annonce</h3>
 <ol>
     <li>Cliquez sur l'icône "plus" en haut à droite</li>
     <li>
@@ -167,10 +169,13 @@
     <li>
         Renseignez ces informations sur la seconde page :
         <ul>
-            <li>Les liens des produits sur lequels vous souhaitez vous fixer (Actuellement les plateformes supportées sont : Amazon, Cdiscount et Aliexpress)</li>
+            <li>Les liens des produits sur lequels vous souhaitez vous fixer (Actuellement les plateformes supportées sont : Amazon, Cdiscount, Aliexpress et Ebay)</li>
             <li>Votre valeur de référence en pourcentage</li>
         </ul>
     </li>
     <li>Validez le captcha</li>
     <li>Enfin cliquez sur "Confirmer". Si aucun souci n'a eu lieu, votre annonce sera mise en ligne dès cet instant.</li>
 </ol>
+</div>
+
+<script src="js/aide.js"></script>
