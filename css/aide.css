@@ -22,10 +22,7 @@ h3 {
     background-color: rgba(179, 179, 179, 0.47);
 }
 
-
 .voletAide {
     overflow: hidden;
-    height: 2.5em;
-    transition: height;
 }
 
