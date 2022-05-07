@@ -43,3 +43,15 @@ function resetPicture(imgReset) {
     imgReset.previousElementSibling.value = '' // Reset l'input
     imgReset.hidden = true // Cache le bouton de reset
 }
+
+function resetPictureManagement(imgReset, id) {
+    imgReset.nextElementSibling.value = id
+
+    resetPicture(imgReset)
+}
+
+function managePicture(input, id) {
+    input.nextElementSibling.nextElementSibling.value = id;
+
+    showPicture(input);
+}

@@ -1,0 +1,16 @@
+.externalURL {
+    border: solid black 2px;
+    padding: 2%;
+}
+
+.externalURL > p {
+    text-align: left;
+}
+
+.externalURL > img {
+    text-align: center;
+}
+
+.urlField {
+    font-weight: bold;
+}
