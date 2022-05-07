@@ -17,8 +17,8 @@ function add_url(url_input)
 function remove_url(parent)
 {
     parent.remove()
-
-    if(nb_url_input === 5)
+    
+    if (nb_url_input === 5)
         document.getElementById('add_url_image').hidden = false
 
     nb_url_input--
@@ -30,4 +30,16 @@ function correct_url(url_input)
 
     if(url_input.value.indexOf("?") !== -1)
         url_input.value = url_input.value.substring(0, pos_end_url)
+}
+
+function remove_url_ById(parent, id)
+{
+    const inputRemoveId = document.createElement("input")
+    inputRemoveId.type = "hidden"
+    inputRemoveId.name = "idExternalProducts[]"
+    inputRemoveId.value = id
+
+    document.getElementById('externalProducts').appendChild(inputRemoveId)
+
+    remove_url(parent)
 }
