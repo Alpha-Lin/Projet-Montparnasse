@@ -67,7 +67,20 @@ input[type="number"] {
   border-bottom: 2px solid rgb(54, 54, 54);
 }
 
+.homePageBtn {
+  position: relative;
+  width: 9pc;
+  height: 1.39pc;
+}
 
+.homePageImg {
+  width: 100px;
+  height: 50px;
+  position: absolute;
+  left: 10%;
+  top: 0;
+  object-fit: cover;
+}
 
 input::placeholder { 
   /* paramètre du placeholder pour la barre de recherche */
@@ -89,6 +102,7 @@ nav {
   top: 0;
   position: fixed;
   z-index: 7;
+  overflow: hidden;
 }
 
 nav a {
