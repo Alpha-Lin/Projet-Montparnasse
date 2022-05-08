@@ -19,6 +19,7 @@ require 'php/modules/accountRequests.php';?>
             </form>
 
             <p onclick="this.previousElementSibling.firstElementChild.click()">Modifier</p>
+            <a href="logout.php"><img src="svg/sign-out.svg" alt="Déconnexion" width="32"></a>
         </div>
 
         <p><?=$userInfos['firstName'] . ' ' . $userInfos['lastName']?></p>
