@@ -15,9 +15,9 @@ if(isset($_GET['saleID'])){
         if(isset($_POST['nom_produit'], $_POST['description_produit'], $_POST['etat_produit'], $_POST['marketPosition'], $_POST['categorie_produit'], $_POST['idOldPictures'], $_FILES['pictures'])){
             require 'php/modules/hcaptcha.php';
 
-            //if(!hcaptcha($_POST['h-captcha-response']))
-              //  mis_log("Captcha invalide !");
-             if(strlen($_POST['description_produit']) > 300)
+            if(!hcaptcha($_POST['h-captcha-response']))
+                mis_log("Captcha invalide !");
+            else if(strlen($_POST['description_produit']) > 300)
                 mis_log("Description trop large.");
             else if($_POST['marketPosition'] < 1 || $_POST['marketPosition'] > 100) // Le prix ne peut être en dehors de cet intervalle
                 mis_log("L'intervalle du prix est incorrect !");
