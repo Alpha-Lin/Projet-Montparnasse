@@ -31,16 +31,22 @@ if(isset($_POST['log_pseudo'], $_POST['log_mdp'])) // Connexion
     {
         if(check_captcha($_POST['h-captcha-response']))
         {
-            $req = $bdd->prepare('INSERT INTO users(pseudo, lastName, firstName, country, email, phone, password, newsletter) VALUES (?, ?, ?, ?, ?, ?, ?, ?)');
+            $req = $bdd->prepare('INSERT INTO users(pseudo, lastName, firstName, country, email, phone, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?)');
             $req->execute(array($_POST['pseudo'],
                                 $_POST['nom'],
                                 $_POST['prenom'],
                                 $_POST['pays'],
                                 $_POST['email'],
                                 $_POST['tel'],
-                                password_hash($_POST['mdp'], PASSWORD_ARGON2ID),
-                                isset($_POST['newsletter']) ? 1 : 0)
+                                password_hash($_POST['mdp'], PASSWORD_ARGON2ID))
+                                
             );
+
+            if(isset($_POST['newsletter'])){
+                $req = $bdd->prepare('INSERT INTO newsletter(mailSub) VALUE(?)');
+                $req->execute(array(isset($_POST['newsletter'])));
+            }
+
             $_SESSION['pseudo'] = $_POST['log_pseudo'];
             $_SESSION['id'] = $bdd->lastInsertId();
             header('location: ?i=Compte');
