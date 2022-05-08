@@ -88,7 +88,7 @@ if(isset($_GET['saleID'])){
                             }else if($_POST['idOldPictures'][$i] == $mainPictureID){
                                 $req = $bdd->prepare('UPDATE pictures SET fileName = ? WHERE id = ? AND productID = ?');
                                 $req->execute(array($uploadFile,
-                                                    $_POST['idOldPictures'][$i],
+                                                    $mainPictureID,
                                                     $_GET['saleID']));
                             }
                         }else{
