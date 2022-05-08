@@ -14,7 +14,6 @@ CREATE TABLE users (
     purchases INT UNSIGNED NOT NULL DEFAULT 0,
     picture mediumblob,
     `rank` ENUM("Bronze", "Fer", "Argent", "Or", "Diamant", "Platine") NOT NULL DEFAULT "Bronze",
-    newsletter BOOLEAN NOT NULL DEFAULT 0,
     score INT NOT NULL DEFAULT 0,
     premium BOOLEAN NOT NULL DEFAULT 0
 );
