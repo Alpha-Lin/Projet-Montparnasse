@@ -39,16 +39,16 @@ if(isset($_POST['log_pseudo'], $_POST['log_mdp'])) // Connexion
                                 $_POST['email'],
                                 $_POST['tel'],
                                 password_hash($_POST['mdp'], PASSWORD_ARGON2ID))
-                                
             );
+
+            $_SESSION['pseudo'] = $_POST['pseudo'];
+            $_SESSION['id'] = $bdd->lastInsertId();
 
             if(isset($_POST['newsletter'])){
                 $req = $bdd->prepare('INSERT INTO newsletter(mailSub) VALUE(?)');
                 $req->execute(array(isset($_POST['newsletter'])));
             }
 
-            $_SESSION['pseudo'] = $_POST['log_pseudo'];
-            $_SESSION['id'] = $bdd->lastInsertId();
             header('location: ?i=Compte');
         }
     }
