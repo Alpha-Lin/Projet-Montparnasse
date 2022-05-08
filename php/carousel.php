@@ -57,3 +57,25 @@ foreach (array_slice($req->fetchAll(PDO::FETCH_ASSOC), 0, 3) as $produit) {
 </div>
 
 <script src="js/carousel.js"></script>
+
+<?php
+/*
+Récupère les produits non vendus qui :
+    - sont à moins de 300€
+    - ont une description supérieure à 50 caractères
+    - ont été mis en ligne il y a moins d'un mois
+    - sont minimum en "Bon état"
+    - ont une catégorie précise
+*/
+$req = $bdd->prepare('SELECT id, name, lastPrice, marketPosition, description, releaseDate, conditionP, saleStatus, sellerID FROM products WHERE lastPrice < 300 AND LENGTH(description) > 50 AND releaseDate > DATE_SUB(NOW(), INTERVAL 1 MONTH) AND conditionP IN ("Neuf", "Comme neuf", "Très bon état", "Bon état") AND category <> "Autre" AND saleStatus = 0 LIMIT 9');
+$req->execute();
+
+$produits_research = $req->fetchAll(PDO::FETCH_ASSOC);
+
+if(!empty($produits_research))
+{
+    require 'php/modules/blocItems.php';
+
+    blocItems($produits_research);
+}
+?>
