@@ -149,6 +149,33 @@ nav a:hover {
   transition-duration: 1s;
 }
 
+
+.compte {
+  float: right;
+}
+
+
+.compteDropDown {
+  position: fixed;
+  background-color: rgb(41, 43, 42);
+  margin-left: 77.4%;
+  width: 11.2%;
+  text-align: center;
+  overflow: hidden;
+  margin-top: 2.9%;
+  max-height: 0;
+  transition: max-height 2s;
+}
+
+.compte:hover + .compteDropDown, .compteDropDown:hover  {
+  max-height: 10pc;
+}
+
+.compteDropDown a {
+  padding-right: 100%;
+}
+
+
 /* Paramètres du footer */
 
 @media only screen and (max-width: 600px){  /* css pour les basses résolutions */
@@ -158,7 +185,7 @@ footer {
   position: sticky;
   left: 0;
   top: 100%;
-  width: 100%; /* remettre à 100vh si bug */
+  width: auto; /* remettre à 100vh si bug */
   background-color: rgb(41, 43, 42);
   color: white;
   text-align: center;
