@@ -1,6 +1,6 @@
 <?php
 if(isset($_GET['id'])){
-    $req = $bdd->prepare('SELECT products.id, name, marketPosition, products.description, releaseDate, conditionP, saleStatus, sellerID, users.id AS vendorID, pseudo, reputation, picture, `rank` FROM products JOIN users ON sellerID = users.id WHERE products.id = ?');
+    $req = $bdd->prepare('SELECT products.id, name, lastPrice, marketPosition, products.description, releaseDate, conditionP, saleStatus, sellerID, users.id AS vendorID, pseudo, reputation, picture, `rank` FROM products JOIN users ON sellerID = users.id WHERE products.id = ?');
     $req->execute(array($_GET['id']));
 
     $produit = $req->fetch(PDO::FETCH_ASSOC);

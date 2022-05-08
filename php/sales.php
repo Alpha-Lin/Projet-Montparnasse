@@ -39,13 +39,19 @@ if(isset($_GET['saleID'])){
                 $time = time();
 
                 // Mise à jour des images
+                $mainPictureID = $bdd->prepare('SELECT id FROM pictures WHERE productID = ? LIMIT 1'); // Récupère l'id de l'image principale
+                $mainPictureID->execute(array($_GET['saleID']));
+
+                $mainPictureID = $mainPictureID->fetch(PDO::FETCH_COLUMN);
+
                 $deletePictureFromServer = $bdd->prepare('SELECT fileName FROM pictures WHERE id = ? AND productID = ?');
                 $deletePictureFromBDD = $bdd->prepare('DELETE FROM pictures WHERE id = ? AND productID = ?');
+                $numberOfPictures = $bdd->prepare('SELECT COUNT(id) FROM pictures WHERE productID = ?');
                 for($i = 0; $i < 4; $i++)
                 {
                     $fileName;
 
-                    if(!empty($_POST['idOldPictures'][$i])){
+                    if(!empty($_POST['idOldPictures'][$i]) && $_POST['idOldPictures'][0] != $mainPictureID){ // Empêche de supprimer l'image principale
                         $deletePictureFromServer->execute(array($_POST['idOldPictures'][$i],
                                                                 $_GET['saleID']));
 
@@ -70,17 +76,28 @@ if(isset($_GET['saleID'])){
 
                         move_uploaded_file($_FILES['pictures']['tmp_name'][$i], "images/products/" . $uploadFile);
 
+                        var_dump($_POST['idOldPictures']);
+
+                        // Permet de s'assurer que l'utilisateur ne contourne pas la limite de 4 images
                         if(!empty($_POST['idOldPictures'][$i])){
-                            if(!empty($fileName)){ // Permet de s'assurer que l'utilisateur ne contourne pas la limite de 4 images
+                            if(!empty($fileName)){
                                 $req = $bdd->prepare('INSERT INTO pictures(id, fileName, productID) VALUES (?, ?, ?)');
                                 $req->execute(array($_POST['idOldPictures'][$i],
                                                     $uploadFile,
                                                     $_GET['saleID']));
+                            }else if($_POST['idOldPictures'][$i] == $mainPictureID){
+                                $req = $bdd->prepare('UPDATE pictures SET fileName = ? WHERE id = ? AND productID = ?');
+                                $req->execute(array($uploadFile,
+                                                    $mainPictureID,
+                                                    $_GET['saleID']));
                             }
                         }else{
-                            $req = $bdd->prepare('INSERT INTO pictures(fileName, productID) VALUES (?, ?)');
-                            $req->execute(array($uploadFile,
-                                                $_GET['saleID']));
+                            $numberOfPictures->execute(array($_GET['saleID']));
+                            if($numberOfPictures->fetch(PDO::FETCH_COLUMN) < 5){
+                                $req = $bdd->prepare('INSERT INTO pictures(fileName, productID) VALUES (?, ?)');
+                                $req->execute(array($uploadFile,
+                                                    $_GET['saleID']));
+                            }
                         }
                     }
                 }

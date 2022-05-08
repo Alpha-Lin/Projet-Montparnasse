@@ -19,6 +19,7 @@ require 'php/modules/accountRequests.php';?>
             </form>
 
             <p onclick="this.previousElementSibling.firstElementChild.click()">Modifier</p>
+            <a href="logout.php"><img src="svg/sign-out.svg" alt="Déconnexion" width="32"></a>
         </div>
 
         <p><?=$userInfos['firstName'] . ' ' . $userInfos['lastName']?></p>
@@ -26,10 +27,7 @@ require 'php/modules/accountRequests.php';?>
             require 'php/modules/etoile.php';
             echo reputationStars($userInfos['reputation']);
 
-            $req = $bdd->prepare('SELECT COUNT(id) FROM products WHERE sellerID = ?');
-            $req->execute(array($_SESSION['id']));
-
-            if($req->fetch(PDO::FETCH_COLUMN) > 0)
+            if($isVendor)
                 echo '<a href="?i=sales">accéder à vos annonces</a>';
         ?>
     </div>
