@@ -1,10 +1,24 @@
-main {
-  font-family: sans-serif;
-  margin-top: 7%;
-  margin-left: 25%;
-  margin-right: 25%;
-  background-color: inherit;
+@media only screen and (max-width: 600px) { /* css pour les basses résolutions */
+  main {
+    font-family: sans-serif;
+    margin-top: 20%;
+    margin-left: 5%;
+    margin-right: 5%;
+    background-color: inherit;
+  }
 }
+
+@media only screen and (min-width: 600px){ /* css pour les hautes résolutions */
+  main {
+    font-family: sans-serif;
+    margin-top: 10%;
+    margin-left: 25%;
+    margin-right: 25%;
+    background-color: inherit;
+  }
+}
+
+
 
 fieldset {
   border-radius: 20px;
