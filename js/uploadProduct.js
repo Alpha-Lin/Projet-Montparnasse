@@ -10,7 +10,7 @@ function switchStep() {
     document.getElementById('fakeBlock').hidden = !document.getElementById('fakeBlock').hidden
 }
 
-function showPicture(input) {
+function showPicture(input, main) {
     var image =  document.getElementById('firstImg');
     if (input.files && input.files[0]) {
         var reader = new FileReader()
@@ -34,7 +34,8 @@ function showPicture(input) {
 
         reader.readAsDataURL(input.files[0]);
 
-        input.nextElementSibling.hidden = false;
+        if(!main)
+            input.nextElementSibling.hidden = false;
     }
 }
 
@@ -50,8 +51,11 @@ function resetPictureManagement(imgReset, id) {
     resetPicture(imgReset)
 }
 
-function managePicture(input, id) {
-    input.nextElementSibling.nextElementSibling.value = id;
+function managePicture(input, id, main = false) {
+    if (main)
+        input.nextElementSibling.value = id
+    else
+        input.nextElementSibling.nextElementSibling.value = id
 
-    showPicture(input);
+    showPicture(input, true)
 }

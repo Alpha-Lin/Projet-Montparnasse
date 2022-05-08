@@ -21,8 +21,7 @@
                 // TODO : essayer de faire un required pour le premier
                 echo '<div>
                         <img src="images/products/' . $pictures[0]['fileName'] . '" alt="Image du produit" id="firstImg" onclick="this.nextElementSibling.click()">
-                        <input type="file" name="pictures[]" hidden onchange="managePicture(this,' . $pictures[0]['id'] . ')" accept="image/*">
-                        <img src="svg/remove-button.svg" alt="Image du produit" width="20" onclick="resetPictureManagement(this,' . $pictures[0]['id'] . ')">
+                        <input type="file" name="pictures[]" hidden onchange="managePicture(this,' . $pictures[0]['id'] . ',true)" accept="image/*">
                         <input type="hidden" name="idOldPictures[]">
                       </div>';
 
@@ -37,7 +36,7 @@
                     else
                         echo '<div>
                                 <img src="svg/defaultPicture.svg" alt="Image du produit" width="80" onclick="this.nextElementSibling.click()">
-                                <input type="file" name="pictures[]" hidden onchange="managePicture(this)" accept="image/*">
+                                <input type="file" name="pictures[]" hidden onchange="showPicture(this)" accept="image/*">
                                 <img src="svg/remove-button.svg" alt="Image du produit" width="20" onclick="resetPicture(this)" hidden>
                                 <input type="hidden" name="idOldPictures[]">
                               </div>';
