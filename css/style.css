@@ -30,7 +30,6 @@ body {
   input[type="number"] {
     padding-right: 200px;
   }
-
 }
 
 @media only screen and (min-width: 600px) { /* css pour les hautes résolutions */
@@ -158,32 +157,36 @@ nav a:hover {
   transition-duration: 1s;
 }
 
-
 .compte {
   float: right;
 }
 
-
-.compteDropDown {
-  position: fixed;
+#compteDropDown {
   background-color: rgb(41, 43, 42);
-  margin-left: 77.4%;
-  width: 11.2%;
+  width: 20%;
   text-align: center;
   overflow: hidden;
-  margin-top: 2.9%;
   max-height: 0;
-  transition: max-height 2s;
+  transition: all 2s;
+
+  right: 20px;
+  font-family: sans-serif;
+  top: 45px;
+  position: fixed;
+  z-index: 7;
 }
 
-.compte:hover + .compteDropDown, .compteDropDown:hover  {
-  max-height: 10pc;
+.compte:hover + #compteDropDown, #compteDropDown:hover  {
+  max-height: 300px;
+  padding: 20px;
+  right: 0;
 }
 
-.compteDropDown a {
-  padding-right: 100%;
+#compteDropDown a {
+  width: 100%;
+  text-align: justify;
+  word-wrap: break-word;
 }
-
 
 /* Paramètres du footer */
 
