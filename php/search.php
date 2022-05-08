@@ -1,5 +1,3 @@
-<link rel="stylesheet" href="/css/search.css">
-
 <?php
 $reqOrder = '';
 
