@@ -21,6 +21,16 @@ body {
     height: 100%;
   }
 
+  input[type="text"],
+  input[type="search"],
+  input[type="password"],
+  input[type="email"],
+  input[type="tel"],
+  input[type="date"],
+  input[type="number"] {
+    padding-right: 200px;
+  }
+
 }
 
 @media only screen and (min-width: 600px) { /* css pour les hautes résolutions */
