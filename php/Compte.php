@@ -32,7 +32,7 @@ require 'php/modules/accountRequests.php';?>
         ?>
     </div>
 
-    <div>
+    <div class="infoCompte">
         <img src="svg/medals/<?=strtolower($userInfos['rank'])?>-medal.svg" class="iconRank" width="128" height="128">
         <p>
             <span class="boldInfo">Nombre de ventes :</span> <?=$userInfos['sales']?><br/>
