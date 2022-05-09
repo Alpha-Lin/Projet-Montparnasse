@@ -23,7 +23,7 @@ if(isset($_POST['nom_produit'], $_POST['description_produit'], $_POST['etat_prod
             $prix_array = array();
 
             $req = $bdd->prepare('INSERT INTO products(name, marketPosition, description, conditionP, category, sellerID) VALUES (?, ?, ?, ?, ?, ?)');
-            $req->execute(array($_POST['nom_produit'],
+            $success = $req->execute(array($_POST['nom_produit'],
                                 $_POST['marketPosition'],
                                 $_POST['description_produit'],
                                 $_POST['etat_produit'],
@@ -31,89 +31,105 @@ if(isset($_POST['nom_produit'], $_POST['description_produit'], $_POST['etat_prod
                                 $_SESSION['id'])
             );
 
-            $produit_id = $bdd->lastInsertId();
+            if(!$success)
+                mis_log("Erreur lors de l'insertion des données !");
+            else{
+                $produit_id = $bdd->lastInsertId();
 
-            mkdir("images/products/" . $produit_id);
+                mkdir("images/products/" . $produit_id);
 
-            $time = time();
+                $time = time();
 
-            for($i = 0; $i < 4; $i++)
-            {
-                if(empty($_FILES['pictures']['name'][$i]))
-                    continue;
-                else if(!getimagesize($_FILES['pictures']['tmp_name'][$i]))
-                    echo '<p>Attention : Image ' . ($i + 1) .', le fichier envoyé n\'est pas une image !</p>';
-                else if($_FILES['pictures']['size'][$i] > 16777216) // Inférieur à 16 Mo
-                    echo '<p>Attention : Image ' . ($i + 1) .', fichier trop lourd, taille maximum 16 Mo.</p>';
-                else{
-                    $uploadFile = substr($produit_id . "/" . $time . basename($_FILES['pictures']['name'][$i]), 0, 48);
+                $success = false;
 
-                    move_uploaded_file($_FILES['pictures']['tmp_name'][$i], "images/products/" . $uploadFile);
-        
-                    $req = $bdd->prepare('INSERT INTO pictures(fileName, productID) VALUES (?, ?)');
-                    $req->execute(array($uploadFile,
-                                        $produit_id));
-                }
-            }
-
-            foreach ($_POST['url_prix'] as $url) {
-                $prix = extract_infos_product($url, $produit_id);
-
-                switch($prix)
+                for($i = 0; $i < 4; $i++)
                 {
-                    case PLATEFORM_NOT_FOUND:
-                        echo "<p>Attention : \"" . $url . "\" Plateforme non compatible.</p>";
-                        break;
-                    case BAD_MARKET:
-                        echo "<p>Attention : \"" . $url . "\" Marché non compatible.</p>";
-                        break;
-                    case PRICE_404:
-                        echo "<p>Attention : \"" . $url . "\" Prix non trouvé.</p>";
-                        break;
-                    case ERROR_URL:
-                        echo "<p>Attention : \"" . $url . "\" Erreur dans l'URL.</p>";
-                        break;
-                    case EBAY_KEYWORD:
-                        echo "<p>Attention : \"" . $url . "\" Erreur API, veuillez contacter l'administrateur..</p>";
-                        break;
-                    case CDISCOUNT_TOKEN:
-                        $prix = extract_infos_product($url, $produit_id);
-                        if($prix < 0)
-                        {
-                            echo "<p>Attention : \"" . $url . "\" Erreur dans l'URL.</p>";
-                            break;
-                        }
-                    default:
-                        $prix_array[] = $prix;
-                        break;
+                    if(empty($_FILES['pictures']['name'][$i]))
+                        continue;
+                    else if(!getimagesize($_FILES['pictures']['tmp_name'][$i]))
+                        echo '<p>Attention : Image ' . ($i + 1) .', le fichier envoyé n\'est pas une image !</p>';
+                    else if($_FILES['pictures']['size'][$i] > 16777216) // Inférieur à 16 Mo
+                        echo '<p>Attention : Image ' . ($i + 1) .', fichier trop lourd, taille maximum 16 Mo.</p>';
+                    else{
+                        $uploadFile = substr($produit_id . "/" . $time . basename($_FILES['pictures']['name'][$i]), 0, 48);
+
+                        move_uploaded_file($_FILES['pictures']['tmp_name'][$i], "images/products/" . $uploadFile);
+            
+                        $req = $bdd->prepare('INSERT INTO pictures(fileName, productID) VALUES (?, ?)');
+                        if($req->execute(array($uploadFile, $produit_id)))
+                            $success = true;
+                    }
                 }
-            }
 
-            $nb_prix = count($prix_array);
+                if(!$success)
+                    mis_log("Erreur : aucune image n'a pu être insérée !", $product_id);
+                else{
+                    foreach ($_POST['url_prix'] as $url) {
+                        $prix = extract_infos_product($url, $produit_id);
 
-            if($nb_prix > 0){
-                sort($prix_array);
+                        switch($prix)
+                        {
+                            case PLATEFORM_NOT_FOUND:
+                                echo "<p>Attention : \"" . $url . "\" Plateforme non compatible.</p>";
+                                break;
+                            case BAD_MARKET:
+                                echo "<p>Attention : \"" . $url . "\" Marché non compatible.</p>";
+                                break;
+                            case PRICE_404:
+                                echo "<p>Attention : \"" . $url . "\" Prix non trouvé.</p>";
+                                break;
+                            case ERROR_URL:
+                                echo "<p>Attention : \"" . $url . "\" Erreur dans l'URL.</p>";
+                                break;
+                            case EBAY_KEYWORD:
+                                echo "<p>Attention : \"" . $url . "\" Erreur API, veuillez contacter l'administrateur..</p>";
+                                break;
+                            case CDISCOUNT_TOKEN:
+                                $prix = extract_infos_product($url, $produit_id);
+                                if($prix < 0)
+                                {
+                                    echo "<p>Attention : \"" . $url . "\" Erreur dans l'URL.</p>";
+                                    break;
+                                }
+                            default:
+                                $prix_array[] = $prix;
+                                break;
+                        }
+                    }
 
-                $req = $bdd->prepare('UPDATE products SET lastPrice = ? WHERE id = ?');
-                $req->execute(array(calculPrixMarketPosition($prix_array, $nb_prix, $_POST['marketPosition']), // Prix adapté selon la position voulue
-                                    $produit_id)
-                );
+                    $nb_prix = count($prix_array);
 
-                echo 'Mise en ligne réussie.';
-            }else{
-                $req = $bdd->prepare('DELETE FROM products WHERE id = ?');
-                $req->execute(array($produit_id));
+                    if($nb_prix > 0){
+                        sort($prix_array);
 
-                mis_log("Erreur : Aucune URL n'a fonctionné.");
-            }       
+                        $req = $bdd->prepare('UPDATE products SET lastPrice = ? WHERE id = ?');
+                        $success = $req->execute(array(calculPrixMarketPosition($prix_array, $nb_prix, $_POST['marketPosition']), // Prix adapté selon la position voulue
+                                                       $produit_id)
+                        );
+
+                        if($success)
+                            echo '<p>Mise en ligne réussie.</p>';
+                        else
+                            mis_log("<p>Erreur pendant l'inscription du prix !</p>", $product_id);
+                    }else
+                        mis_log("Erreur : Aucune URL n'a fonctionné.", $product_id); 
+                }
+            }  
         }
     }else
         mis_log("Paramètre(s) vide(s).");
 }else
     require 'html/upload_announcement.html';
 
-function mis_log($msg)
+function mis_log($msg, $product_id = false)
 {
+    if($product_id !== false){
+        global $bdd;
+
+        $req = $bdd->prepare('DELETE FROM products WHERE id = ?');
+        $req->execute(array($produit_id));
+    }
+
     echo '<p>' . $msg . '</p>';
     require 'html/upload_announcement.html';
 }

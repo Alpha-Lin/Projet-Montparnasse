@@ -74,6 +74,7 @@ $produits_research = $req->fetchAll(PDO::FETCH_ASSOC);
 
 if(!empty($produits_research))
 {
+    echo '<h3>Articles recommandés :</h3>';
     require 'php/modules/blocItems.php';
 
     blocItems($produits_research);
