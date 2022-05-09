@@ -34,9 +34,10 @@ require 'php/modules/accountRequests.php';?>
 
     <div>
         <img src="svg/medals/<?=strtolower($userInfos['rank'])?>-medal.svg" class="iconRank" width="128" height="128">
-        <p><span class="boldInfo">Score :</span> <?=$userInfos['score']?> pts<br/>
-        <span class="boldInfo">Nombre de ventes :</span> <?=$userInfos['sales']?><br/>
-        <span class="boldInfo">Nombre d'achats :</span> <?=$userInfos['purchases']?></p>
+        <p>
+            <span class="boldInfo">Nombre de ventes :</span> <?=$userInfos['sales']?><br/>
+            <span class="boldInfo">Nombre d'achats :</span> <?=$userInfos['purchases']?>
+        </p>
     </div>
 </div>
 
