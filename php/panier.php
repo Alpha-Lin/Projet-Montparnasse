@@ -153,8 +153,6 @@ function alreadyNoted($pruchaseID){
 
         echo '</div>';
 
-        // TODO si avis déjà fait
-
         $reqGetNotes = $bdd->prepare('SELECT rating, comment, releaseDate FROM notes WHERE purchaseID = ?');
         
         foreach ($purchases_research as $purchase) {
