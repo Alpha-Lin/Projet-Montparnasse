@@ -1,53 +1,104 @@
 @media only screen and (max-width: 600px){  /* css pour les basses résolutions */
 
     main {
-        margin-top: 5%;
-        margin-left: 15%;
-        margin-right: 10%;
-        padding: 5%;
-        padding-right: 70%;
+        border: solid blue 3px;
+        margin-top: 20%;
+        margin-left: 0;
+        padding: 5% 20% 5% 0;
         border-radius: 25px 25px 0 0;
         height: auto;
         font-family: sans-serif;
+        font-size: 10pt;
+        min-width: 10pc;
+    }
+
+    hr {
+        width: 96vw;
     }
 
     .blocImgs{
         grid-row: 2;
         display: grid;
-        grid-template-columns: 2fr 1fr;
-        grid-template-rows: 1fr 1fr 1fr;
+        grid-template-columns: 0;
+        grid-template-rows: 3fr 1fr;
         border-right: solid black 2px;
+    }
 
+    #firstImg {
+        grid-column: 1;
+        grid-row: 1;
+    }
+
+    .smallImgs {
+        grid-column: 1;
+        margin-left: 20px;
+        grid-row: 2;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
     }
 
     .blocInfosProduit {
+        width: 0;
         grid-row: 2;
         display: grid;
-        grid-template-columns: 1fr 1fr;
-        grid-template-rows: 100px 100px;
+        grid-template-columns: 1fr;
+        grid-template-rows: 50px 50px 10pc;
         padding-left: 10%;
-        gap: 20%;
     }
+
+    .descriptionObj {
+        grid-column: 1;
+        grid-row: 3;
+    }
+
 
     h1 {
         margin-left: 50%;
     }
 
-    hr {
-        width: 100vh;
-    }
 
     textarea{
         height: 90%;
         width: 20vh;
         border-radius: 2%;
     }
+    
+
+    .steps {
+        display: flex;
+        justify-content: space-evenly;
+        width: 100%;
+    }
+
+    #previousStep {
+        margin-left: 5pc;
+    }
+
+    #nextStep {
+        margin-right: 5pc;
+    }
+
+    #previousStep,
+    #submitProduct,
+    #nextStep {
+    position: relative;
+    margin-top: 1pc;
+    width: 10pc;
+    height: 3pc;
+    }
+
+    #step2 {
+        width: 30pc;
+        font-size: 9pt;
+    }
 
 }
+
 
 @media only screen and (min-width: 600px){  /* css pour les hautes résolutions */
 
     main {
+        border: solid blue 3px;
         margin-top: 5%;
         margin-left: 15%;
         margin-right: 10%;
@@ -55,6 +106,11 @@
         border-radius: 25px 25px 0 0;
         height: auto;
         font-family: sans-serif;
+        min-width: 46pc;
+    }
+
+    hr {
+        width: 100vh;
     }
 
     .blocImgs{
@@ -78,6 +134,23 @@
         width: 100%;
         border-radius: 2%;
     }
+
+    .descriptionObj {
+        grid-column: 2;
+        grid-row: 1/-1;
+    }
+
+    .steps {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    #previousStep,
+    #submitProduct,
+    #nextStep {
+    padding: 30px 80px;
+}
     
 }
 
@@ -116,10 +189,6 @@ h1 {
     grid-row: 2;
 }
 
-.descriptionObj {
-    grid-column: 2;
-    grid-row: 1/-1;
-}
 
 main label{
     text-align: center;
@@ -164,18 +233,6 @@ input::placeholder{
 input[type="range"]{
     width: 40%;
     border: solid black 1px;
-}
-
-.steps {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-}
-
-#previousStep,
-#submitProduct,
-#nextStep {
-    padding: 30px 80px;
 }
 
 #fakeBlock{
