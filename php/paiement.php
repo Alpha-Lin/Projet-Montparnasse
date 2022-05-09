@@ -35,13 +35,13 @@ if(isset($_POST['products'], $_POST['deliveringAddress'], $_POST['billingAddress
         if(!empty($verifProduitPanier->fetch()) && !empty($verifCarteClient->fetch()) && !empty($verifAdresseClient->fetch()) && $verifAdresseClient){
             $getProductName->execute(array($product_id));
 
-            $buy_request->execute(array($_SESSION['id'],
-                            $product_id,
-                            $_POST['deliveringAddress'],
-                            $_POST['billingAddress'],
-                            $_POST['bankCard']));
+            $success = $buy_request->execute(array($_SESSION['id'],
+                                            $product_id,
+                                            $_POST['deliveringAddress'],
+                                            $_POST['billingAddress'],
+                                            $_POST['bankCard']));
 
-            if(true){ //TODO : vérifier pas d'erreur
+            if($success){
                 $change_product_state->execute(array($product_id));
                 echo '<p>Article "' . htmlspecialchars($getProductName->fetch(PDO::FETCH_COLUMN)) . '" acheté.</p>';
 
@@ -51,7 +51,8 @@ if(isset($_POST['products'], $_POST['deliveringAddress'], $_POST['billingAddress
                 $increasePurchasesClient->execute(array($_SESSION['id']));
 
                 $success = true;
-            }
+            }else
+                echo '<p>Erreur pendant l\'achat !</p>';
         }
     }
 
