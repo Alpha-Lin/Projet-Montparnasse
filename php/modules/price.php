@@ -203,9 +203,12 @@ function update_price($id)
 function calculPrixMarketPosition($prix_array, $tailleArray, $position)
 {
     if($tailleArray == 1)
-        return $prix_array[0];
+        return $prix_array[0] * $position / 100;
+
+    sort($prix_array);
 
     $chemin_prix = array();
+
     for($prixIndex = 0; $prixIndex < $tailleArray - 1; $prixIndex++) // On calcul les distances qui composent le chemin
         $chemin_prix[] = sqrt(1 + pow($prix_array[$prixIndex + 1] - $prix_array[$prixIndex], 2));
 
