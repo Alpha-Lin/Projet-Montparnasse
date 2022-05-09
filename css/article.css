@@ -1,6 +1,5 @@
 @media only screen and (max-width: 700px) { /* css pour les basses résolutions */
   main {
-    border: solid red 1px;
     margin-top: 75px;
     padding: 5%;
     margin-left: 0;
@@ -20,7 +19,6 @@
 
 @media only screen and (min-width: 700px) { /* css pour les hautes résolutions */
   main {
-    border: solid red 1px;
     margin-top: 75px;
     
     padding: 5%;
