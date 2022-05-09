@@ -17,7 +17,7 @@ if(isset($_GET['saleID'])){
 
             if(!hcaptcha($_POST['h-captcha-response']))
                 mis_log("Captcha invalide !");
-            else if(strlen($_POST['description_produit']) > 300)
+            else if(strlen(utf8_decode($_POST['description_produit']) > 300))
                 mis_log("Description trop large.");
             else if($_POST['marketPosition'] < 1 || $_POST['marketPosition'] > 100) // Le prix ne peut être en dehors de cet intervalle
                 mis_log("L'intervalle du prix est incorrect !");
