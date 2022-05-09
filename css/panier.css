@@ -7,6 +7,26 @@
         border-radius: 25px 25px 0 0;
         height: auto;
     }
+
+    .price{
+        margin-left: 15pc;
+        position: absolute;
+        text-align: center;
+        font-weight: bold;
+    }
+
+    .retirerPanier {
+        position: absolute;
+        margin-top: 11pc;
+    }
+
+    .btnAchat {
+        position: absolute;
+        margin-left: 20pc;
+        width: 5pc;
+        height: 2pc;
+    }
+    
 }
 
 @media only screen and (min-width: 600px) {
@@ -14,13 +34,37 @@
         margin-top: 75px;
         margin-left: 20%;
         margin-right: 15%;
-        padding: 5%;
+        padding: 5% 2% 5% 2%;
         border-radius: 25px 25px 0 0;
         height: auto;
+        min-width: 28pc;
+    }
+
+    .price{
+        margin-left: 15pc;
+        position: absolute;
+        text-align: center;
+        font-weight: bold;
+    }
+
+    .retirerPanier {
+        position: absolute;
+        margin-top: 11pc;
+    }
+
+    .btnAchat {
+        position: absolute;
+        margin-left: 20pc;
+        width: 5pc;
+        height: 2pc;
     }
 }
 
-
+.btnAcheterTout {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+}
 
 h2{
     text-align: center;
@@ -42,10 +86,6 @@ a{
     color: inherit;
 }
 
-.price{
-    text-align: center;
-    font-weight: bold;
-}
 
 #articles > *:not(:first-child) {
     border-top: solid lightgray 3px;

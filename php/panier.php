@@ -100,13 +100,13 @@ function alreadyNoted($pruchaseID){
                         </ul>
                     </div>
                     <p class="price">' . number_format(reloadExternalPrices($produit, $temps), 2, '.', '') . '€</p>
-                    <button type="button" onclick="location.href=\'?i=paiement&products[]=' . $produit['id'] . '\'">Acheter</button>
-                    <p><a href="?i=panier&del=' . $produit['id'] . '">Retirer du Panier</a></p>
+                    <button class="btnAchat" type="button" onclick="location.href=\'?i=paiement&products[]=' . $produit['id'] . '\'">Acheter</button>
+                    <p class="retirerPanier"><a href="?i=panier&del=' . $produit['id'] . '">Retirer du Panier</a></p>
                 </div>';
         }
 
         echo '<input type="hidden" name="i" value="paiement">
-              <input type="submit" value="Tout acheter">
+              <input type="submit" value="Tout acheter" class="btnAcheterTout">
         </form>';
     }
 
