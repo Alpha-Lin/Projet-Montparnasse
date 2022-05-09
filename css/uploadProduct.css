@@ -110,14 +110,13 @@
     }
 
     hr {
-        width: 100vh;
+        width: 100%;
     }
 
     .blocImgs{
         grid-row: 2;
         display: grid;
         grid-template-columns: 2fr 1fr;
-        grid-template-rows: 1fr 1fr 1fr;
         border-right: solid black 2px;
         padding: 50px;
     }
