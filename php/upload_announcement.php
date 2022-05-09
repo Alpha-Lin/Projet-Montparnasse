@@ -40,7 +40,7 @@ if(isset($_POST['nom_produit'], $_POST['description_produit'], $_POST['etat_prod
 
                 $time = time();
 
-                $success = false
+                $success = false;
 
                 for($i = 0; $i < 4; $i++)
                 {
