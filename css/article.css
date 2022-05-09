@@ -1,10 +1,41 @@
-main {
-  margin-top: 75px;
-  margin-left: 20%;
-  margin-right: 20%;
-  padding: 5%;
-  border-radius: 25px 25px 0 0;
-  height: auto;
+@media only screen and (max-width: 700px) { /* css pour les basses résolutions */
+  main {
+    border: solid red 1px;
+    margin-top: 75px;
+    padding: 5%;
+    margin-left: 0;
+    border-radius: 25px 25px 0 0;
+    min-width: 27pc;
+    height: auto;
+  }
+
+  #marketBlock > button {
+    margin-top: 20%;
+    padding: 5%;
+    border-radius: 3em;
+    font-size: 10pt;
+    background-color: #ecb743;
+  }
+}
+
+@media only screen and (min-width: 700px) { /* css pour les hautes résolutions */
+  main {
+    border: solid red 1px;
+    margin-top: 75px;
+    
+    padding: 5%;
+    border-radius: 25px 25px 0 0;
+    min-width: 39pc;
+    height: auto;
+  }
+
+  #marketBlock > button {
+    margin-top: 20%;
+    padding: 5%;
+    border-radius: 3em;
+    font-size: 14pt;
+    background-color: #ecb743;
+  }
 }
 
 h2, h3 {
@@ -39,7 +70,7 @@ h2, h3 {
 }
 
 #mainPicture {
-  width: 90%;
+  width: 60%;
   margin-left: 5%;
   margin-right: 5%;
   transition: transform .2s;
@@ -66,6 +97,8 @@ h2, h3 {
 }
 
 #descritionProduct {
+  overflow: auto;
+  height: 10pc;
   grid-column: 1;
   grid-row: 2;
 }
@@ -73,7 +106,7 @@ h2, h3 {
 #descritionProduct > p {
   color: grey;
   font-weight: bold;
-  word-break: break-all;
+  word-break: keep-all;
 }
 
 #marketBlock {
@@ -90,14 +123,6 @@ h2, h3 {
 
 #linkVendor > a {
   color: inherit;
-}
-
-#marketBlock > button {
-  margin-top: 20%;
-  padding: 5%;
-  border-radius: 3em;
-  font-size: 16pt;
-  background-color: #ecb743;
 }
 
 #recommandations {
