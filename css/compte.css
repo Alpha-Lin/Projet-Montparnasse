@@ -1,7 +1,22 @@
-main{
-  height: auto;
-  padding: 5%
+@media only screen and (max-width: 600px) {
+  main{
+    height: auto;
+    padding: 5% 1% 5% 1%;
+    margin-left: 3%;
+    min-width: 27pc;
+  }
 }
+
+@media only screen and (min-width: 600px) {
+  main{
+    height: auto;
+    padding: 5% 2% 5% 2%;
+    margin-left: 20%;
+    min-width: 27pc;
+  }
+}
+
+
 
 main>div:not(:first-of-type) {
   margin-top: 2%;
@@ -21,8 +36,19 @@ main>div:not(:first-of-type) {
 
 .subHeadAccont_1 {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 8pc 1fr;
   border-right: 3px solid rgb(137, 147, 165);
+
+}
+
+.subHeadAccount_2 {
+  width: 80%;
+  font-size: 11pt;
+}
+
+.iconRank {
+  width: 90px;
+  height: 90px
 }
 
 .iconAccount {

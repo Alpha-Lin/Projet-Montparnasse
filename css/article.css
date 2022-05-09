@@ -1,9 +1,8 @@
 @media only screen and (max-width: 700px) { /* css pour les basses résolutions */
   main {
-    border: solid red 1px;
     margin-top: 75px;
-    padding: 5%;
-    margin-left: 0;
+    padding: 5% 0 5% 5%;
+    margin-left: 3%;
     border-radius: 25px 25px 0 0;
     min-width: 27pc;
     height: auto;
@@ -20,9 +19,7 @@
 
 @media only screen and (min-width: 700px) { /* css pour les hautes résolutions */
   main {
-    border: solid red 1px;
     margin-top: 75px;
-    
     padding: 5%;
     border-radius: 25px 25px 0 0;
     min-width: 39pc;
@@ -70,7 +67,7 @@ h2, h3 {
 }
 
 #mainPicture {
-  width: 60%;
+  width: 90%;
   margin-left: 5%;
   margin-right: 5%;
   transition: transform .2s;
