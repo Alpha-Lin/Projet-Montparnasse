@@ -32,7 +32,7 @@ if(isset($_POST['log_pseudo'], $_POST['log_mdp'])) // Connexion
         if(check_captcha($_POST['h-captcha-response']))
         {
             $req = $bdd->prepare('INSERT INTO users(pseudo, lastName, firstName, country, email, phone, password) VALUES (?, ?, ?, ?, ?, ?, ?)');
-            $req->execute(array($_POST['pseudo'],
+            $success = $req->execute(array($_POST['pseudo'],
                                 $_POST['nom'],
                                 $_POST['prenom'],
                                 $_POST['pays'],
@@ -41,15 +41,20 @@ if(isset($_POST['log_pseudo'], $_POST['log_mdp'])) // Connexion
                                 password_hash($_POST['mdp'], PASSWORD_ARGON2ID))
             );
 
-            $_SESSION['pseudo'] = $_POST['pseudo'];
-            $_SESSION['id'] = $bdd->lastInsertId();
+            if($success){
+                $_SESSION['pseudo'] = $_POST['pseudo'];
+                $_SESSION['id'] = $bdd->lastInsertId();
 
-            if(isset($_POST['newsletter'])){
-                $req = $bdd->prepare('INSERT INTO newsletter(mailSub) VALUE(?)');
-                $req->execute(array(isset($_POST['newsletter'])));
+                if(isset($_POST['newsletter'])){
+                    $req = $bdd->prepare('INSERT INTO newsletter(mailSub) VALUE(?)');
+                    $req->execute(array(isset($_POST['newsletter'])));
+                }
+
+                header('location: ?i=Compte');
+            }else{
+                echo '<p>Erreur lors de l\'inscription</p>';
+                require 'html/register_login.html';
             }
-
-            header('location: ?i=Compte');
         }
     }
 }else
