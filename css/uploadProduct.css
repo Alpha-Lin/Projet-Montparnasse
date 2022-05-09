@@ -173,7 +173,7 @@ h1 {
     grid-row: 1 / 4;
 }
 
-.blocImgs > div > img{
+.blocImgs > div img{
     cursor: pointer;
 }
 
