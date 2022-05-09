@@ -2,7 +2,7 @@
 if(!isset($_GET['id']))
     header('location: ?');
 
-$req = $bdd->prepare("SELECT pseudo, country, registerDate, reputation, sales, purchases, picture, description, `rank`, score FROM users WHERE id = ?");
+$req = $bdd->prepare("SELECT pseudo, country, registerDate, reputation, sales, purchases, picture, description, `rank` FROM users WHERE id = ?");
 $req->execute(array($_GET['id']));
 $userInfos = $req->fetch(PDO::FETCH_ASSOC);
 
@@ -29,35 +29,38 @@ if(empty($userInfos))
 
     <div>
         <img src="svg/medals/<?=strtolower($userInfos['rank'])?>-medal.svg" class="iconRank" width="128" height="128">
-        <p><span class="boldInfo">Score :</span> <?=$userInfos['score']?> pts<br/>
-        <span class="boldInfo">Nombre de ventes :</span> <?=$userInfos['sales']?><br/>
-        <span class="boldInfo">Nombre d'achats :</span> <?=$userInfos['purchases']?></p>
+        <p>
+            <span class="boldInfo">Nombre de ventes :</span> <?=$userInfos['sales']?><br/>
+            <span class="boldInfo">Nombre d'achats :</span> <?=$userInfos['purchases']?>
+        </p>
     </div>
 </div>
 
 
 <?php
 
-$req = $bdd->prepare('SELECT products.id, name, lastPrice, marketPosition, products.description, releaseDate, conditionP, saleStatus, sellerID FROM products WHERE sellerID = ? AND saleStatus = 0');
-$req->execute(array($_GET['id']));
+for($i = 0; $i < 2; $i++){
+    $req = $bdd->prepare('SELECT products.id, name, lastPrice, marketPosition, products.description, releaseDate, conditionP, saleStatus, sellerID FROM products WHERE sellerID = ? AND saleStatus = ' . $i);
+    $req->execute(array($_GET['id']));
 
-$produits_research = $req->fetchAll(PDO::FETCH_ASSOC);
+    $produits_research = $req->fetchAll(PDO::FETCH_ASSOC);
 
-if(!empty($produits_research))
-{
-    require 'php/modules/price.php';
+    if(!empty($produits_research))
+    {
+        require_once 'php/modules/price.php';
 
-    echo '<div>
-            <h3>Les articles en vente par '.$userInfos['pseudo'].'</h3>';
-    
-    require 'php/modules/blocItems.php';
+        echo $i == 0 ? '<div>
+                            <h3>Les articles en vente par '.$userInfos['pseudo'] . '</h3>'
+                     : '<div>
+                            <h3>Les articles vendus par ' . $userInfos['pseudo'] . '</h3>';
+        
+        require_once 'php/modules/blocItems.php';
 
-    blocItems($produits_research);
+        blocItems($produits_research);
 
-    echo '</div>';
+        echo '</div>';
+    }
 }
-else
-    echo '<p>Aucun produit en vente.</p>';
 
 ?>
 

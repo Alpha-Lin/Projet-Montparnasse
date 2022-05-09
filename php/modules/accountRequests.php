@@ -92,7 +92,7 @@ else if(isset($_POST['addAddress'], $_POST['street'], $_POST['city'], $_POST['po
     echo '<p>Carte bancaire supprimée.</p>';
 }
 
-$req = $bdd->prepare("SELECT pseudo, lastName, firstName, country, email, registerDate, reputation, sales, purchases, picture, description, `rank`, score FROM users WHERE id = ?");
+$req = $bdd->prepare("SELECT pseudo, lastName, firstName, country, email, registerDate, reputation, sales, purchases, picture, description, `rank` FROM users WHERE id = ?");
 $req->execute(array($_SESSION['id']));
 $userInfos = $req->fetch(PDO::FETCH_ASSOC);
 
