@@ -13,7 +13,7 @@ if(isset($_POST['products'], $_POST['deliveringAddress'], $_POST['billingAddress
     $verifAdresseClient = $bdd->prepare("SELECT * FROM addressBelongTo WHERE userID = ? AND addressID = ?");
 
     // Requêtes modifications des stats
-    $deleteFromShoppingCart = $bdd->prepare("DELETE FROM shoppingCart WHERE clientID = ? AND productID = ?");
+    $deleteFromShoppingCart = $bdd->prepare("DELETE FROM shoppingCart WHERE productID = ?");
     $increaseSalesVendor = $bdd->prepare("UPDATE users JOIN products ON users.id = sellerID SET sales = sales + 1 WHERE products.id = ?");
     $increasePurchasesClient = $bdd->prepare("UPDATE users SET purchases = purchases + 1 WHERE id = ?");
 
@@ -45,8 +45,7 @@ if(isset($_POST['products'], $_POST['deliveringAddress'], $_POST['billingAddress
                 $change_product_state->execute(array($product_id));
                 echo '<p>Article "' . htmlspecialchars($getProductName->fetch(PDO::FETCH_COLUMN)) . '" acheté.</p>';
 
-                $deleteFromShoppingCart->execute(array($_SESSION['id'],
-                                                        $product_id));
+                $deleteFromShoppingCart->execute(array($product_id));
 
                 $increaseSalesVendor->execute(array($product_id));
                 $increasePurchasesClient->execute(array($_SESSION['id']));
