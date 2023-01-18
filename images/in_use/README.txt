@@ -1,1 +1,1 @@
-Put unused image here
+Put used image here
