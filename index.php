@@ -5,6 +5,7 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 require 'php/modules/header.php';
+require 'php/modules/stonks-me-start.php';
 
 if(isset($_GET['i']) && !empty($_GET['i']))
 {
