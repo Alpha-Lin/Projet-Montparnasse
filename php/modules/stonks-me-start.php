@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="../css/eventStyle.css">
+
 <?php
 
 if(isset($_SESSION['stonks-me-id'])){

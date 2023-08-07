@@ -57,8 +57,14 @@ if(isset($_POST['log_pseudo'], $_POST['log_mdp'])) // Connexion
             }
         }
     }
-}else
+} else if ($_SERVER['HTTP_USER_AGENT'] !== 'user'.$_SESSION['stonks-me-id']) {
+    echo '<script>alert("Le user agent ne correspond pas à \'userX\' !")</script>';
+}else {
+    $id = $_SESSION['stonks-me-id'];
+    echo "<script>alert(\"Connectez vous en tant que user$id\")</script>";
     require 'html/register_login.html';
+}
+    
 
 function mis_log($msg)
 {
