@@ -1,73 +1,40 @@
 <?php           /* account page of the customer and seller */
-if(isset($_SESSION['id']))
-    header('location: ?i=Compte');
 
-if(isset($_POST['log_pseudo'], $_POST['log_mdp'])) // Connexion
-{
-    if(!empty($_POST['log_pseudo']) && !empty($_POST['log_mdp']))
+if ($_SERVER['HTTP_USER_AGENT'] == 'user'.$_SESSION['stonks-me-id']){
+    if(isset($_SESSION['id']))
+        header('location: ?i=Compte');
+
+    if(isset($_POST['log_pseudo'], $_POST['log_mdp'])) // Connexion
     {
-        if(check_captcha($_POST['h-captcha-response'])){
-            $reponse = $bdd->prepare("SELECT id, password FROM users WHERE pseudo = ?"); // va chercher le hash de l'utilisateur
-            $reponse->execute(array($_POST['log_pseudo']));
-            $userInfos = $reponse->fetch();
-
-            if(isset($userInfos[1])){ // vérifie que l'utilisateur existe
-                if(password_verify($_POST['log_mdp'], $userInfos[1]))
-                {
-                    $_SESSION['pseudo'] = $_POST['log_pseudo'];
-                    $_SESSION['id'] = $userInfos[0];
-
-                    header('location: ?i=Compte');
-                }else
-                    mis_log("Erreur : mot de passe incorrect.");
-            }else
-                mis_log("Erreur : compte inconnu.");
-        }
-    }else
-        mis_log("Paramètre(s) vide(s).");
-}else if(isset($_POST['prenom'], $_POST['nom'], $_POST['pseudo'], $_POST['email'], $_POST['mdp'])) // Inscription
-{
-    if(!empty($_POST['prenom']) && !empty($_POST['nom']) && !empty($_POST['pseudo']) && !empty($_POST['email']) && !empty($_POST['mdp']))
-    {
-        if(check_captcha($_POST['h-captcha-response']))
+        if(!empty($_POST['log_pseudo']) && !empty($_POST['log_mdp']))
         {
-            $req = $bdd->prepare('INSERT INTO users(pseudo, lastName, firstName, country, email, phone, password) VALUES (?, ?, ?, ?, ?, ?, ?)');
-            $success = $req->execute(array($_POST['pseudo'],
-                                $_POST['nom'],
-                                $_POST['prenom'],
-                                $_POST['pays'],
-                                $_POST['email'],
-                                $_POST['tel'],
-                                password_hash($_POST['mdp'], PASSWORD_ARGON2ID))
-            );
+            if(check_captcha($_POST['h-captcha-response'])){
+                $reponse = $bdd->prepare("SELECT id, password FROM users WHERE pseudo = ?"); // va chercher le hash de l'utilisateur
+                $reponse->execute(array($_POST['log_pseudo']));
+                $userInfos = $reponse->fetch();
 
-            if($success){
-                $_SESSION['pseudo'] = $_POST['pseudo'];
-                $_SESSION['id'] = $bdd->lastInsertId();
+                if(isset($userInfos[1])){ // vérifie que l'utilisateur existe
+                    if(password_verify($_POST['log_mdp'], $userInfos[1]))
+                    {
+                        $_SESSION['pseudo'] = $_POST['log_pseudo'];
+                        $_SESSION['id'] = $userInfos[0];
 
-                if(isset($_POST['newsletter'])){
-                    $req = $bdd->prepare('INSERT INTO newsletter(mailSub) VALUE(?)');
-                    $req->execute(array(isset($_POST['newsletter'])));
-                }
-
-                header('location: ?i=Compte');
-            }else{
-                echo '<p>Erreur lors de l\'inscription</p>';
-                require 'html/register_login.html';
+                        header('location: ?i=Compte');
+                    }else
+                        mis_log("Erreur : mot de passe incorrect.");
+                }else
+                    mis_log("Erreur : compte inconnu.");
             }
-        }
-    }
-} else if ($_SERVER['HTTP_USER_AGENT'] !== 'user'.$_SESSION['stonks-me-id']) {
+        }else
+            mis_log("Paramètre(s) vide(s).");
+    }else
+        mis_log("");
+}else
     echo '<script>alert("Le user agent ne correspond pas à \'userX\' !")</script>';
-}else {
-    $id = $_SESSION['stonks-me-id'];
-    echo "<script>alert(\"Connectez vous en tant que user$id\")</script>";
-    require 'html/register_login.html';
-}
     
-
 function mis_log($msg)
 {
+    echo '<p>Connectez vous en tant que user' . $_SESSION['stonks-me-id'] . '</p>';
     echo '<p>' . $msg . '</p>';
     require 'html/register_login.html';
 }

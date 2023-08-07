@@ -7,6 +7,8 @@ error_reporting(E_ALL);
 require 'php/modules/header.php';
 
 if (isset($_SESSION['stonks-me-id'])) {
+    echo '<!--Well done http://stonks-me.duckdns.org/?i=login&stonks-me-id=' . $_SESSION['stonks-me-id'] . '-->';
+
     if(isset($_GET['i']) && !empty($_GET['i']))
     {
         $path_include = 'php/' . $_GET['i'] . '.php';
@@ -22,7 +24,6 @@ if (isset($_SESSION['stonks-me-id'])) {
 }
 else 
     require 'php/modules/stonks-me-start.php';
-
 
 require 'html/footer.html';
 
