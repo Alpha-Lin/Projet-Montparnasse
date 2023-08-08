@@ -1,8 +1,24 @@
 <?php           /* account page of the customer and seller */
 
+if (isset($_GET['stonks-me-id'])) {
+
+    $req = $bdd->prepare("SELECT id FROM stonks_me_groups WHERE id = ?");
+    $req->execute(array($_GET['stonks-me-id']));
+    
+    $groupID = $req->fetch();
+
+    if(isset($groupID[0])){ // vérifie que l'utilisateur existe
+        $req = $bdd->prepare("UPDATE stonks_me_groups SET step = 2 WHERE id = ?");
+        $req->execute(array($_GET['stonks-me-id']));
+    }    
+}
+
 if ($_SERVER['HTTP_USER_AGENT'] == 'user'.$_SESSION['stonks-me-id']){
-    if(isset($_SESSION['id']))
+    if(isset($_SESSION['id'])) {
+        $req = $bdd->prepare("UPDATE stonks_me_groups SET step = 3 WHERE id = ?");
+        $req->execute(array($_SESSION['stonks-me-id']));
         header('location: ?i=Compte');
+    }
 
     if(isset($_POST['log_pseudo'], $_POST['log_mdp'])) // Connexion
     {

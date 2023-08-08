@@ -10,7 +10,7 @@ if(isset($_GET['stonks-me-id'])){
         if(isset($groupID[0])){ // vérifie que l'utilisateur existe
             $_SESSION['stonks-me-id'] = $groupID[0];
 
-            $req = $bdd->prepare("UPDATE stonks_me_groups SET time_start = NOW() WHERE id = ?"); // démarre le chronomètre
+            $req = $bdd->prepare("UPDATE stonks_me_groups SET time_start = NOW(), step = 1 WHERE id = ?"); // démarre le chronomètre
             $req->execute(array($_SESSION['stonks-me-id']));
 
             header('location: ?');
