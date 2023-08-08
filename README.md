@@ -1,4 +1,6 @@
 # StonksBay
+## Version Évènement de rentrée 2023
+
 ## URL : https://www.stonksbay.com
 ## Logiciels et versions :
 - Un serveur web (Nignx/Apache)
