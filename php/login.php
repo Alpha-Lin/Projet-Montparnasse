@@ -13,7 +13,7 @@ if (isset($_GET['stonks-me-id'])) {
     }    
 }
 
-if ($_SERVER['HTTP_USER_AGENT'] == 'user'.$_SESSION['stonks-me-id']){
+if ($_SERVER['HTTP_USER_AGENT'] == 'User'.$_SESSION['stonks-me-id']){
     if(isset($_SESSION['id'])) {
         $req = $bdd->prepare("UPDATE stonks_me_groups SET step = 3 WHERE id = ?");
         $req->execute(array($_SESSION['stonks-me-id']));
