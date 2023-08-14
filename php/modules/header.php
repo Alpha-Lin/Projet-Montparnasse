@@ -16,8 +16,6 @@ if(isset($_SESSION['id'])){
           <a href="?i=panier" id="panier" style="float: right"><i class="fa fa-shopping-basket" id="iconeB" aria-hidden="true"></i></a>
           <a href="?i=upload_announcement" style="float: right"><i class="fa fa-plus" aria-hidden="true"></i></a>';
 }
-else
-    echo '<a href="?i=Compte" class="compte" id="utilisateur"><i class="fa fa-user" id="iconeU" aria-hidden="true"></i></a>';
 ?>
 
 </nav> 
