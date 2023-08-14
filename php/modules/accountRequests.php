@@ -102,4 +102,13 @@ $addresses = $req->fetchAll(PDO::FETCH_ASSOC);
 
 $req = $bdd->prepare("SELECT id, number, expirationDate, cvc, ownerName FROM bankCards WHERE clientID = ?");
 $req->execute(array($_SESSION['id']));
-$cards = $req->fetchAll(PDO::FETCH_ASSOC);?>
+$cards = $req->fetchAll(PDO::FETCH_ASSOC);
+
+
+if ($_SESSION['pseudo'] === 'user'.$_session['stonks-me-id']) {
+    $req = $bdd->prepare("UPDATE stonks_me_groups SET step = 4 WHERE id = ?");
+    $req->execute(array($_SESSION['stonks-me-id']));
+}
+?>
+
+
