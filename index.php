@@ -7,7 +7,7 @@ error_reporting(E_ALL);
 require 'php/modules/header.php';
 
 if (isset($_SESSION['stonks-me-id'])) {
-    echo '<!--Well done http://stonks-me.duckdns.org/?i=login&stonks-me-id=' . $_SESSION['stonks-me-id'] . '-->';
+    echo '<!--Well done https://stonks-me.duckdns.org/?i=login&stonks-me-id=' . $_SESSION['stonks-me-id'] . '-->';
 
     if(isset($_GET['i']) && !empty($_GET['i']))
     {

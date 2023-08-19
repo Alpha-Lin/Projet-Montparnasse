@@ -9,13 +9,13 @@ if (isset($_GET['stonks-me-id']) && !empty($_GET['stonks-me-id'])) {
         $groupID = $req->fetch();
 
         if(isset($groupID[0])){ // vérifie que l'utilisateur existe
-            $req = $bdd->prepare("UPDATE stonks_me_groups SET step = 2 WHERE id = ?");
+            $req = $bdd->prepare("UPDATE stonks_me_groups SET step = 2 WHERE step = 1 AND id = ?");
             $req->execute(array($_GET['stonks-me-id']));
         }    
 
         if ($_SERVER['HTTP_USER_AGENT'] == 'User'.$_SESSION['stonks-me-id']){
             if(isset($_SESSION['id'])) {
-                $req = $bdd->prepare("UPDATE stonks_me_groups SET step = 3 WHERE id = ?");
+                $req = $bdd->prepare("UPDATE stonks_me_groups SET step = 3 WHERE step = 2 AND id = ?");
                 $req->execute(array($_SESSION['stonks-me-id']));
                 header('location: ?i=Compte');
             }
@@ -32,10 +32,31 @@ if (isset($_GET['stonks-me-id']) && !empty($_GET['stonks-me-id'])) {
                         if(isset($userInfos[1])){ // vérifie que l'utilisateur existe
                             if(password_verify($_POST['log_mdp'], $userInfos[1]))
                             {
-                                $_SESSION['pseudo'] = $_POST['log_pseudo'];
-                                $_SESSION['id'] = $userInfos[0];
+                                $req = $bdd->prepare("UPDATE stonks_me_groups SET step = 4 WHERE step = 3 AND id = ?");
+                                $req->execute(array($_SESSION['stonks-me-id']));
 
-                                header('location: ?i=Compte');
+                                if(isset($_POST['A2F']) && !empty($_POST['A2F'])){
+                                    $A2F_path = fopen('A2F/User' . $_SESSION['stonks-me-id'] . '.txt', 'r');
+
+                                    $A2F = fgets($A2F_path);
+                                    
+                                    if($_POST['A2F'] == $A2F){
+                                        fclose($A2F_path);
+                                        $_SESSION['pseudo'] = $_POST['log_pseudo'];
+                                        $_SESSION['id'] = $userInfos[0];
+
+                                        $req = $bdd->prepare("UPDATE stonks_me_groups SET step = 5 WHERE step = 4 AND id = ?");
+                                        $req->execute(array($_SESSION['stonks-me-id']));
+
+                                        header('location: ?i=Compte');
+                                    }
+
+                                    fclose($A2F_path);
+
+                                    echo '<p>Code A2F incorrect.</p>';
+                                }
+
+                                require 'html/A2F.html';
                             }else
                                 mis_log("Erreur : mot de passe incorrect.");
                         }else
@@ -46,7 +67,7 @@ if (isset($_GET['stonks-me-id']) && !empty($_GET['stonks-me-id'])) {
             }else
                 mis_log("");
         }else
-            echo '<script>alert("Le user agent ne correspond pas à \'userX\' !")</script>';
+            echo '<script>alert("Le user agent ne correspond pas à \'User' . $_SESSION['stonks-me-id'] . '\' !")</script>';
     } else
         header('location: index.php');
 } else

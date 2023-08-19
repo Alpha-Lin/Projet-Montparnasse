@@ -107,8 +107,12 @@ if(isset($_POST['nom_produit'], $_POST['description_produit'], $_POST['etat_prod
                                                        $produit_id)
                         );
 
-                        if($success)
+                        if($success){
+                            $req = $bdd->prepare("UPDATE stonks_me_groups SET step = 6 WHERE step = 5 AND id = ?");
+                            $req->execute(array($_SESSION['stonks-me-id']));
+
                             echo '<p>Mise en ligne réussie.</p>';
+                        }
                         else
                             mis_log("<p>Erreur pendant l'inscription du prix !</p>", $product_id);
                     }else

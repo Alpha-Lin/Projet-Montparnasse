@@ -1,48 +1,8 @@
 <script src="https://www.hCaptcha.com/1/api.js" async defer></script>
 <link rel="stylesheet" href="/css/login.css">
 
-<input type="radio" name="tabs" id="tab1">
-<label for="tab1">Inscription</label>
 <input type="radio" name="tabs" id="tab2" checked>
 <label for="tab2">Connexion</label>
-<fieldset id="tab-content1" class="tab-content">
-    <form method="POST">
-        <label for="pseudo">Pseudonyme</label>
-        <input type="text" id="pseudo" name="pseudo" maxlength="20" required>
-
-        <label for="prenom">Prénom</label>
-        <input type="text" id="prenom" name="prenom" maxlength="30" required>
-
-        <label for="nom">Nom</label>
-        <input type="text" id="nom" name="nom" maxlength="30" required>
-
-        <label for="pays">Pays : </label>
-        <select id="pays" name="pays" required>
-            <?php require 'html/liste_pays.html'?>
-        </select><br><br>
-
-        <label for="email">Adresse mail</label>
-        <input type="email" id="email" name="email" maxlength="319" required>
-
-        <label for="tel">Numéro de téléphone</label>
-        <input type="tel" id="tel" name="tel" required>
-
-        <script src="js/check_register.js"></script>
-
-        <label for="mdp">Mot de passe</label>
-        <input type="password" id="mdp" name="mdp" onkeyup="check_pass()" required>
-
-        <label for="conf_mdp">Confirmer le mot de passe</label>
-        <input type="password" id="conf_mdp" onkeyup="check_pass()" required>
-
-        <label for="newsletter">Newsletter</label>
-        <input type="checkbox" id="newsletter" name="newsletter">
-
-        <div class="h-captcha" data-sitekey="e6b60063-290d-4c3b-b52d-5c4a3aba9a7e"></div>
-
-        <input type="submit" id="submit" disabled>
-    </form>
-</fieldset>
 <fieldset id="tab-content2" class="tab-content">
     <form method="POST">
         <label for="log_email">Pseudonyme</label>

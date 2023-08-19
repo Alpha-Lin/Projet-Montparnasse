@@ -1,0 +1,18 @@
+<script src="https://www.hCaptcha.com/1/api.js" async defer></script>
+<link rel="stylesheet" href="/css/login.css">
+
+<input type="radio" name="tabs" id="tab2" checked>
+<label for="tab2">A2F</label>
+<fieldset id="tab-content2" class="tab-content">
+    <form method="POST">
+        <label for="A2F">Code A2F</label><!-- Don't forget to generate the code in /A2F/ -->
+        <input type="text" id="A2F" name="A2F" maxlength="6" required>
+
+        <input type="text" id="log_pseudo" name="log_pseudo" value="<?=htmlspecialchars($_POST['log_pseudo'])?>" hidden>
+        <input type="password" id="log_mdp" name="log_mdp" value="<?=htmlspecialchars($_POST['log_mdp'])?>" hidden>
+
+        <div class="h-captcha" data-sitekey="e6b60063-290d-4c3b-b52d-5c4a3aba9a7e"></div>
+
+        <input type="submit">
+    </form>
+</fieldset>
