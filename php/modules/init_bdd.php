@@ -5,7 +5,7 @@ $options =
 ];
 
 try{
-	$bdd = new PDO('mysql:host=localhost;dbname=stonks_me_test', 'stonks_me', '1234'); // user et mdp à changer par la suite
+	$bdd = new PDO('mysql:host=localhost;dbname=', '', ''); // user et mdp à changer par la suite
 }catch(PDOException $pe){
 	die('<p>Erreur lors de l\'accès à la base de donnée : </p>');
 }
