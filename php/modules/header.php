@@ -11,7 +11,8 @@ if(isset($_SESSION['id'])){
           <div id="compteDropDown">
             <a href="?i=Compte">Mon profil</a>' .
             ($isVendor ? '<a href="?i=sales">Mes ventes</a>' : '') .
-            '<a href="logout.php">Déconnexion</a>
+            '<a href="?i=interfaceUtilisateur"></a>
+            <a href="logout.php">Déconnexion</a>
           </div>
           <a href="?i=panier" id="panier" style="float: right"><i class="fa fa-shopping-basket" id="iconeB" aria-hidden="true"></i></a>
           <a href="?i=upload_announcement" style="float: right"><i class="fa fa-plus" aria-hidden="true"></i></a>';

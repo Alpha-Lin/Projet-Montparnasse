@@ -5,3 +5,55 @@ main {
 .firstStep {
     margin-top: 20vh;
 }
+
+
+.commandPrompt {
+    margin-top: 10%;
+    background-color: black;
+    border: none;
+    height: 50%;
+    color: white;
+    display: block;
+    overflow-y: scroll;
+}
+
+.commandPrompt input[type=text] {
+    border: none;
+    outline: none;
+    color: white;
+    background-color: black;
+    width: 70%;
+    height: 5px;
+    font-family: monospace;
+    font-size: medium;
+}
+
+.commandPrompt input[type=submit] {
+    display: none;
+}
+
+.fin {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-template-rows: 100%;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+}
+
+.fin h1 {
+    font-size: 4vw;
+    grid-column: 2;
+}
+
+.fin p {
+    grid-column: 1;
+    text-align: center;
+    font-size: 10vw;
+}
+
+.fin p:last-child {
+    grid-column: 3;
+    transform: scaleX(-1);
+}
+
