@@ -1,1 +1,1 @@
-<a href="?i=fin">félicitation</a>
+<a href="?i=fin">félicitations</a>
