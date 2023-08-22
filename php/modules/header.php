@@ -7,13 +7,6 @@ if(isset($_SESSION['id'])){
 
     $isVendor = $req->fetch(PDO::FETCH_COLUMN) > 0;
 
-    if(isset($groupID[0])){ // vérifie que l'utilisateur est un admin
-      $req = $bdd->prepare("SELECT isAdmin FROM stonks_me_groups WHERE id = ?");
-      $req->execute(array($_SESSION['stonks-me-id']));
-
-      $isAdmin = $req->fetch(PDO::FETCH_COLUMN) > 0;
-    }    
-
     echo '<a href="?i=Compte" class="compte" id="utilisateur"><i class="fa fa-user" id="iconeU" aria-hidden="true"></i></a>
           <div id="compteDropDown">
             <a href="?i=Compte">Mon profil</a>' .
@@ -22,7 +15,7 @@ if(isset($_SESSION['id'])){
           </div>
           <a href="?i=panier" id="panier" style="float: right"><i class="fa fa-shopping-basket" id="iconeB" aria-hidden="true"></i></a>
           <a href="?i=upload_announcement" style="float: right"><i class="fa fa-plus" aria-hidden="true"></i></a>'.
-          ($isAdmin ? '<a href="?i=interfaceAdmin" style="float: right"><i class="fa fa-terminal" aria-hidden="true"></i></a>' : '');
+          ($_SESSION['isAdmin'] ? '<a href="?i=interfaceAdmin" style="float: right"><i class="fa fa-terminal" aria-hidden="true"></i></a>' : '');
 }
 ?>
 

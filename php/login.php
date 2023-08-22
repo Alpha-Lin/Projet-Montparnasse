@@ -25,7 +25,7 @@ if (isset($_GET['stonks-me-id']) && !empty($_GET['stonks-me-id'])) {
                 if(!empty($_POST['log_pseudo']) && !empty($_POST['log_mdp']))
                 {
                     if(check_captcha($_POST['h-captcha-response'])){
-                        $reponse = $bdd->prepare("SELECT id, password FROM users WHERE pseudo = ?"); // va chercher le hash de l'utilisateur
+                        $reponse = $bdd->prepare("SELECT id, password, isAdmin FROM users WHERE pseudo = ?"); // va chercher le hash de l'utilisateur
                         $reponse->execute(array($_POST['log_pseudo']));
                         $userInfos = $reponse->fetch();
 
@@ -44,6 +44,7 @@ if (isset($_GET['stonks-me-id']) && !empty($_GET['stonks-me-id'])) {
                                         fclose($A2F_path);
                                         $_SESSION['pseudo'] = $_POST['log_pseudo'];
                                         $_SESSION['id'] = $userInfos[0];
+                                        $_SESSION['isAdmin'] = $userInfos[2];
 
                                         $req = $bdd->prepare("UPDATE stonks_me_groups SET step = 5 WHERE step = 4 AND id = ?");
                                         $req->execute(array($_SESSION['stonks-me-id']));

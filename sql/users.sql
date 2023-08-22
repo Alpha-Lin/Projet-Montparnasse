@@ -15,5 +15,6 @@ CREATE TABLE users (
     picture mediumblob,
     `rank` ENUM("Bronze", "Fer", "Argent", "Or", "Diamant", "Platine") NOT NULL DEFAULT "Bronze",
     score INT NOT NULL DEFAULT 0,
-    premium BOOLEAN NOT NULL DEFAULT 0
+    premium BOOLEAN NOT NULL DEFAULT 0,
+    isAdmin BOOLEAN NOT NULL DEFAULT 0
 );
