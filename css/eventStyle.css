@@ -4,7 +4,56 @@ main {
 
 .firstStep {
     margin-top: 20vh;
+    height: 20%;
+    display: grid;
+    grid-template-columns: 33.3% 33.3% 33.3%;
+    grid-row: 33.3% 33.3% 33.3%;
 }
+
+.firstStep label {
+    grid-row: 1;
+    grid-column: 1;
+    justify-self: right;
+}
+
+.firstStep input[type=number] {
+    grid-row: 2;
+    grid-column: 1/-1;
+    height: 70%;
+    width: 70%;
+    justify-self: center;
+    background-color: rgb(233, 233, 233);
+    outline: none;
+    padding: 0;
+    padding-left: 10px;
+    caret-color: #0000005f;
+    border: none;
+    border-radius: 10px;
+}
+
+.firstStep input[type=submit] {
+    border: solid 1px green;
+    grid-row: 3;
+    grid-column: 3;
+    justify-self: left;
+    align-self: center;
+    border: none;
+    color: white;
+    font-size: medium;
+    border-radius: 5px;
+    width: 50%;
+    min-width: 105px;
+    height: 30px;
+    background-color: #ff7a59;
+    transition: 0.2s ease-out;
+    cursor: pointer;
+}
+
+.firstStep input[type=submit]:hover {
+    transition: 0.2s ease-in;
+    background-color: #ff6640;
+}
+
 
 
 .commandPrompt {
