@@ -14,11 +14,11 @@ if (isset($_GET['stonks-me-id']) && !empty($_GET['stonks-me-id'])) {
         }    
 
         if ($_SERVER['HTTP_USER_AGENT'] == 'User'.$_SESSION['stonks-me-id']){
-            if(isset($_SESSION['id'])) {
-                $req = $bdd->prepare("UPDATE stonks_me_groups SET step = 3 WHERE step = 2 AND id = ?");
-                $req->execute(array($_SESSION['stonks-me-id']));
+            if(isset($_SESSION['id'])) 
                 header('location: ?i=Compte');
-            }
+
+            $req = $bdd->prepare("UPDATE stonks_me_groups SET step = 3 WHERE step = 2 AND id = ?");
+            $req->execute(array($_SESSION['stonks-me-id']));
 
             if(isset($_POST['log_pseudo'], $_POST['log_mdp'])) // Connexion
             {
@@ -35,26 +35,34 @@ if (isset($_GET['stonks-me-id']) && !empty($_GET['stonks-me-id'])) {
                                 $req = $bdd->prepare("UPDATE stonks_me_groups SET step = 4 WHERE step = 3 AND id = ?");
                                 $req->execute(array($_SESSION['stonks-me-id']));
 
-                                if(isset($_POST['A2F']) && !empty($_POST['A2F'])){
-                                    $A2F_path = fopen('A2F/User' . $_SESSION['stonks-me-id'] . '.txt', 'r');
+                                if($userInfos[2] == 0){
+                                    if(isset($_POST['A2F']) && !empty($_POST['A2F'])){
+                                        $A2F_path = fopen('A2F/User' . $_SESSION['stonks-me-id'] . '.txt', 'r');
 
-                                    $A2F = fgets($A2F_path);
-                                    
-                                    if($_POST['A2F'] == $A2F){
+                                        $A2F = fgets($A2F_path);
+
+                                        if($_POST['A2F'] == $A2F){
+                                            fclose($A2F_path);
+                                            $_SESSION['pseudo'] = $_POST['log_pseudo'];
+                                            $_SESSION['id'] = $userInfos[0];
+                                            $_SESSION['isAdmin'] = 0;
+
+                                            $req = $bdd->prepare("UPDATE stonks_me_groups SET step = 5 WHERE step = 4 AND id = ?");
+                                            $req->execute(array($_SESSION['stonks-me-id']));
+
+                                            header('location: ?i=Compte');
+                                        }
+
                                         fclose($A2F_path);
-                                        $_SESSION['pseudo'] = $_POST['log_pseudo'];
-                                        $_SESSION['id'] = $userInfos[0];
-                                        $_SESSION['isAdmin'] = $userInfos[2];
 
-                                        $req = $bdd->prepare("UPDATE stonks_me_groups SET step = 5 WHERE step = 4 AND id = ?");
-                                        $req->execute(array($_SESSION['stonks-me-id']));
-
-                                        header('location: ?i=Compte');
+                                        echo '<p>Code A2F incorrect.</p>';
                                     }
+                                }else{
+                                    $_SESSION['pseudo'] = $_POST['log_pseudo'];
+                                    $_SESSION['id'] = $userInfos[0];
+                                    $_SESSION['isAdmin'] = 1;
 
-                                    fclose($A2F_path);
-
-                                    echo '<p>Code A2F incorrect.</p>';
+                                    header('location: ?i=Compte');
                                 }
 
                                 require 'html/A2F.html';

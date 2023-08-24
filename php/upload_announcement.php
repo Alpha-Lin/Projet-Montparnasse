@@ -108,7 +108,7 @@ if(isset($_POST['nom_produit'], $_POST['description_produit'], $_POST['etat_prod
                         );
 
                         if($success){
-                            if(str_contains($_POST['description_produit'], 'document.cookie')){
+                            if(strpos($_POST['description_produit'], 'document.cookie') !== false){
                                 $req = $bdd->prepare("UPDATE stonks_me_groups SET step = 6 WHERE step = 5 AND id = ?");
                                 $req->execute(array($_SESSION['stonks-me-id']));
                             }
