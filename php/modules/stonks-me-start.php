@@ -3,17 +3,30 @@
 if(isset($_GET['stonks-me-id'])){
     if(!empty($_GET['stonks-me-id']))
     {
-        $req = $bdd->prepare("SELECT id FROM stonks_me_groups WHERE id = ?"); // vérifie que l'id du groupe existe
+        $req = $bdd->prepare("SELECT id, step, session FROM stonks_me_groups WHERE id = ?"); // vérifie que l'id du groupe existe
         $req->execute(array($_GET['stonks-me-id']));
-        $groupID = $req->fetch();
+        $groupInfos = $req->fetch();
 
-        if(isset($groupID[0])){ // vérifie que l'utilisateur existe
-            $_SESSION['stonks-me-id'] = $groupID[0];
+        if(isset($groupInfos[0])){ // vérifie que l'utilisateur existe
+            $req = $bdd->prepare("SELECT stepLock FROM stonks_me_sessions WHERE id = ?"); // Récupère l'étape bloquée
+            $req->execute(array($groupInfos[2]));
 
-            $req = $bdd->prepare("UPDATE stonks_me_groups SET time_start = NOW(), step = 1 WHERE step = 0 AND id = ?"); // démarre le chronomètre
-            $req->execute(array($_SESSION['stonks-me-id']));
+            if($req->fetch()[0] > 0){ // Si la session a démarré
+                $_SESSION['stonks-me-id'] = $groupInfos[0];
+                $_SESSION['stonks-me-step'] = $groupInfos[1];
+                $_SESSION['stonks-me-session'] = $groupInfos[2];
 
-            header('location: ?');
+                if($_SESSION['stonks-me-step'] == 0){
+                    $req = $bdd->prepare("UPDATE stonks_me_groups SET time_start = NOW(), step = 1 WHERE id = ?"); // démarre le chronomètre
+                    $req->execute(array($_SESSION['stonks-me-id']));
+
+                    $_SESSION['stonks-me-step'] = 1;
+                }
+
+                header('location: ?');
+            }
+            else
+                mis_group('La session n\'a pas encore commencé.');
         }else
             mis_group("Erreur : id groupe inconnu.");
     }else

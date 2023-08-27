@@ -10,10 +10,33 @@
 <?php
     if(isset($_GET['pass']) && !empty($_GET['pass'])){
         if($_GET['pass'] == 'stonksForEver2023'){
-            if(isset($_POST['nom'], $_POST['admin_pass']) && !empty($_POST['nom']) && !empty($_POST['admin_pass']))
+            if(isset($_GET['startSession']) && !empty($_GET['startSession'])){
+                $req = $bdd->prepare('UPDATE stonks_me_sessions SET time_start = NOW(), stepLock = 1 WHERE time_start IS NULL AND id = ?');
+                $success = $req->execute(array($_GET['startSession']));
+            }
+            else if(isset($_GET['stopSession']) && !empty($_GET['stopSession'])){
+                $req = $bdd->prepare('UPDATE stonks_me_sessions SET time_end = NOW() WHERE time_start IS NOT NULL AND time_end IS NULL AND id = ?');
+                $success = $req->execute(array($_GET['stopSession']));
+            }
+            else if(isset($_GET['session'], $_POST['stepLock']) && !empty($_GET['session']) && !empty($_POST['stepLock'])){
+                $req = $bdd->prepare('UPDATE stonks_me_sessions SET stepLock = ? WHERE time_end IS NULL AND id = ?');
+                $success = $req->execute(array($_POST['stepLock'],
+                                    $_GET['session']));
+            }
+            else if(isset($_POST['nomSession']) && !empty($_POST['nomSession'])){
+                $req = $bdd->prepare('INSERT INTO stonks_me_sessions(name) VALUES (?)');
+                $success = $req->execute(array($_POST['nomSession']));
+
+                if($success)
+                    echo '<p>Session ajoutée</p>';
+                else
+                    echo '<p>Erreur lors de l\'ajout de la session</p>';
+            }
+            else if(isset($_POST['nomGroupe'], $_POST['sessionID'], $_POST['admin_pass']) && !empty($_POST['nomGroupe']) && !empty($_POST['sessionID']) && !empty($_POST['admin_pass']))
             {
-                $req = $bdd->prepare('INSERT INTO stonks_me_groups(name) VALUES (?)');
-                $success = $req->execute(array($_POST['nom']));
+                $req = $bdd->prepare('INSERT INTO stonks_me_groups(name, session) VALUES (?, ?)');
+                $success = $req->execute(array($_POST['nomGroupe'],
+                                    $_POST['sessionID']));
 
                 if($success){
                     $idGroup = $bdd->lastInsertId();
@@ -51,10 +74,13 @@
                 }
 
                 if($success)
-                    echo '<p>Comptes ajoutés</p>';
+                    echo '<p>Groupe ajouté</p>';
                 else
-                    echo '<p>Erreur lors de l\'ajout</p>';
+                    echo '<p>Erreur lors de l\'ajout du groupe</p>';
             }
+
+            $req = $bdd->query('SELECT * FROM stonks_me_sessions');
+            $sessions = $req->fetchAll();
 
             require '../html/admin_stonks-me.html';
         }
