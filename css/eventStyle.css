@@ -2,7 +2,7 @@ main {
     border: solid 2px blue;
 }
 
-.firstStep {
+.eventForms {
     margin-top: 20vh;
     height: 20%;
     display: grid;
@@ -10,13 +10,15 @@ main {
     grid-row: 33.3% 33.3% 33.3%;
 }
 
-.firstStep label {
+.eventForms label {
     grid-row: 1;
-    grid-column: 1;
-    justify-self: right;
+    grid-column: 1/-1;
+    width: 50%;
+    margin-left: 15%;
+    justify-self: left;
 }
 
-.firstStep input[type=number] {
+.eventForms input {
     grid-row: 2;
     grid-column: 1/-1;
     height: 70%;
@@ -31,8 +33,7 @@ main {
     border-radius: 10px;
 }
 
-.firstStep input[type=submit] {
-    border: solid 1px green;
+.eventForms input[type=submit] {
     grid-row: 3;
     grid-column: 3;
     justify-self: left;
@@ -49,7 +50,7 @@ main {
     cursor: pointer;
 }
 
-.firstStep input[type=submit]:hover {
+.eventForms input[type=submit]:hover {
     transition: 0.2s ease-in;
     background-color: #ff6640;
 }
