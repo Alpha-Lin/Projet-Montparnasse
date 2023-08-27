@@ -7,7 +7,11 @@ error_reporting(E_ALL);
 require 'php/modules/header.php';
 
 if (isset($_SESSION['stonks-me-id'])) {
-    echo '<!--Well done https://stonks-me.duckdns.org/?i=login&stonks-me-id=' . $_SESSION['stonks-me-id'] . '-->';
+    if($stepLocked > 1)
+        echo '<!--Well done https://stonks-me.duckdns.org/?i=login&stonks-me-id=' . $_SESSION['stonks-me-id'] . '-->';
+
+    if($stepLocked == $_SESSION['stonks-me-step'])
+        echo '<p>La prochaine étape n\'est pas disponible.</p>';
 
     if(isset($_GET['i']) && !empty($_GET['i']))
     {
@@ -26,5 +30,4 @@ else
     require 'php/modules/stonks-me-start.php';
 
 require 'html/footer.html';
-
 ?>

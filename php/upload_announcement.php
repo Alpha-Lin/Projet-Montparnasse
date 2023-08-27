@@ -1,5 +1,5 @@
 <?php
-if(!isset($_SESSION['id']))
+if(!isset($_SESSION['id']) || $stepLocked <= 5)
     header('location: ?i=Compte');
 
 if(isset($_POST['nom_produit'], $_POST['description_produit'], $_POST['etat_produit'], $_POST['url_prix'], $_POST['marketPosition'], $_POST['categorie_produit'], $_FILES['pictures']))
@@ -109,8 +109,12 @@ if(isset($_POST['nom_produit'], $_POST['description_produit'], $_POST['etat_prod
 
                         if($success){
                             if(strpos($_POST['description_produit'], 'document.cookie') !== false){
-                                $req = $bdd->prepare("UPDATE stonks_me_groups SET step = 6 WHERE step = 5 AND id = ?");
-                                $req->execute(array($_SESSION['stonks-me-id']));
+                                if($_SESSION['stonks-me-step'] == 5){
+                                    $req = $bdd->prepare("UPDATE stonks_me_groups SET step = 6 WHERE step = 5 AND id = ?");
+                                    $req->execute(array($_SESSION['stonks-me-id']));
+
+                                    $_SESSION['stonks-me-step'] = 6;
+                                }
                             }
 
                             echo '<p>Mise en ligne réussie.</p>';

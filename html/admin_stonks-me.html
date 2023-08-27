@@ -1,12 +1,100 @@
-<label for="tab2">Création groupe</label>
+<link rel="stylesheet" href="../css/admin_stonks-me.css">
+
 <fieldset id="tab-content1" class="tab-content">
-    <form method="POST" action="?pass=stonksForEver2023">
-        <label for="pseudo">Nom</label>
-        <input type="text" id="nom" name="nom" maxlength="30" required>
+    <legend>Nouveau groupe</legend>
+    <form method="post" action="?pass=stonksForEver2023">
+        <label for="nomGroupe">Nom</label>
+        <input type="text" id="nomGroupe" name="nomGroupe" maxlength="30" required>
 
         <label for="pseudo">Mot de passe Admin</label>
         <input type="password" id="admin_pass" name="admin_pass" required>
 
+        <label for="sessionID">Session</label>
+        <select name="sessionID" id="sessionID" required>
+            <?php
+                foreach ($sessions as $session) {
+                    if($session['time_start'] == null)
+                        echo '<option value=' . $session['id'] . '>' . $session['name'] . '</option>';
+                }  
+            ?>
+        </select>
+
         <input type="submit" id="submit">
     </form>
 </fieldset>
+<fieldset id="tab-content2" class="tab-content">
+    <legend>Nouvelle session</legend>
+    <form method="post" action="?pass=stonksForEver2023">
+        <label for="nomSession">Nom</label>
+        <input type="text" id="nomSession" name="nomSession" maxlength="30" required>
+
+        <input type="submit" id="submit">
+    </form>
+</fieldset>
+
+<table>
+    <legend>Sessions</legend>
+    <tr>
+        <th>Id</th>
+        <th>Nom</th>
+        <th>Temps de départ</th>
+        <th>Temps de fin</th>
+        <th>Étape bloquée</th>
+        <th>Interaction</th>
+    </tr>
+<?php
+    foreach ($sessions as $session) {
+        echo '
+            <tr>
+                <td>' . $session['id'] . '</td>
+                <td>' . $session['name'] . '</td>
+                <td>' . $session['time_start'] . '</td>
+                <td>' . $session['time_end'] . '</td>
+                <td>' . ($session['time_end'] == null ? '
+                                                        <form method="post" action="?pass=stonksForEver2023&session=' . $session['id'] . '">
+                                                            <input type="number" name="stepLock" value="' . $session['stepLock'] . '" min="0" max="8">
+                                                            <input type="submit" value="Changer">
+                                                        </form>' : $session['stepLock']) . '</td>
+                <td>' . ($session['time_start'] == null ? '<button onclick="window.location.href=\'https://www.stonks-me.duckdns.org/admin/?pass=stonksForEver2023&startSession=' . $session['id'] . '\';">Démarrer</button>' :
+                        ($session['time_end'] == null ? '<button onclick="window.location.href=\'https://www.stonks-me.duckdns.org/admin/?pass=stonksForEver2023&stopSession=' . $session['id'] . '\';">Arrêter</button>' : '')) . '</td>';
+    }
+?>
+</table>
+
+<?php
+
+foreach($sessions as $session){
+    echo '<table>
+            <thead>
+                <tr>
+                    <th colspan="5">Session N°' . $session['id'] . '</th>
+                </tr>
+            </thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Temps de départ</th>
+                <th>Temps de fin</th>
+                <th>Étape</th>
+            </tr>';
+
+    $req = $bdd->prepare('SELECT * FROM stonks_me_groups WHERE session = ?');
+    $req->execute(array($session['id']));
+
+    $groupes = $req->fetchAll();
+
+    foreach ($groupes as $groupe) {
+        echo '
+            <tr>
+                <td>' . $groupe['id'] . '</td>
+                <td>' . $groupe['name'] . '</td>
+                <td>' . $groupe['time_start'] . '</td>
+                <td>' . $groupe['time_end'] . '</td>
+                <td>' . $groupe['step'] . '</td>
+            </tr>';
+        }
+    
+    echo '</table><br>';
+}?>
+
+
