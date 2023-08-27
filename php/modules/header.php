@@ -18,12 +18,12 @@ if(isset($_SESSION['id'])){
           <div id="compteDropDown">
             <a href="?i=Compte">Mon profil</a>' .
             ($isVendor ? '<a href="?i=sales">Mes ventes</a>' : '') .
-            ($_SESSION['isAdmin'] ? '<a href="?i=interfaceAdmin"><i class="fa fa-terminal" aria-hidden="true"></i></a>' : '').
+            ($_SESSION['isAdmin'] && $stepLocked > 6 ? '<a href="?i=interfaceAdmin"><i class="fa fa-terminal" aria-hidden="true"></i></a>' : '').
             '<a href="logout.php">Déconnexion</a>
           </div>
           <a href="?i=panier" id="panier" style="float: right"><i class="fa fa-shopping-basket" id="iconeB" aria-hidden="true"></i></a>' .
           ($stepLocked > 5 ? '<a href="?i=upload_announcement" style="float: right"><i class="fa fa-plus" aria-hidden="true"></i></a>' : '') .
-          ($_SESSION['isAdmin'] ? '<a href="?i=fin" style="float: right"><i class="fa fa-flag" aria-hidden="true"></i></a>': '');
+          ($_SESSION['isAdmin'] && $stepLocked > 6 ? '<a href="?i=fin" style="float: right"><i class="fa fa-flag" aria-hidden="true"></i></a>': '');
 }
 ?>
 

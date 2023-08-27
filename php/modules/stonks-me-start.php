@@ -8,10 +8,16 @@ if(isset($_GET['stonks-me-id'])){
         $groupInfos = $req->fetch();
 
         if(isset($groupInfos[0])){ // vérifie que l'utilisateur existe
-            $req = $bdd->prepare("SELECT stepLock FROM stonks_me_sessions WHERE id = ?"); // Récupère l'étape bloquée
+            $req = $bdd->prepare("SELECT time_start, time_end FROM stonks_me_sessions WHERE id = ?"); // Récupère l'étape bloquée
             $req->execute(array($groupInfos[2]));
 
-            if($req->fetch()[0] > 0){ // Si la session a démarré
+            $tempsSession = $req->fetch();
+
+            if($tempsSession[0] === null) // Si la session n'a pas démarré
+                mis_group('La session n\'a pas encore commencé.');
+            else if($tempsSession[1] !== null)
+                mis_group('La session est terminée.');
+            else{
                 $_SESSION['stonks-me-id'] = $groupInfos[0];
                 $_SESSION['stonks-me-step'] = $groupInfos[1];
                 $_SESSION['stonks-me-session'] = $groupInfos[2];
@@ -25,8 +31,6 @@ if(isset($_GET['stonks-me-id'])){
 
                 header('location: ?');
             }
-            else
-                mis_group('La session n\'a pas encore commencé.');
         }else
             mis_group("Erreur : id groupe inconnu.");
     }else
