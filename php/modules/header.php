@@ -6,6 +6,20 @@ if(isset($_SESSION['stonks-me-session'])){
   $req->execute(array($_SESSION['stonks-me-session']));
 
   $stepLocked = $req->fetch()[0];
+
+  echo '
+        <div class="dropdown" id="dropdown" valeur="closed">
+            <button class="dropbtn">
+                <i class="fa fa-search fa-lg"></i>
+            </button>
+            <div class="dropdown-content" id="dropdown-content">
+                <form>
+                    <input placeholder="Rechercher..." type="search" id="search" name="search" required>
+                </form>
+            </div>
+        </div>
+        <a href="?i=aide" style="float: right"><i class="fa fa-question-circle" aria-hidden="true"></i></a>
+        <script src="../js/header.js"></script>';
 }
 
 if(isset($_SESSION['id'])){
