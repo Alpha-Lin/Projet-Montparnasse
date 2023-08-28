@@ -8,7 +8,8 @@
         <div class="cadre" id="cadre">
 <?php
 
-$req = $bdd->query('SELECT id, name, lastPrice, marketPosition, description, releaseDate, sellerID, conditionP, saleStatus FROM products WHERE saleStatus = 0 ORDER BY releaseDate DESC, premium DESC LIMIT 6');
+$req = $bdd->prepare('SELECT P.id, name, lastPrice, marketPosition, P.description, releaseDate, sellerID, conditionP, saleStatus FROM products AS P JOIN users ON P.sellerID = users.id WHERE saleStatus = 0 AND (releaseDate <= "2022-05-10 23:18:25" OR idGroupe = ?) ORDER BY releaseDate DESC, P.premium DESC LIMIT 6');
+$req->execute(array($_SESSION['stonks-me-id']));
 
 require 'php/modules/price.php';
 
@@ -67,8 +68,8 @@ Récupère les produits non vendus qui :
     - sont minimum en "Bon état"
     - ont une catégorie précise
 */
-$req = $bdd->prepare('SELECT id, name, lastPrice, marketPosition, description, releaseDate, conditionP, saleStatus, sellerID FROM products WHERE lastPrice < 300 AND LENGTH(description) > 50 AND releaseDate > DATE_SUB(NOW(), INTERVAL 1 MONTH) AND conditionP IN ("Neuf", "Comme neuf", "Très bon état", "Bon état") AND category <> "Autre" AND saleStatus = 0 LIMIT 9');
-$req->execute();
+$req = $bdd->prepare('SELECT P.id, name, lastPrice, marketPosition, P.description, releaseDate, conditionP, saleStatus, sellerID FROM products AS P JOIN users ON P.sellerID = users.id WHERE lastPrice < 300 AND LENGTH(P.description) > 50 AND (releaseDate > DATE_SUB("2022-05-10 23:18:25", INTERVAL 1 MONTH) OR releaseDate > DATE_SUB(NOW(), INTERVAL 1 MONTH)) AND conditionP IN ("Neuf", "Comme neuf", "Très bon état", "Bon état") AND category <> "Autre" AND saleStatus = 0 AND (releaseDate <= "2022-05-10 23:18:25" OR idGroupe = ?) LIMIT 9');
+$req->execute(array($_SESSION['stonks-me-id']));
 
 $produits_research = $req->fetchAll(PDO::FETCH_ASSOC);
 

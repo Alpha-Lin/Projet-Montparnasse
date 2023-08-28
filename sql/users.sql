@@ -16,5 +16,8 @@ CREATE TABLE users (
     `rank` ENUM("Bronze", "Fer", "Argent", "Or", "Diamant", "Platine") NOT NULL DEFAULT "Bronze",
     score INT NOT NULL DEFAULT 0,
     premium BOOLEAN NOT NULL DEFAULT 0,
-    isAdmin BOOLEAN NOT NULL DEFAULT 0
+    isAdmin BOOLEAN NOT NULL DEFAULT 0,
+    idGroupe INT NOT NULL,
+
+    FOREIGN KEY (idGroupe) REFERENCES stonks_me_groups(id)
 );

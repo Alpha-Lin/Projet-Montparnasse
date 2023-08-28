@@ -42,13 +42,14 @@
                     $idGroup = $bdd->lastInsertId();
                     $user = 'User' . $idGroup;
                     
-                    $req = $bdd->prepare('INSERT INTO users(pseudo, lastName, firstName, country, email, phone, password) VALUES (?, ?, ?, "France", ?, ?, ?)');
+                    $req = $bdd->prepare('INSERT INTO users(pseudo, lastName, firstName, country, email, phone, password, idGroupe) VALUES (?, ?, ?, "France", ?, ?, ?, ?)');
                     $success = $req->execute(array($user,
                                         $user,
                                         $user,
                                         $user . '@gmail.com',
                                         rand(1000000000, 9999999999),
-                                        password_hash($user, PASSWORD_ARGON2ID))
+                                        password_hash($user, PASSWORD_ARGON2ID),
+                                        $idGroup)
                     );
 
                     $A2F = fopen('../A2F/' . $user . '.txt', 'w');
@@ -62,13 +63,14 @@
                     if($success){
                         $admin = 'Admin' . $idGroup;
 
-                        $req = $bdd->prepare('INSERT INTO users(pseudo, lastName, firstName, country, email, phone, password, isAdmin) VALUES (?, ?, ?, "France", ?, ?, ?, 1)');
+                        $req = $bdd->prepare('INSERT INTO users(pseudo, lastName, firstName, country, email, phone, password, isAdmin, idGroupe) VALUES (?, ?, ?, "France", ?, ?, ?, 1, ?)');
                         $success = $req->execute(array($admin,
                                             $admin,
                                             $admin,
                                             $admin . '@gmail.com',
                                             rand(1000000000, 9999999999),
-                                            password_hash($_POST['admin_pass'], PASSWORD_ARGON2ID))
+                                            password_hash($_POST['admin_pass'], PASSWORD_ARGON2ID),
+                                            $idGroup)
                         );
                     }
                 }

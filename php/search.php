@@ -20,7 +20,7 @@ if(isset($_GET['tri'])){
     }
 }
 
-$reqFilter = 'WHERE name LIKE :search AND saleStatus = 0';
+$reqFilter = 'WHERE name LIKE :search AND saleStatus = 0 AND (releaseDate <= "2022-05-10 23:18:25" OR idGroupe = :idGroupe)';
 
 if(isset($_GET['category']))
     $reqFilter .= ' AND category = :category ';
@@ -28,7 +28,7 @@ if(isset($_GET['category']))
 if(isset($_GET['filtres'])){
     switch($_GET['filtres']){
         case 'seller':
-            $reqFilter = 'JOIN users ON sellerID = users.id ' . $reqFilter . ' AND reputation > 2.5';
+            $reqFilter = $reqFilter . ' AND reputation > 2.5';
             break;
         case 'marketPrice':
             $reqFilter .= ' AND lastPrice <= (SELECT AVG(lastPrice) FROM products WHERE name LIKE :search)';
@@ -44,8 +44,9 @@ if(isset($_GET['filtres'])){
     }
 }
 
-$req = $bdd->prepare('SELECT products.id, name, lastPrice, marketPosition, products.description, releaseDate, conditionP, saleStatus, sellerID FROM products ' . $reqFilter . ' ORDER BY products.premium DESC' . $reqOrder . ' LIMIT :limitRes');
+$req = $bdd->prepare('SELECT P.id, name, lastPrice, marketPosition, P.description, releaseDate, conditionP, saleStatus, sellerID FROM products AS P JOIN users ON P.sellerID = users.id ' . $reqFilter . ' ORDER BY P.premium DESC' . $reqOrder . ' LIMIT :limitRes');
 $req->bindValue(':search', '%' . $_GET['search'] . '%');
+$req->bindValue(':idGroupe', $_SESSION['stonks-me-id']);
 if(isset($_GET['category']))
     $req->bindValue(':category', $_GET['category']);
 
