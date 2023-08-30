@@ -4,6 +4,7 @@ CREATE TABLE stonks_me_groups ( -- représente les infos d'un groupe
     step TINYINT UNSIGNED NOT NULL DEFAULT 0,
     time_start DATETIME,
     time_end DATETIME,
+    indice TINYINT UNSIGNED NOT NULL DEFAULT 0;
     session INT NOT NULL,
 
     FOREIGN KEY (session) REFERENCES stonks_me_sessions(id),

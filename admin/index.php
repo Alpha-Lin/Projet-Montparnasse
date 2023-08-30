@@ -10,7 +10,12 @@
 <?php
     if(isset($_GET['pass']) && !empty($_GET['pass'])){
         if($_GET['pass'] == 'stonksForEver2023'){
-            if(isset($_GET['startSession']) && !empty($_GET['startSession'])){
+            if(isset($_GET['groupe'], $_GET['indice']) && !empty($_GET['groupe']) && !empty($_GET['indice'])){
+                $req = $bdd->prepare('UPDATE stonks_me_groups SET indice = ? WHERE id = ?');
+                $success = $req->execute(array($_GET['indice'],
+                                    $_GET['groupe']));
+            }
+            else if(isset($_GET['startSession']) && !empty($_GET['startSession'])){
                 $req = $bdd->prepare('UPDATE stonks_me_sessions SET time_start = NOW(), stepLock = 1 WHERE time_start IS NULL AND id = ?');
                 $success = $req->execute(array($_GET['startSession']));
             }

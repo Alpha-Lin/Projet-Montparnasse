@@ -55,8 +55,8 @@
                                                             <input type="number" name="stepLock" value="' . $session['stepLock'] . '" min="0" max="8">
                                                             <input type="submit" value="Changer">
                                                         </form>' : $session['stepLock']) . '</td>
-                <td>' . ($session['time_start'] == null ? '<button onclick="window.location.href=\'https://www.stonks-me.duckdns.org/admin/?pass=stonksForEver2023&startSession=' . $session['id'] . '\';">Démarrer</button>' :
-                        ($session['time_end'] == null ? '<button onclick="window.location.href=\'https://www.stonks-me.duckdns.org/admin/?pass=stonksForEver2023&stopSession=' . $session['id'] . '\';">Arrêter</button>' : '')) . '</td>';
+                <td>' . ($session['time_start'] == null ? '<button onclick="window.location.href=\'https://www.stonks-me.duckdns.org/admin/?pass=stonksForEver2023&startSession=' . $session['id'] . '\'">Démarrer</button>' :
+                        ($session['time_end'] == null ? '<button onclick="window.location.href=\'https://www.stonks-me.duckdns.org/admin/?pass=stonksForEver2023&stopSession=' . $session['id'] . '\'">Arrêter</button>' : '')) . '</td>';
     }
 ?>
 </table>
@@ -67,7 +67,7 @@ foreach($sessions as $session){
     echo '<table>
             <thead>
                 <tr>
-                    <th colspan="5">Session N°' . $session['id'] . '</th>
+                    <th colspan="6">Session N°' . $session['id'] . '</th>
                 </tr>
             </thead>
             <tr>
@@ -76,6 +76,7 @@ foreach($sessions as $session){
                 <th>Temps de départ</th>
                 <th>Temps de fin</th>
                 <th>Étape</th>
+                <th>Aide</th>
             </tr>';
 
     $req = $bdd->prepare('SELECT * FROM stonks_me_groups WHERE session = ?');
@@ -91,6 +92,7 @@ foreach($sessions as $session){
                 <td>' . $groupe['time_start'] . '</td>
                 <td>' . $groupe['time_end'] . '</td>
                 <td>' . $groupe['step'] . '</td>
+                <td><input type="checkbox"' . ($groupe['step'] == 0 ? 'disabled' : ($groupe['indice'] === $groupe['step'] ? 'checked' : '')) . ' onclick="window.location.href=\'https://www.stonks-me.duckdns.org/admin/?pass=stonksForEver2023&groupe=' . $groupe['id'] . '&indice=' . $groupe['step'] . '\'"></td>
             </tr>';
         }
     
