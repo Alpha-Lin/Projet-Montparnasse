@@ -1,4 +1,14 @@
 
+.enonce {
+    text-align: center;
+    color: #ff3300;
+}
+
+.indice {
+    text-align: center;
+    color: #009966;
+}
+
 .eventForms {
     margin-top: 20vh;
     height: 20%;
