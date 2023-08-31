@@ -97,11 +97,12 @@ if (isset($_GET['stonks-me-id']) && !empty($_GET['stonks-me-id']) && $stepLocked
                     }else
                         mis_log("");
                 }
-            }else
+            }else {
                 echo '<script>
                         alert("Le user agent ne correspond pas à \'User' . $_SESSION['stonks-me-id'] . '\' !")
                         document.location = "https://stonks-me.duckdns.org"
                     </script>';
+            }
         }
         
     } else
