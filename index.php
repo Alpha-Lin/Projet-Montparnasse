@@ -12,7 +12,7 @@ if (isset($_SESSION['stonks-me-id'])) {
 
     if($_SESSION['stonks-me-step'] != 8) // Vérifie que le groupe n'a pas terminé
     {
-        if($stepLocked === $_SESSION['stonks-me-step'])
+        if($stepLocked == $_SESSION['stonks-me-step'])
             echo '<p>La prochaine étape n\'est pas disponible.</p>';
         else{
             $enonces = [
@@ -26,7 +26,7 @@ if (isset($_SESSION['stonks-me-id'])) {
                 "Me voilà sur la session de l'administrateur, je crois que je peux utiliser un terminal quelque part"
             ];
 
-            echo '<p class="enonce">' . (isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'] && $_SESSION['stonks-me-step'] == 6 ? $enonces[8] : $enonces[$_SESSION['stonks-me-step'] - 1]) . '</p>';
+            echo '<p class="enonce">' . (isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'] && $_SESSION['stonks-me-step'] == 6 ? $enonces[7] : $enonces[$_SESSION['stonks-me-step'] - 1]) . '</p>';
 
             $req = $bdd->prepare("SELECT indice FROM stonks_me_groups WHERE id = ?"); // Vérifie si l'indice est activé
             $req->execute(array($_SESSION['stonks-me-id']));
@@ -45,7 +45,7 @@ if (isset($_SESSION['stonks-me-id'])) {
                     "Prenez garde au point virgule"
                 ];
 
-                echo '<p class="indice">' . (isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'] && $_SESSION['stonks-me-step'] == 6 ? $indices[8] : $indices[$indice - 1]) . '</p>';
+                echo '<p class="indice">' . (isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'] && $_SESSION['stonks-me-step'] == 6 ? $indices[7] : $indices[$indice - 1]) . '</p>';
             }
         }
     }

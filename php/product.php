@@ -53,9 +53,10 @@ if(isset($_GET['id'])){
                 </div>
               </div>';
 
-        $req = $bdd->prepare('SELECT id, name, lastPrice, marketPosition, description, releaseDate, saleStatus, sellerID FROM products WHERE name LIKE ? AND id <> ? AND saleStatus = 0 LIMIT 3');
+        $req = $bdd->prepare('SELECT P.id, name, lastPrice, marketPosition, P.description, releaseDate, saleStatus, sellerID FROM products AS P JOIN users ON sellerID = users.id WHERE name LIKE ? AND id <> ? AND saleStatus = 0 AND (releaseDate <= "2022-05-10 23:18:25" OR idGroupe = ?) LIMIT 3');
         $req->execute(array('%' . $produit['name'] . '%',
-                            $produit['id']));
+                            $produit['id'],
+                            $_SESSION['stonks-me-id']));
 
         $produitsRecommandation = $req->fetchAll(PDO::FETCH_ASSOC);
 
