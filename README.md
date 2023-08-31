@@ -1,7 +1,7 @@
 # StonksBay
 ## Version Évènement de rentrée 2023
 
-## URL : https://www.stonksbay.com
+## URL : https://www.stonks-me.duckdns.org
 ## Logiciels et versions :
 - Un serveur web (Nignx/Apache)
 - PHP (minimum : 7.3.0 / utilisée : 7.4.28)
